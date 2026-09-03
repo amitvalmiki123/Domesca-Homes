@@ -39,6 +39,9 @@
   --wrap:1280px;
   --gutter:clamp(20px,4.5vw,64px);
   --sec-y:clamp(72px,9vw,136px);
+  /* Where pinned/sticky columns come to rest: sticky header (88px) + 24px air.
+     Override per section with an inline style or a rule on the wrapper. */
+  --sticky-top:112px;
 
   --ease:cubic-bezier(.22,.61,.36,1);
 
@@ -168,7 +171,7 @@ p:last-child{margin-bottom:0}
 /* ---------- 7. Header ---------- */
 .hdr{position:sticky;top:0;z-index:90;background:#fff;border-bottom:1px solid var(--n-200);transition:box-shadow .3s}
 .hdr.is-stuck{box-shadow:0 6px 26px rgba(10,12,15,.09)}
-.hdr__in{display:flex;align-items:center;gap:clamp(14px,2vw,34px);min-height:88px;transition:min-height .3s var(--ease)}
+.hdr__in{display:flex;align-items:center;gap:clamp(14px,2vw,34px);min-height:88px;transition:min-height .3s var(--ease);justify-content: space-between;}
 .hdr.is-stuck .hdr__in{min-height:70px}
 .brand{flex:0 0 auto;display:block}
 .brand img{height:clamp(42px,4.2vw,56px);width:auto;transition:height .3s var(--ease)}
@@ -221,35 +224,86 @@ p:last-child{margin-bottom:0}
 .burger[aria-expanded="true"] span::before{top:0;transform:rotate(45deg)}
 .burger[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg)}
 
-/* ---------- 8. Mobile nav ---------- */
-.mnav{position:fixed;inset:0;z-index:120;visibility:hidden;pointer-events:none;overflow:hidden}
-.mnav__scrim{position:absolute;inset:0;background:rgba(10,12,15,.5);opacity:0;transition:opacity .35s var(--ease);backdrop-filter:blur(2px)}
+/* ---------- 8. Mobile nav ----------
+   Off-canvas drawer, right edge → left, and it has to stay that way. Three
+   rules keep the slide honest:
+     · the panel and the scrim are position:fixed, so no ancestor scroll box,
+       overflow or clip can displace them — the panel can only ever travel from
+       translate3d(101%) to 0, i.e. in from the right;
+     · translate3d + will-change keep it on its own composited layer, so it is
+       rasterised once while hidden and then just slides (no repaint per frame,
+       and no backdrop-filter re-blurring the page behind it);
+     · `visibility` flips instantly on open and is delayed on close, so the
+       slide-out still paints instead of snapping away. */
+.mnav{
+  --mnav-dur:.42s;
+  position:fixed;inset:0;z-index:120;visibility:hidden;pointer-events:none;
+  /* Safety net only — both layers inside are fixed, so this box never needs to
+     clip them. `clip` (where supported) also means it cannot be scrolled. */
+  overflow:hidden;overflow:clip;
+  transition:visibility 0s linear var(--mnav-dur)
+}
+.mnav.is-open{visibility:visible;pointer-events:auto;transition-delay:0s}
+.mnav__scrim{position:fixed;inset:0;background:rgba(10,12,15,.56);opacity:0;touch-action:none;
+  transition:opacity var(--mnav-dur) var(--ease)}
 .mnav__panel{
-  position:absolute;top:0;right:0;height:100%;width:min(400px,88vw);background:#fff;
-  transform:translateX(102%);transition:transform .42s var(--ease);
+  /* fixed, not absolute: the panel is then positioned against the viewport and
+     no ancestor scroll/overflow/clip can shift it, so it can only ever slide in
+     from the right edge (translate3d(101%) → 0). */
+  position:fixed;top:0;right:0;left:auto;height:100%;width:min(400px,88vw);background:#fff;
+  transform:translate3d(101%,0,0);
+  transition:transform var(--mnav-dur) var(--ease);
+  will-change:transform;
   display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.2)
 }
-.mnav.is-open{visibility:visible;pointer-events:auto}
 .mnav.is-open .mnav__scrim{opacity:1}
-.mnav.is-open .mnav__panel{transform:translateX(0)}
+.mnav.is-open .mnav__panel{transform:translate3d(0,0,0)}
 .mnav__top{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--n-200);flex:0 0 auto}
-.mnav__top img{height:40px}
-.mnav__close{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--n-200);border-radius:var(--r)}
-.mnav__body{flex:1 1 auto;overflow-y:auto;padding:10px 14px 24px}
+.mnav__top img{height:40px;width: auto;}
+.mnav__close{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--n-200);border-radius:var(--r);flex:0 0 42px}
+.mnav__body{flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:10px 14px 24px}
 .mnav__body>li{border-bottom:1px solid var(--n-100)}
-.mnav__a{display:flex;align-items:center;justify-content:space-between;width:100%;padding:15px 8px;font-family:var(--f-display);font-weight:500;font-size:1.02rem;text-align:left}
-.mnav__a .chev{width:11px;height:11px;opacity:.5;transition:transform .3s var(--ease)}
-.mnav__a[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.mnav__a{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:15px 8px;font-family:var(--f-display);font-weight:500;font-size:1.02rem;text-align:left}
+/* Sub-menu marker in the drawer: a +/− disc instead of the caret the desktop
+   nav uses, so it reads the same as the FAQ and footer accordions. */
+.mnav__pm{
+  display:grid;place-items:center;position:relative;flex:0 0 26px;width:26px;height:26px;
+  border-radius:50%;border:1px solid var(--n-200);transition:all .3s var(--ease)
+}
+.mnav__pm::before,.mnav__pm::after{content:"";position:absolute;background:var(--ink-900);transition:transform .35s var(--ease),background .25s}
+.mnav__pm::before{width:9px;height:1.5px}
+.mnav__pm::after{width:1.5px;height:9px}
+.mnav__a:hover .mnav__pm{border-color:var(--blue)}
+.mnav__a[aria-expanded="true"] .mnav__pm{background:var(--blue);border-color:var(--blue)}
+.mnav__a[aria-expanded="true"] .mnav__pm::before,.mnav__a[aria-expanded="true"] .mnav__pm::after{background:#fff}
+.mnav__a[aria-expanded="true"] .mnav__pm::after{transform:rotate(90deg)}
 .mnav__a[aria-expanded="true"]{color:var(--blue)}
 /* Collapsible: height is animated in JS (see main.js) rather than with the
    0fr/1fr grid-template-rows trick, which Safari could not animate until 16
-   and which resolves to zero when the clipped child has no intrinsic min-size. */
-.mnav__sub{height:0;overflow:hidden;transition:height .38s var(--ease)}
+   and which resolves to zero when the clipped child has no intrinsic min-size.
+   The matching visibility/tab-order rule lives with the other collapsible
+   panels in section 19. */
+.mnav__sub{height:0;overflow:hidden}
 .mnav__sub a{display:block;padding:11px 8px 11px 22px;font-size:.93rem;color:var(--n-600);border-left:2px solid var(--n-200)}
 .mnav__sub a:hover{color:var(--blue);border-color:var(--blue)}
 .mnav__foot{flex:0 0 auto;padding:20px 22px 26px;border-top:1px solid var(--n-200);display:grid;gap:10px;background:var(--n-50)}
 .mnav__foot .btn{width:100%}
-.mnav__foot .contact-line{display:flex;align-items:center;gap:.6em;font-size:.9rem;color:var(--n-700);padding-top:6px}
+.mnav__foot .contact-line{display:flex;align-items:center;gap:.6em;font-size:.9rem;color:var(--n-700);padding-top:6px;min-width:0;overflow-wrap:anywhere}
+.mnav__foot .contact-line svg{flex:0 0 auto}
+@media (prefers-reduced-motion:reduce){
+  .mnav{transition:visibility 0s linear 0s}
+  .mnav__scrim,.mnav__panel{transition-duration:1ms}
+}
+
+/* Scroll lock applied by main.js while the drawer is open.
+   The lock has to sit on <html> *and* pin <body> back to overflow:visible:
+   as soon as the root stops being `visible`, body's own overflow-x:hidden no
+   longer propagates to the viewport and body would become a scroll container —
+   which quietly breaks position:sticky on the header (it slides out of place
+   the moment the drawer opens). The scrollbar gap is measured into --sbw first,
+   so losing the scrollbar does not shift the page sideways mid-slide. */
+html.is-locked{overflow:hidden}
+html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 
 /* ---------- 9. HERO ---------- */
 .hero{position:relative;background:var(--ink-900);color:#fff;isolation:isolate;overflow:hidden}
@@ -439,7 +493,7 @@ p:last-child{margin-bottom:0}
   border:1px solid var(--n-200);background:#fff;color:var(--n-600);transition:all .25s var(--ease)
 }
 .chip:hover{border-color:var(--blue);color:var(--blue)}
-.chip[aria-pressed="true"]{background:var(--ink-900);border-color:var(--ink-900);color:#fff}
+.chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--ink-900);border-color:var(--ink-900);color:#fff}
 /* Mosaic: every tile spans the same number of implicit rows, so wide and
    narrow tiles always finish flush — no ragged gaps between rows. */
 .proj__grid{
@@ -487,24 +541,27 @@ p:last-child{margin-bottom:0}
 .tm{background:var(--ink-900);color:#fff}
 .tm h2{color:#fff}
 .tm .lead{color:rgba(255,255,255,.7)}
-.tm__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.9vw,26px);margin-top:clamp(38px,4.4vw,60px);align-items:start}
+.tm__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.9vw,26px);margin-top:clamp(38px,4.4vw,60px);align-items:stretch}
+/* Cards are flex columns so every card in a row stretches to the same height
+   and the quote mark, "read full review" link and author block all line up
+   across the grid, whatever length each review happens to be. */
 .tmc{
   background:var(--ink-800);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);
-  padding:clamp(24px,2.6vw,34px);position:relative;transition:transform .4s var(--ease),border-color .3s,background .3s
+  padding:clamp(24px,2.6vw,34px);position:relative;transition:transform .4s var(--ease),border-color .3s,background .3s;
+  display:flex;flex-direction:column;height:100%
 }
 .tmc:hover{transform:translateY(-5px);border-color:rgba(169,195,230,.4);background:var(--ink-700)}
-.tmc__q{font-family:var(--f-accent);font-size:3.4rem;line-height:.6;color:var(--blue);display:block;margin-bottom:.55rem}
+.tmc__q{font-family:var(--f-accent);font-size:3.4rem;line-height:.6;color:var(--blue);display:block;margin-bottom:.55rem;flex:0 0 auto}
 .tmc__stars{display:flex;gap:3px;margin-bottom:1rem}
 .tmc__stars svg{color:#f0b429}
-.tmc blockquote{margin:0;font-size:.955rem;line-height:1.72;color:rgba(255,255,255,.78)}
+.tmc blockquote{margin:0;font-size:.955rem;line-height:1.72;color:rgba(255,255,255,.78);flex:1 1 auto}
 .tmc blockquote p{margin-bottom:.9em}
-.tmc__more{height:0;overflow:hidden;transition:height .45s var(--ease)}
-.tmc__by{display:flex;align-items:center;gap:12px;margin-top:1.5rem;padding-top:1.35rem;border-top:1px solid rgba(255,255,255,.1)}
+.tmc__by{display:flex;align-items:center;gap:12px;margin-top:1.5rem;padding-top:1.35rem;border-top:1px solid rgba(255,255,255,.1);flex:0 0 auto}
 .tmc__av{width:44px;height:44px;flex:0 0 44px;border-radius:50%;display:grid;place-items:center;background:var(--blue);
   font-family:var(--f-display);font-weight:600;font-size:.95rem;color:#fff;letter-spacing:.01em}
 .tmc__by b{display:block;font-family:var(--f-display);font-size:.95rem;font-weight:600;color:#fff}
 .tmc__by span{display:block;font-size:.775rem;color:rgba(255,255,255,.5)}
-.tmc .more-btn{color:var(--blue-200);border-color:rgba(169,195,230,.35);font-size:.82rem;margin-top:.9rem}
+.tmc .more-btn{color:var(--blue-200);border-color:rgba(169,195,230,.35);font-size:.82rem;margin-top:.9rem;align-self:flex-start;flex:0 0 auto}
 .tmc .more-btn:hover{border-color:var(--blue-200)}
 .tm__foot{margin-top:clamp(30px,3.4vw,44px);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
 .tm__foot p{margin:0;color:rgba(255,255,255,.6);font-size:.9rem}
@@ -545,9 +602,48 @@ p:last-child{margin-bottom:0}
 .acc__btn[aria-expanded="true"] .acc__ic::after{transform:rotate(90deg)}
 .acc__panel{height:0;overflow:hidden;transition:height .42s var(--ease)}
 .acc__panel p{padding:0 60px 24px 2px;font-size:.965rem;color:var(--n-600);line-height:1.75;margin:0}
+
+/* Plain variant of the same accordion, for use inside content columns where the
+   FAQ's ruled rows and 22px button padding would be too heavy (e.g. "What we
+   can assist with" in the Developers band). The button inherits the heading it
+   sits in, so the type and spacing of the column are untouched — only the
+   +/− marker is added. Markup is identical to the FAQ accordion:
+     <div class="acc acc--plain"><div class="acc__item">
+       <h3 class="d4"><button class="acc__btn" aria-expanded="false">…<span class="acc__ic"></span></button></h3>
+       <div class="acc__panel"><div>…</div></div>
+     </div></div> */
+.acc--plain{border-top:0}
+.acc--plain .acc__item{border-bottom:0}
+.acc--plain .acc__btn{
+  padding:0;font:inherit;letter-spacing:inherit;color:inherit;align-items:center;gap:14px
+}
+.acc--plain .acc__btn:hover{color:var(--blue)}
+.acc--plain .acc__btn:hover .acc__ic{border-color:var(--blue)}
+.acc--plain .acc__ic{flex:0 0 26px;width:26px;height:26px;margin-top:0;border-color:var(--n-300);background:#fff}
+.acc--plain .acc__ic::before{width:9px}
+.acc--plain .acc__ic::after{height:9px}
+.acc--plain .acc__panel>div{padding-top:1.8rem}
+.acc--plain .acc__panel p{padding:0}
+/* The list keeps its own rhythm; the panel supplies the exact 1.8rem gap the
+   heading used to have above it, so opening it looks like the old layout. */
+.dev__acc .dev__list{margin-top:0}
+
+/* ---------- Collapsible panels (shared) ----------
+   Every height-animated disclosure on the page (.acc__panel, .mnav__sub,
+   .tmc__more) is driven by collapse() in main.js, which toggles .is-open.
+   `visibility` is switched instantly on the way in and delayed on the way out
+   so the animation still plays, and closed panels drop out of the tab order
+   instead of leaving focusable links inside a zero-height box. */
+.acc__panel{visibility:hidden;transition:height .42s var(--ease),visibility 0s linear .42s}
+.acc__panel.is-open{visibility:visible;transition:height .42s var(--ease),visibility 0s}
+.mnav__sub{visibility:hidden;transition:height .38s var(--ease),visibility 0s linear .38s}
+.mnav__sub.is-open{visibility:visible;transition:height .38s var(--ease),visibility 0s}
+.tmc__more{height:0;overflow:hidden;visibility:hidden;transition:height .45s var(--ease),visibility 0s linear .45s}
+.tmc__more.is-open{visibility:visible;transition:height .45s var(--ease),visibility 0s}
+
 .faq__aside{
   background:var(--n-50);border:1px solid var(--n-200);border-radius:var(--r-lg);padding:clamp(26px,3vw,36px);
-  position:sticky;top:110px
+  position:sticky;top:var(--sticky-top)
 }
 .faq__aside h3{font-size:1.2rem;margin-bottom:.7rem}
 .faq__aside p{font-size:.93rem;color:var(--n-600);line-height:1.65}
@@ -578,6 +674,17 @@ p:last-child{margin-bottom:0}
 .ft__soc a{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.16);border-radius:50%;color:rgba(255,255,255,.7);transition:all .3s var(--ease)}
 .ft__soc a:hover{background:var(--blue);border-color:var(--blue);color:#fff;transform:translateY(-2px)}
 .ft h4{color:#fff;font-size:.775rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:1.35rem}
+/* Footer headings double as accordion triggers on phones (section 25). Here the
+   button simply inherits the h4, so the desktop footer looks untouched and the
+   marker stays hidden until the columns stack. */
+.ft__toggle{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
+  font:inherit;letter-spacing:inherit;color:inherit;text-align:left;padding:0;
+  /* nothing to toggle until the columns stack at 720px */
+  cursor:default
+}
+.ft__ic{display:none}
+.ft__cta{margin-top:.4rem}
 .ft__nav li{margin-bottom:.72rem}
 .ft__nav a{transition:color .2s,padding-left .25s var(--ease);display:inline-block}
 .ft__nav a:hover{color:#fff;padding-left:5px}
@@ -588,17 +695,64 @@ p:last-child{margin-bottom:0}
 .ft__bot nav{display:flex;flex-wrap:wrap;gap:20px}
 .ft__bot a:hover{color:#fff}
 
+/* The footer panels are plain open columns above 720px. The !important guards
+   against the inline height main.js writes while animating them on a phone. */
+@media (min-width:721px){
+  .ft__panel{height:auto!important;visibility:visible!important;overflow:visible}
+}
+
 /* ---------- 22. Sticky mobile action bar ---------- */
 .mbar{
   position:fixed;left:0;right:0;bottom:0;z-index:80;display:none;
-  grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.14);
-  box-shadow:0 -6px 24px rgba(0,0,0,.18)
+  /* Flex with a ZERO basis, not a grid: each button grows to exactly half the
+     bar whatever its label measures (min-width:0 lets it shrink below its
+     content, .mbar__t truncates with an ellipsis). Grid track sizing kept
+     misbehaving on real devices; flex-basis:0 cannot. overflow:hidden is the
+     last guarantee — even a runaway child gets clipped at the viewport edge
+     instead of painting outside it. */
+  gap:1px;background:rgba(255,255,255,.14);
+  box-shadow:0 -6px 24px rgba(0,0,0,.18);overflow:hidden
 }
 .mbar a{display:flex;align-items:center;justify-content:center;gap:.55em;padding:15px 10px;
+  flex:1 1 0;min-width:0;max-width:50%;
   font-family:var(--f-display);font-weight:600;font-size:.9rem;background:var(--ink-900);color:#fff}
+.mbar a svg{flex:0 0 auto}
+.mbar__t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mbar a.is-primary{background:var(--blue)}
 
-/* ---------- 23. Reveal on scroll ---------- */
+/* ---------- 23. Reusable sticky-scroll split ----------
+   The "sticky scroll" effect: one column stays pinned on screen while the
+   column next to it scrolls past. Two classes, no JavaScript:
+
+     <div class="some-grid sticky-split">     ← any two-column grid
+       <div>…the long column…</div>           ← scrolls normally
+       <div class="sticky-col">…media…</div>  ← stays put
+     </div>
+
+   Tune it without touching this block:
+     --sticky-top        rest position from the viewport top (default 112px =
+                         sticky header + 24px). Set it on the grid or the column.
+     .sticky-col--bottom pin to the bottom of the viewport instead of the top
+     .sticky-col--scroll if the pinned column is taller than the viewport, let
+                         it scroll internally instead of being cut off
+
+   Below 981px the grids on this page collapse to one column, where pinning
+   would trap content, so the whole utility switches itself off. */
+@media (min-width:981px){
+  .sticky-split{align-items:start}
+  .sticky-split>*{min-width:0}
+  /* A transform on the pinned column (e.g. the .rv reveal) is fine, but a
+     transformed *ancestor* would break the pinning — keep filters/transforms
+     off the grid wrapper. */
+  .sticky-col{position:sticky;top:var(--sticky-top,112px);align-self:start}
+  .sticky-col--bottom{top:auto;bottom:24px}
+  .sticky-col--scroll{
+    max-height:calc(100vh - var(--sticky-top,112px) - 24px);
+    overflow:auto;overscroll-behavior:contain
+  }
+}
+
+/* ---------- 24. Reveal on scroll ---------- */
 .rv{opacity:0;transform:translateY(24px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
 .rv.is-in{opacity:1;transform:none}
 .rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
@@ -606,7 +760,7 @@ p:last-child{margin-bottom:0}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 
 /* ==========================================================================
-   24. Responsive
+   25. Responsive
    ========================================================================== */
 /* The primary menu carries 8 top-level items, so the header is stepped down
    in three stages before it collapses to the off-canvas menu. The phone number
@@ -637,13 +791,17 @@ p:last-child{margin-bottom:0}
   .hero__copy{max-width:none}
   .qform{max-width:560px}
   .hero__scroll{display:none}
+  /* iOS Safari zooms the page when a focused field is under 16px; after that
+     zoom the fixed bottom bar looks wider than the screen. Applies to tablets
+     too, not just phones. */
+  .field input,.field select,.field textarea{font-size:16px}
   .svc-grid{grid-template-columns:1fr 1fr}
   .svc:last-child{grid-column:1/-1}
   .svc:last-child .svc__media{aspect-ratio:21/8}
   .why__grid{grid-template-columns:1fr 1fr}
   .proc__grid{grid-template-columns:repeat(3,1fr);gap:34px 24px}
   .step:nth-child(n+4)::before{width:100%}
-  .faq__grid{grid-template-columns:1fr}
+  .faq__grid{grid-template-columns:100%;}
   .faq__aside{position:static}
 }
 @media (max-width:980px){
@@ -659,14 +817,17 @@ p:last-child{margin-bottom:0}
   .tile,.tile.is-wide,.tile.is-half{grid-column:span 6}
   .tile__ov{opacity:1;background:linear-gradient(to top,rgba(6,8,11,.82) 0%,rgba(6,8,11,.1) 44%,transparent 66%)}
   .tile__ov b,.tile__ov span{transform:none}
-  .mbar{display:grid}
+  .mbar{display:flex}
   body{padding-bottom:56px}
   .ft__top{grid-template-columns:1fr 1fr}
 }
 @media (max-width:720px){
   .util__tag{display:none}
   .util__in{justify-content:center}
-  .util__links{gap:16px}
+  /* Email + phone + Facebook do not fit on one line at this width; wrapping
+     them keeps both reachable instead of being clipped by overflow-x:hidden. */
+  .util__links{flex-wrap:wrap;justify-content:center;gap:4px 16px;padding-block:2px}
+  .util__sep{display:none}
   .svc-grid{grid-template-columns:1fr}
   .svc:last-child .svc__media{aspect-ratio:16/11}
   .why__grid{grid-template-columns:1fr}
@@ -674,7 +835,42 @@ p:last-child{margin-bottom:0}
   .about__points{grid-template-columns:1fr}
   .field--2{grid-template-columns:1fr}
   .acc__panel p{padding-right:8px}
-  .ft__top{grid-template-columns:1fr;gap:34px}
+  .qform__note{font-size:.78rem}
+  /* Tighten the sticky action bar so both buttons always fit, even with large
+     system fonts: tracks shrink, the label truncates with an ellipsis. */
+  .mbar a{padding:14px 8px;font-size:.85rem;gap:.45em}
+  /* Eight FAQ categories cannot wrap into a tidy block on a phone, so the
+     tablist scrolls sideways (main.js keeps the active chip in view). The
+     padding keeps focus rings from being clipped by the scroll container. */
+  .faq__tabs{
+    flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;
+    scrollbar-width:none;padding-block:5px 10px;margin-top:21px;
+    margin-bottom:calc(clamp(28px,3vw,40px) - 10px)
+  }
+  .faq__tabs::-webkit-scrollbar{display:none}
+  .faq__tabs .chip{flex:0 0 auto;scroll-snap-align:start;white-space:nowrap}
+  /* Footer menus collapse on phones: four long columns of links become four
+     tappable rows with a +/− marker, matching the FAQ accordion language. */
+  .ft__top{grid-template-columns:1fr;gap:0}
+  .ft__brand{padding-bottom:30px}
+  .ft__top>*+*{border-top:1px solid rgba(255,255,255,.1)}
+  .ft h4{margin-bottom:0}
+  .ft__toggle{padding:17px 0;cursor:pointer}
+  .ft__ic{
+    display:grid;place-items:center;position:relative;flex:0 0 26px;width:26px;height:26px;
+    border-radius:50%;border:1px solid rgba(255,255,255,.22);transition:all .3s var(--ease)
+  }
+  .ft__ic::before,.ft__ic::after{content:"";position:absolute;background:#fff;transition:transform .35s var(--ease),background .25s}
+  .ft__ic::before{width:9px;height:1.5px}
+  .ft__ic::after{width:1.5px;height:9px}
+  .ft__toggle[aria-expanded="true"] .ft__ic{background:var(--blue);border-color:var(--blue)}
+  .ft__toggle[aria-expanded="true"] .ft__ic::after{transform:rotate(90deg)}
+  .ft__panel{height:0;overflow:hidden;visibility:hidden;transition:height .38s var(--ease),visibility 0s linear .38s}
+  .ft__panel.is-open{visibility:visible;transition:height .38s var(--ease),visibility 0s}
+  .ft__panel .ft__nav,.ft__panel .ft__contact{padding-bottom:20px}
+  .ft__panel .ft__nav li:last-child{margin-bottom:0}
+  .ft__cta{margin-top:2px;margin-bottom:20px}
   .ft__bot{justify-content:center;text-align:center}
 }
 @media (max-width:520px){
@@ -693,7 +889,7 @@ p:last-child{margin-bottom:0}
   .qform__head,.qform__body{padding-inline:20px}
 }
 
-/* ---------- 25. Print ---------- */
+/* ---------- 26. Print ---------- */
 @media print{
   .util,.hdr,.mbar,.hero__scroll,.qform,.mnav{display:none!important}
   .hero,.why,.tm,.cta,.ft{background:#fff!important;color:#000!important}
