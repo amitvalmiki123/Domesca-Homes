@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Domesca Homes — Google Ads landing page
+   Loaded AFTER style.css. Only the deltas a PPC page needs live here, so the
+   homepage design system stays the single source of truth.
+   ========================================================================== */
+
+/* ---------- Conversion-only header ----------
+   No site navigation: on a paid-traffic page every exit that is not the form
+   or the phone number is wasted ad spend. Logo, phone and one CTA only. */
+.hdr--lp .hdr__in{justify-content:space-between;gap:16px}
+.hdr--lp .hdr__cta{margin-left:auto}
+/* The phone is a primary CTA here, so it stays visible at every width
+   (style.css hides it below 1560 to make room for the 8-item menu). */
+.hdr--lp .hdr__phone{display:flex}
+@media (max-width:1160px){
+  .hdr--lp .hdr__cta .btn{display:inline-flex}
+}
+@media (max-width:720px){
+  .hdr--lp .hdr__phone{display:none}
+  .hdr--lp .hdr__cta .btn{padding:.85em 1.15em;font-size:.85rem}
+}
+@media (max-width:380px){
+  .hdr--lp .hdr__cta .btn{display:none}
+}
+
+/* The sticky call/quote bar is worth having on tablet too, not just phones. */
+@media (max-width:1080px){
+  .mbar{display:grid}
+  body{padding-bottom:56px}
+}
+
+/* ---------- Inclusions / "what you get" ---------- */
+.incl{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--n-200);
+  border:1px solid var(--n-200);border-radius:var(--r-lg);overflow:hidden;margin-top:clamp(34px,4vw,54px)}
+.incl__cell{background:#fff;padding:clamp(24px,2.6vw,34px);display:flex;gap:16px;align-items:flex-start;transition:background .3s}
+.incl__cell:hover{background:var(--blue-50)}
+.incl__ic{flex:0 0 42px;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;
+  background:var(--blue-50);color:var(--blue)}
+.incl__cell h3{font-size:1.05rem;letter-spacing:-.018em;margin-bottom:.45rem}
+.incl__cell p{font-size:.9rem;color:var(--n-600);line-height:1.62;margin:0}
+
+/* ---------- Offer / reassurance strip ---------- */
+.assure{background:var(--blue);color:#fff}
+.assure__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px;padding-block:clamp(26px,3vw,38px)}
+.assure__tx{max-width:62ch}
+.assure__tx h2{color:#fff;font-size:clamp(1.3rem,2.1vw,1.8rem);letter-spacing:-.025em}
+.assure__tx p{margin:.6rem 0 0;color:rgba(255,255,255,.86);font-size:.965rem;line-height:1.6}
+.assure .btn--white{flex:0 0 auto}
+
+
+/* ---------- Minimal footer ---------- */
+.ft--lp .ft__top{grid-template-columns:1.4fr 1fr;padding-block:clamp(40px,4.6vw,60px)}
+.ft--lp .ft__contact{margin-top:0}
+@media (max-width:720px){
+  .ft--lp .ft__top{grid-template-columns:1fr;gap:30px}
+}
+
+@media (max-width:980px){
+  .incl{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .incl{grid-template-columns:1fr}
+  .assure__in{flex-direction:column;align-items:flex-start}
+  .assure .btn{width:100%}
+}
+
+/* ---------- Privacy policy page ---------- */
+.doc{max-width:74ch;margin-inline:auto}
+.doc h2{font-size:clamp(1.3rem,2vw,1.65rem);margin:2.4rem 0 .8rem}
+.doc h2:first-of-type{margin-top:1.6rem}
+.doc p,.doc li{color:var(--n-700);font-size:1rem;line-height:1.75}
+.doc ul{list-style:disc;padding-left:1.3em;margin:0 0 1.1em}
+.doc li{margin-bottom:.5em}
+.doc a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.doc__meta{font-size:.88rem;color:var(--n-600);padding-bottom:1.4rem;border-bottom:1px solid var(--n-200)}
+
+/* Build-time notice. Digital Movement removes this block before the page
+   goes live — it must not ship to the public site. */
+.admin-note{
+  background:#fff8e1;border:1px solid #f0c36d;border-left:4px solid #d99000;
+  border-radius:var(--r-lg);padding:20px 24px;margin-bottom:2.4rem
+}
+.admin-note b{display:block;font-family:var(--f-display);font-size:.78rem;letter-spacing:.16em;
+  text-transform:uppercase;color:#8a5d00;margin-bottom:.55rem}
+.admin-note p{margin:0;font-size:.92rem;line-height:1.65;color:#5c4200}
