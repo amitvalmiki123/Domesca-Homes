@@ -10,16 +10,16 @@
 
 /* The sticky call/quote bar is worth having on tablet too, not just phones. */
 @media (max-width:1080px){
-  .mbar{display:grid}
+  .mbar{display:flex}
   body:has(.mbar){padding-bottom:56px}
 }
 /* The privacy page has no sticky bar, so it must not reserve space for one. */
 body:not(:has(.mbar)){padding-bottom:0}
 
 /* ---------- Inclusions / "what you get" ---------- */
-.incl{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--n-200);
+.incl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--n-200);
   border:1px solid var(--n-200);border-radius:var(--r-lg);overflow:hidden;margin-top:clamp(34px,4vw,54px)}
-.incl__cell{background:#fff;padding:clamp(24px,2.6vw,34px);display:flex;gap:16px;align-items:flex-start;transition:background .3s}
+.incl__cell{min-width:0;background:#fff;padding:clamp(24px,2.6vw,34px);display:flex;gap:16px;align-items:flex-start;transition:background .3s}
 .incl__cell:hover{background:var(--blue-50)}
 .incl__ic{flex:0 0 42px;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;
   background:var(--blue-50);color:var(--blue)}
@@ -36,10 +36,10 @@ body:not(:has(.mbar)){padding-bottom:0}
 
 
 @media (max-width:980px){
-  .incl{grid-template-columns:1fr 1fr}
+  .incl{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 }
 @media (max-width:640px){
-  .incl{grid-template-columns:1fr}
+  .incl{grid-template-columns:minmax(0,1fr)}
   .assure__in{flex-direction:column;align-items:flex-start}
   .assure .btn{width:100%}
 }
