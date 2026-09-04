@@ -1,0 +1,150 @@
+
+/* ===== style.css (responsive) ===== */
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media (prefers-reduced-motion:reduce){
+  .mnav{transition:visibility 0s linear 0s}
+  .mnav__scrim,.mnav__panel{transition-duration:1ms}
+}@media (prefers-reduced-motion:reduce){.hero__media img{animation:none}}@media (min-width:721px){
+  .ft__panel{height:auto!important;visibility:visible!important;overflow:visible}
+}@media (min-width:981px){
+  .sticky-split{align-items:start}
+  .sticky-split>*{min-width:0}
+  /* A transform on the pinned column (e.g. the .rv reveal) is fine, but a
+     transformed *ancestor* would break the pinning — keep filters/transforms
+     off the grid wrapper. */
+  .sticky-col{position:sticky;top:var(--sticky-top,112px);align-self:start}
+  .sticky-col--bottom{top:auto;bottom:24px}
+  .sticky-col--scroll{
+    max-height:calc(100vh - var(--sticky-top,112px) - 24px);
+    overflow:auto;overscroll-behavior:contain
+  }
+}@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}@media (max-width:1560px){
+  .hdr__phone{display:none}
+}@media (max-width:1440px){
+  .nav__link{font-size:.865rem;padding:12px 9px}
+  .nav__link::after{left:9px;right:9px}
+}@media (max-width:1360px){
+  .nav__link{font-size:.83rem;padding:12px 7px}
+  .nav__link::after{left:7px;right:7px}
+  .hdr__cta .btn{padding:.92em 1.3em;font-size:.875rem}
+}@media (max-width:1240px){
+  .nav__link{padding:12px 5px}
+  .nav__link::after{left:5px;right:5px}
+  .brand img{height:42px}
+}@media (max-width:1160px){
+  .nav,.hdr__cta .btn{display:none}
+  .hdr__call{display:grid}
+  .burger{display:grid;margin-left:0}
+}@media (max-width:1080px){
+  .hero__in{grid-template-columns:1fr;gap:44px;min-height:0;padding-block:clamp(56px,9vw,96px)}
+  .hero__copy{max-width:none}
+  .qform{max-width:560px}
+  .hero__scroll{display:none}
+  /* iOS Safari zooms the page when a focused field is under 16px; after that
+     zoom the fixed bottom bar looks wider than the screen. Applies to tablets
+     too, not just phones. */
+  .field input,.field select,.field textarea{font-size:16px}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .svc:last-child{grid-column:1/-1}
+  .svc:last-child .svc__media{aspect-ratio:21/8}
+  .why__grid{grid-template-columns:1fr 1fr}
+  .proc__grid{grid-template-columns:repeat(3,1fr);gap:34px 24px}
+  .step:nth-child(n+4)::before{width:100%}
+  .faq__grid{grid-template-columns:100%;}
+  .faq__aside{position:static}
+}@media (max-width:980px){
+  .about__grid,.dev__grid,.areas__grid,.cta__grid{grid-template-columns:1fr}
+  .about__media{max-width:520px;margin-inline:auto}
+  .about__stamp{left:0}
+  .about__media .shot-b{right:0}
+  .dev__media{order:-1;aspect-ratio:16/10}
+  .tm__grid{grid-template-columns:1fr}
+  .creds__grid{grid-template-columns:1fr 1fr}
+  .cred:nth-child(3){border-left:0}
+  .cred:nth-child(n+3){border-top:1px solid var(--n-200)}
+  .tile,.tile.is-wide,.tile.is-half{grid-column:span 6}
+  .tile__ov{opacity:1;background:linear-gradient(to top,rgba(6,8,11,.82) 0%,rgba(6,8,11,.1) 44%,transparent 66%)}
+  .tile__ov b,.tile__ov span{transform:none}
+  .mbar{display:flex}
+  body{padding-bottom:56px}
+  .ft__top{grid-template-columns:1fr 1fr}
+}@media (max-width:720px){
+  .util__tag{display:none}
+  .util__in{justify-content:center}
+  /* Email + phone + Facebook do not fit on one line at this width; wrapping
+     them keeps both reachable instead of being clipped by overflow-x:hidden. */
+  .util__links{flex-wrap:wrap;justify-content:center;gap:4px 16px;padding-block:2px}
+  .util__sep{display:none}
+  .svc-grid{grid-template-columns:1fr}
+  .svc:last-child .svc__media{aspect-ratio:16/11}
+  .why__grid{grid-template-columns:1fr}
+  .proc__grid{grid-template-columns:1fr 1fr}
+  .about__points{grid-template-columns:1fr}
+  .field--2{grid-template-columns:1fr}
+  .acc__panel p{padding-right:8px}
+  .qform__note{font-size:.78rem}
+  /* Tighten the sticky action bar so both buttons always fit, even with large
+     system fonts: tracks shrink, the label truncates with an ellipsis. */
+  .mbar a{padding:14px 8px;font-size:.85rem;gap:.45em}
+  /* Eight FAQ categories cannot wrap into a tidy block on a phone, so the
+     tablist scrolls sideways (main.js keeps the active chip in view). The
+     padding keeps focus rings from being clipped by the scroll container. */
+  .faq__tabs{
+    flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;
+    scrollbar-width:none;padding-block:5px 10px;margin-top:21px;
+    margin-bottom:calc(clamp(28px,3vw,40px) - 10px)
+  }
+  .faq__tabs::-webkit-scrollbar{display:none}
+  .faq__tabs .chip{flex:0 0 auto;scroll-snap-align:start;white-space:nowrap}
+  /* Footer menus collapse on phones: four long columns of links become four
+     tappable rows with a +/− marker, matching the FAQ accordion language. */
+  .ft__top{grid-template-columns:1fr;gap:0}
+  .ft__brand{padding-bottom:30px}
+  .ft__top>*+*{border-top:1px solid rgba(255,255,255,.1)}
+  .ft h4{margin-bottom:0}
+  .ft__toggle{padding:17px 0;cursor:pointer}
+  .ft__ic{
+    display:grid;place-items:center;position:relative;flex:0 0 26px;width:26px;height:26px;
+    border-radius:50%;border:1px solid rgba(255,255,255,.22);transition:all .3s var(--ease)
+  }
+  .ft__ic::before,.ft__ic::after{content:"";position:absolute;background:#fff;transition:transform .35s var(--ease),background .25s}
+  .ft__ic::before{width:9px;height:1.5px}
+  .ft__ic::after{width:1.5px;height:9px}
+  .ft__toggle[aria-expanded="true"] .ft__ic{background:var(--blue);border-color:var(--blue)}
+  .ft__toggle[aria-expanded="true"] .ft__ic::after{transform:rotate(90deg)}
+  .ft__panel{height:0;overflow:hidden;visibility:hidden;transition:height .38s var(--ease),visibility 0s linear .38s}
+  .ft__panel.is-open{visibility:visible;transition:height .38s var(--ease),visibility 0s}
+  .ft__panel .ft__nav,.ft__panel .ft__contact{padding-bottom:20px}
+  .ft__panel .ft__nav li:last-child{margin-bottom:0}
+  .ft__cta{margin-top:2px;margin-bottom:20px}
+  .ft__bot{justify-content:center;text-align:center}
+}@media (max-width:520px){
+  /* Phones: one image per row, in a wider cinematic crop so the gallery
+     stays legible without becoming an endless scroll. */
+  .tile,.tile.is-wide,.tile.is-half{grid-column:span 12}
+  .proj__grid{grid-auto-rows:clamp(92px,26vw,140px)}
+  .hero__in{padding-block:40px}
+  .hero__badges{gap:7px}
+  .hero__badge{font-size:.68rem;padding:7px 12px}
+  .hero__actions .btn{width:100%}
+  .proc__grid{grid-template-columns:1fr}
+  .creds__grid{grid-template-columns:1fr}
+  .cred{border-left:0}
+  .cred:nth-child(n+2){border-top:1px solid var(--n-200)}
+  .qform__head,.qform__body{padding-inline:20px}
+}@media print{
+  .util,.hdr,.mbar,.hero__scroll,.qform,.mnav{display:none!important}
+  .hero,.why,.tm,.cta,.ft{background:#fff!important;color:#000!important}
+  .rv{opacity:1;transform:none}
+}
+/* ===== ads.css (responsive) ===== */
+@media (max-width:1080px){
+  .mbar{display:flex}
+  body:has(.mbar){padding-bottom:56px}
+}@media (max-width:980px){
+  .incl{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}@media (max-width:640px){
+  .incl{grid-template-columns:minmax(0,1fr)}
+  .assure__in{flex-direction:column;align-items:flex-start}
+  .assure .btn{width:100%}
+}
