@@ -158,12 +158,19 @@
     mnav.querySelectorAll('a[href]').forEach(function (a) {
       a.addEventListener('click', closeNav);
     });
-    // Mobile sub-menus
-    mnav.querySelectorAll('.mnav__a[aria-expanded]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+    // Mobile sub-menus — the +/- button toggles, the parent label is a real link.
+    mnav.querySelectorAll('.mnav__pm[aria-expanded]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var row = btn.closest ? btn.closest('.mnav__row') : null;
+        var link = row ? row.querySelector('.mnav__link') : null;
+        var panel = row ? row.nextElementSibling : null;
+        if (panel && !panel.classList.contains('mnav__sub')) panel = null;
         var open = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', String(!open));
-        collapse(btn.nextElementSibling, !open);
+        if (link) link.setAttribute('aria-expanded', String(!open));
+        collapse(panel, !open);
       });
     });
   }

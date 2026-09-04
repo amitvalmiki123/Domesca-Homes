@@ -94,8 +94,12 @@ function dsc_render_mobile_nav( $location = 'primary' ) {
 	foreach ( $tree as $item ) {
 		echo '<li>';
 		if ( ! empty( $item->children ) ) {
-			echo '<button class="mnav__a" type="button" aria-expanded="false">' . esc_html( $item->title ) . '<span class="mnav__pm" aria-hidden="true"></span></button>';
-			echo '<div class="mnav__sub"><div>';
+			$panel = 'mnav-sub-' . absint( $item->ID );
+			echo '<div class="mnav__row">';
+			echo '<a class="mnav__a mnav__link" href="' . esc_url( $item->url ) . '">' . esc_html( $item->title ) . '</a>';
+			echo '<button class="mnav__pm" type="button" aria-expanded="false" aria-controls="' . esc_attr( $panel ) . '" aria-label="' . esc_attr( sprintf( __( 'Toggle %s submenu', 'domesca-homes' ), $item->title ) ) . '"><span class="mnav__pm-i" aria-hidden="true"></span></button>';
+			echo '</div>';
+			echo '<div class="mnav__sub" id="' . esc_attr( $panel ) . '"><div>';
 			foreach ( $item->children as $child ) {
 				echo '<a href="' . esc_url( $child->url ) . '">' . esc_html( $child->title ) . '</a>';
 			}
