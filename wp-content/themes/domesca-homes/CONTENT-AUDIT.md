@@ -21,17 +21,18 @@ ACF field that controls it.
 | 3 | Utility | Phone display | text | `phone_display` | Options |
 | 4 | Utility | Phone link | text | `phone` | Options |
 | 5 | Utility | Facebook URL | url | `facebook_url` | Options |
-| 6 | Header | Logo | image | Customizer logo | WP Customizer |
+| 6 | Header | Logo | image | Static Site Identity logo | WP Customizer |
 | 7 | Header | Primary menu | — | `primary` menu location | WP Menus |
 | 8 | Header | CTA "Get a Free Quote" | text | hardcoded translation | `header.php` |
 | 9 | Header | Phone display block | text | `phone_display` | Options |
 | 10 | Footer | About text | wysiwyg | `footer_about` | Options |
-| 11 | Footer | Copyright | text | `copyright` (`{year}` / `{site}`) | Options |
-| 12 | Footer | Footer columns | — | WP `footer` menu location (top-level = heading, children = links) | WP Menus |
-| 13 | Footer | Footer column links | — | WP `footer` menu children | WP Menus |
-| 14 | Footer | Contact phone/email/address | text | `phone` / `email` / `address` / `address_url` | Options |
-| 15 | Forms | Hero form CF7 shortcode (optional) | text | `hero_form_shortcode` | Options |
-| 16 | Forms | Final CTA form CF7 shortcode (optional) | text | `contact_form_shortcode` | Options |
+| 11 | Footer | Logo | image | `footer_logo` | Options |
+| 12 | Footer | Copyright | text | `copyright` (`{year}` / `{site}`) | Options |
+| 13 | Footer | Footer columns | — | WP `footer` menu location (top-level = heading, children = links) | WP Menus |
+| 14 | Footer | Footer column links | — | WP `footer` menu children | WP Menus |
+| 15 | Footer | Contact phone/email/address | text | `phone` / `email` / `address` / `address_url` | Options |
+| 16 | Forms | Hero form CF7 shortcode (optional) | text | `hero_form_shortcode` | Options |
+| 17 | Forms | Final CTA form CF7 shortcode (optional) | text | `contact_form_shortcode` | Options |
 
 ### Hero
 

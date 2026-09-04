@@ -10,8 +10,9 @@ defined( 'ABSPATH' ) || exit;
 $phone    = dsc_phone();
 $phone_tx = dsc_phone_display();
 $email    = dsc_email();
-$tagline  = dsc_tagline();
-$facebook = dsc_facebook();
+$tagline     = dsc_tagline();
+$facebook    = dsc_facebook();
+$header_logo = dsc_logo_data( 'header' );
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -56,11 +57,7 @@ $facebook = dsc_facebook();
 <header class="hdr" id="hdr">
   <div class="wrap wrap-wide hdr__in">
     <a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Domesca Homes — home">
-      <?php if ( has_custom_logo() ) : ?>
-        <?php the_custom_logo(); ?>
-      <?php else : ?>
-        <img src="<?php echo esc_url( DSC_THEME_URI . '/assets/images/logo.png' ); ?>" alt="Domesca Homes" width="442" height="174">
-      <?php endif; ?>
+      <img class="custom-logo" src="<?php echo esc_url( $header_logo['url'] ); ?>" alt="<?php echo esc_attr( $header_logo['alt'] ); ?>" width="<?php echo esc_attr( $header_logo['width'] ); ?>" height="<?php echo esc_attr( $header_logo['height'] ); ?>">
     </a>
 
     <?php dsc_render_desktop_nav( 'primary' ); ?>
@@ -85,11 +82,7 @@ $facebook = dsc_facebook();
   <div class="mnav__scrim" data-mnav-close></div>
   <div class="mnav__panel" role="dialog" aria-modal="true" aria-label="Site menu">
     <div class="mnav__top">
-      <?php if ( has_custom_logo() ) : ?>
-        <?php the_custom_logo(); ?>
-      <?php else : ?>
-        <img src="<?php echo esc_url( DSC_THEME_URI . '/assets/images/logo.png' ); ?>" alt="Domesca Homes" width="442" height="174">
-      <?php endif; ?>
+      <img src="<?php echo esc_url( $header_logo['url'] ); ?>" alt="<?php echo esc_attr( $header_logo['alt'] ); ?>" width="<?php echo esc_attr( $header_logo['width'] ); ?>" height="<?php echo esc_attr( $header_logo['height'] ); ?>">
       <button class="mnav__close" type="button" data-mnav-close aria-label="Close menu">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>

@@ -17,17 +17,14 @@ $address   = dsc_opt( 'address', "Hillside, Victoria 3037\nServicing Melbourne's
 $address_url = dsc_address_url();
 $touch_title = dsc_footer_touch_title();
 $quote_text  = dsc_footer_quote_text();
+$footer_logo = dsc_logo_data( 'footer' );
 ?>
 <footer class="ft">
   <div class="wrap wrap-wide">
     <div class="ft__top">
       <div class="ft__brand">
         <div class="ft__logo">
-          <?php if ( has_custom_logo() ) : ?>
-            <?php the_custom_logo(); ?>
-          <?php else : ?>
-            <img src="<?php echo esc_url( DSC_THEME_URI . '/assets/images/logo.png' ); ?>" alt="Domesca Homes" width="442" height="174">
-          <?php endif; ?>
+          <img src="<?php echo esc_url( $footer_logo['url'] ); ?>" alt="<?php echo esc_attr( $footer_logo['alt'] ); ?>" width="<?php echo esc_attr( $footer_logo['width'] ); ?>" height="<?php echo esc_attr( $footer_logo['height'] ); ?>" class="<?php echo $footer_logo['is_default'] ? 'is-default' : ''; ?>">
         </div>
         <div class="ft__about"><?php echo wp_kses_post( $footer_about ); ?></div>
         <?php if ( $facebook ) : ?>

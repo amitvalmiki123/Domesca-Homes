@@ -21,10 +21,12 @@ The copyright field accepts:
 
 Default: `©{year} {site}. All rights reserved.`
 
-### Footer logo
-Footer logo = WordPress **Site Identity** logo.
-Go to **Appearance → Customize → Site Identity → Logo** and upload/change it.
-Header and footer both use the same logo automatically.
+### Logos (header and footer are separate)
+- **Header logo** = WordPress **Site Identity** logo.
+  Go to **Appearance → Customize → Site Identity → Logo**.
+- **Footer logo** = **Domesca Options → Footer → Footer logo**.
+  Upload a separate footer image (usually a white / light version).
+  If left empty, the theme uses the built-in footer logo.
 
 ---
 

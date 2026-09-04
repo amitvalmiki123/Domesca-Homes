@@ -167,6 +167,59 @@ function dsc_copyright( $default = '&copy;{year} {site}. All rights reserved.' )
 	return $value;
 }
 
+/**
+ * Logo data for the header or footer.
+ *
+ * Header: uses the WordPress Customizer "Site Identity → Logo".
+ * Footer: uses the separate Domesca Options field "Footer logo", and falls
+ * back to the built-in footer logo when empty so it can be different from the
+ * header logo.
+ *
+ * @param string $context 'header' or 'footer'.
+ * @return array{url:string,width:int,height:int,alt:string}
+ */
+function dsc_logo_data( $context = 'header' ) {
+	$default = array(
+		'url'       => DSC_THEME_URI . '/assets/images/logo.png',
+		'width'     => 442,
+		'height'    => 174,
+		'alt'       => get_bloginfo( 'name' ),
+		'is_default' => true,
+	);
+
+	if ( 'footer' === $context ) {
+		$footer = dsc_opt( 'footer_logo', array() );
+		if ( is_array( $footer ) && ! empty( $footer['url'] ) ) {
+			return array(
+				'url'       => $footer['url'],
+				'width'     => ! empty( $footer['width'] ) ? (int) $footer['width'] : $default['width'],
+				'height'    => ! empty( $footer['height'] ) ? (int) $footer['height'] : $default['height'],
+				'alt'       => ! empty( $footer['alt'] ) ? $footer['alt'] : $default['alt'],
+				'is_default' => false,
+			);
+		}
+		return $default;
+	}
+
+	// Header logo (Customizer Site Identity).
+	$logo_id = get_theme_mod( 'custom_logo' );
+	if ( $logo_id ) {
+		$image = wp_get_attachment_image_src( $logo_id, 'full' );
+		if ( ! empty( $image ) ) {
+			$alt = get_post_meta( $logo_id, '_wp_attachment_image_alt', true );
+			return array(
+				'url'       => $image[0],
+				'width'     => ! empty( $image[1] ) ? (int) $image[1] : $default['width'],
+				'height'    => ! empty( $image[2] ) ? (int) $image[2] : $default['height'],
+				'alt'       => $alt ? $alt : $default['alt'],
+				'is_default' => false,
+			);
+		}
+	}
+
+	return $default;
+}
+
 /* -------------------------------------------------------------------------
  * Navigation
  * ------------------------------------------------------------------------- */

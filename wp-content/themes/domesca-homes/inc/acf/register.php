@@ -111,6 +111,15 @@ function dsc_register_fields() {
 				'default_value' => 'Lifting Properties, Elevating Standards. A Melbourne-based building company delivering custom homes, renovations, knockdown rebuilds and multi-unit developments across Melbourne&rsquo;s north and west since 2013.',
 			),
 			array(
+				'key'           => 'field_dsc_opt_footer_logo',
+				'name'          => 'footer_logo',
+				'label'         => 'Footer logo',
+				'instructions'  => 'Upload a separate logo for the footer (usually a white/light version). Leave empty to use the built-in footer logo.',
+				'type'          => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			),
+			array(
 				'key'           => 'field_dsc_opt_footer_touch',
 				'name'          => 'footer_get_in_touch_title',
 				'label'         => 'Footer "Get In Touch" column title',

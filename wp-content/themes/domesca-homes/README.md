@@ -70,7 +70,8 @@ wp-content/themes/
    - **Footer Bottom Menu (legal/bottom bar)** → `Footer Bottom` (footer bottom-bar links)
    (the theme creates default `Primary`, `Footer`, and `Footer Bottom` menus on
    activation — edit/add them under **Appearance → Menus**.)
-6. Footer/header logo → **Appearance → Customize → Site Identity → Logo**.
+6. **Header logo** → **Appearance → Customize → Site Identity → Logo**.
+   **Footer logo** → **Domesca Options → Footer → Footer logo** (separate image).
 7. **Domesca Options** — set contact, footer and form fields.
 8. Edit the front page and reorder **Landing Page Sections**.
 9. (Optional) Add Contact Form 7 forms and paste the shortcode into
