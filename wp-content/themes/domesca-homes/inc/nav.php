@@ -110,6 +110,43 @@ function dsc_render_mobile_nav( $location = 'primary' ) {
 }
 
 /**
+ * Footer menu columns.
+ *
+ * The Footer menu location should contain top-level items (Services, Company,
+ * Get In Touch ...) as column headings and their child items as links. If no
+ * Footer menu is assigned, this returns an empty tree so the theme falls back
+ * to the static/options columns.
+ */
+function dsc_render_footer_columns( $location = 'footer' ) {
+	$tree = dsc_menu_tree( $location );
+
+	if ( empty( $tree ) ) {
+		return false;
+	}
+
+	foreach ( $tree as $i => $column ) {
+		$panel = 'ft-col-' . $i;
+		echo '<nav class="ft__col" aria-label="' . esc_attr( $column->title ) . '">';
+		echo '<h4><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="' . esc_attr( $panel ) . '">' . esc_html( $column->title ) . '<span class="ft__ic" aria-hidden="true"></span></button></h4>';
+		echo '<div class="ft__panel" id="' . esc_attr( $panel ) . '">';
+
+		if ( ! empty( $column->children ) ) {
+			echo '<ul class="ft__nav">';
+			foreach ( $column->children as $child ) {
+				echo '<li><a href="' . esc_url( $child->url ) . '"' . ( $child->target ? ' target="' . esc_attr( $child->target ) . '" rel="noopener"' : '' ) . '>' . esc_html( $child->title ) . '</a></li>';
+			}
+			echo '</ul>';
+		} else {
+			echo '<ul class="ft__nav"><li><a href="' . esc_url( $column->url ) . '">' . esc_html( $column->title ) . '</a></li></ul>';
+		}
+
+		echo '</div></nav>';
+	}
+
+	return true;
+}
+
+/**
  * Small icon helper for the "what you get"/included cells.
  */
 function dsc_why_icon( $icon = '' ) {

@@ -123,6 +123,81 @@ function dsc_create_default_menus() {
 add_action( 'after_switch_theme', 'dsc_create_default_menus' );
 
 /**
+ * Create the Footer menu and assign it to the footer location.
+ *
+ * The footer menu uses the same tree format as the header: top-level items are
+ * column headings and their children are the links inside that column.
+ */
+function dsc_create_default_footer_menu() {
+	$locations = get_theme_mod( 'nav_menu_locations' );
+	if ( ! empty( $locations['footer'] ) ) {
+		return;
+	}
+
+	$menu = wp_get_nav_menu_object( 'Footer' );
+	$menu_id = $menu ? (int) $menu->term_id : 0;
+
+	if ( ! $menu_id ) {
+		$menu_id = wp_create_nav_menu( 'Footer' );
+	}
+
+	if ( ! $menu_id ) {
+		return;
+	}
+
+	$columns = array(
+		'Services' => array(
+			'New Home Construction', 'Townhouse Developments', 'Unit Developments',
+			'Renovations & Extensions', 'Kitchen Renovations', 'Bathroom Renovations',
+			'Laundry Renovations', 'House Extensions',
+		),
+		'Company' => array(
+			'About Us' => '#about',
+			'Plans & Design' => '#process',
+			'Projects' => '#projects',
+			'Testimonials' => '#testimonials',
+			'Areas We Build' => '#areas',
+			'FAQs' => '#faq',
+			'Contact Us' => '#contact',
+		),
+	);
+
+	// Only populate an empty footer menu.
+	if ( ! wp_get_nav_menu_items( $menu_id ) ) {
+		foreach ( $columns as $column_title => $links ) {
+			$parent_id = wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-title'  => $column_title,
+				'menu-item-url'    => '#',
+				'menu-item-type'   => 'custom',
+				'menu-item-status' => 'publish',
+			) );
+
+			foreach ( $links as $label => $url ) {
+				if ( is_int( $label ) ) {
+					$label = $url;
+					$url   = '#' . strtolower( str_replace( array( ' & ', ' ' ), array( '-', '-' ), $label ) );
+					// Target a sensible generic anchor for known sections.
+					$url   = in_array( $label, array( 'About Us', 'Plans & Design', 'Projects', 'Testimonials', 'Areas We Build', 'FAQs', 'Contact Us' ), true )
+						? $url
+						: '#services';
+				}
+
+				wp_update_nav_menu_item( $menu_id, $parent_id, array(
+					'menu-item-title'  => $label,
+					'menu-item-url'    => $url,
+					'menu-item-type'   => 'custom',
+					'menu-item-status' => 'publish',
+				) );
+			}
+		}
+	}
+
+	$locations['footer'] = $menu_id;
+	set_theme_mod( 'nav_menu_locations', $locations );
+}
+add_action( 'after_switch_theme', 'dsc_create_default_footer_menu' );
+
+/**
  * Security hardening (Rule 17).
  */
 function dsc_security_hardening() {

@@ -38,7 +38,9 @@ $columns = dsc_rows( 'footer_columns', array(), 'option' );
         <?php endif; ?>
       </div>
 
-      <?php if ( ! empty( $columns ) ) : ?>
+      <?php if ( dsc_render_footer_columns( 'footer' ) ) : ?>
+        <?php // WordPress Appearance → Menus → Footer menu is used for the columns. ?>
+      <?php elseif ( ! empty( $columns ) ) : ?>
         <?php foreach ( $columns as $i => $col ) : ?>
           <?php $col_title = dsc_row_key( $col, 'title', '' ); $links = dsc_row_key( $col, 'links', array() ); $panel = 'ft-col-' . $i; ?>
           <nav class="ft__col" aria-label="<?php echo esc_attr( $col_title ); ?>">
