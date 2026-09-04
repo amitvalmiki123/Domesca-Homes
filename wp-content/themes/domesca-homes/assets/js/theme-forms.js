@@ -6,6 +6,12 @@
 
   var cfg = window.dscTheme || {};
 
+  // Let Contact Form 7 handle its own validation instead of the browser's
+  // default (the red "Please fill out this field." messages).
+  document.querySelectorAll('.wpcf7 form, form.wpcf7-form').forEach(function (form) {
+    form.setAttribute('novalidate', 'novalidate');
+  });
+
   function setStatus(form, message, ok) {
     var status = form.querySelector('.form-status');
     if (!status) return;

@@ -64,7 +64,7 @@ Form tab code:
     [textarea your-message x3 placeholder "Site details, block size, budget range, timing…"]
   </div>
 
-  [submit "Send My Enquiry"]
+  [submit class:btn class:btn--block class:btn--lg "Send My Enquiry"]
 </div>
 ```
 
@@ -119,7 +119,7 @@ Form tab code:
     [textarea your-message x4 placeholder "Tell us about your project…"]
   </div>
 
-  [submit "Send My Enquiry"]
+  [submit class:btn class:btn--block class:btn--lg "Send My Enquiry"]
 </div>
 ```
 
