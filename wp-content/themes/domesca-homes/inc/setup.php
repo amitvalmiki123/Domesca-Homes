@@ -28,8 +28,9 @@ function dsc_setup() {
 	add_theme_support( 'responsive-embeds' );
 
 	register_nav_menus( array(
-		'primary' => __( 'Header Primary Menu', 'domesca-homes' ),
-		'footer'  => __( 'Footer Menu (optional)' , 'domesca-homes' ),
+		'primary'        => __( 'Header Primary Menu', 'domesca-homes' ),
+		'footer'         => __( 'Footer Menu (columns)', 'domesca-homes' ),
+		'footer_bottom'  => __( 'Footer Bottom Menu (legal/bottom bar)', 'domesca-homes' ),
 	) );
 
 	add_image_size( 'dsc-hero', 1440, 1000, true );

@@ -113,15 +113,17 @@ $columns = dsc_rows( 'footer_columns', array(), 'option' );
 
     <div class="ft__bot">
       <p style="margin:0"><?php echo wp_kses_post( $copyright ); ?></p>
-      <nav aria-label="Footer">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-        <?php if ( function_exists( 'get_privacy_policy_url' ) && get_privacy_policy_url() ) : ?>
-        <a href="<?php echo esc_url( get_privacy_policy_url() ); ?>">Privacy Policy</a>
-        <?php endif; ?>
-      </nav>
+      <?php if ( ! dsc_render_footer_bottom( 'footer_bottom' ) ) : ?>
+        <nav aria-label="Footer">
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+          <?php if ( function_exists( 'get_privacy_policy_url' ) && get_privacy_policy_url() ) : ?>
+          <a href="<?php echo esc_url( get_privacy_policy_url() ); ?>">Privacy Policy</a>
+          <?php endif; ?>
+        </nav>
+      <?php endif; ?>
     </div>
   </div>
 </footer>

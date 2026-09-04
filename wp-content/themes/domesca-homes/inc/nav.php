@@ -147,6 +147,34 @@ function dsc_render_footer_columns( $location = 'footer' ) {
 }
 
 /**
+ * Footer bottom bar links (About, Services, Projects, Contact, Privacy).
+ *
+ * Uses the Footer Bottom Menu location. When the location is empty the theme
+ * falls back to the original static links so the design stays intact.
+ */
+function dsc_render_footer_bottom( $location = 'footer_bottom' ) {
+	$items = dsc_get_menu_items( $location );
+
+	if ( empty( $items ) ) {
+		return false;
+	}
+
+	echo '<nav aria-label="Footer">';
+
+	foreach ( $items as $item ) {
+		if ( (int) $item->menu_item_parent > 0 ) {
+			continue;
+		}
+		$rel = $item->target ? ' target="' . esc_attr( $item->target ) . '" rel="noopener"' : '';
+		echo '<a href="' . esc_url( $item->url ) . '"' . $rel . '>' . esc_html( $item->title ) . '</a>';
+	}
+
+	echo '</nav>';
+
+	return true;
+}
+
+/**
  * Small icon helper for the "what you get"/included cells.
  */
 function dsc_why_icon( $icon = '' ) {
