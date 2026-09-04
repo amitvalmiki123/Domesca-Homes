@@ -7,22 +7,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$cf7 = dsc_opt( 'contact_form_7_shortcode', '' );
+$cf7 = dsc_opt( 'contact_form_shortcode', '' );
 if ( $cf7 && function_exists( 'do_shortcode' ) ) {
 	echo do_shortcode( $cf7 ); // phpcs:ignore WordPress.Security.EscapeOutput
 	return;
 }
 
-$defaults   = dsc_default_landing();
-$types_rows = dsc_rows( 'enquiry_types', array(), 'option' );
-
-$types = array();
-foreach ( $types_rows as $row ) {
-	$types[] = dsc_row_key( $row, 'label', '' );
-}
-if ( empty( $types ) ) {
-	$types = $defaults['enquiry_types'];
-}
+$defaults = dsc_default_landing();
+$types    = $defaults['enquiry_types'];
 ?>
 <form class="qform__body" data-dsc-form novalidate>
   <div class="field--2">

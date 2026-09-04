@@ -129,6 +129,44 @@ function dsc_facebook( $default = 'https://www.facebook.com/domescahomes/' ) {
 	return dsc_opt( 'facebook_url', $default );
 }
 
+/**
+ * Address / service area link (option address_url).
+ */
+function dsc_address_url( $default = '' ) {
+	return dsc_opt( 'address_url', $default );
+}
+
+/**
+ * Footer "Get In Touch" column title.
+ */
+function dsc_footer_touch_title( $default = 'Get In Touch' ) {
+	return dsc_opt( 'footer_get_in_touch_title', $default );
+}
+
+/**
+ * Footer "Request a Quote" button text.
+ */
+function dsc_footer_quote_text( $default = 'Request a Quote' ) {
+	return dsc_opt( 'footer_request_quote_text', $default );
+}
+
+/**
+ * Copyright line with current year and WordPress site name.
+ *
+ * Supports {year} and {site} placeholders.
+ */
+function dsc_copyright( $default = '&copy;{year} {site}. All rights reserved.' ) {
+	$value = dsc_opt( 'copyright', $default );
+
+	$year = gmdate( 'Y' );
+	$site = get_bloginfo( 'name' );
+
+	$value = str_replace( '{year}', $year, $value );
+	$value = str_replace( '{site}', $site, $value );
+
+	return $value;
+}
+
 /* -------------------------------------------------------------------------
  * Navigation
  * ------------------------------------------------------------------------- */

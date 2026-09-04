@@ -46,7 +46,9 @@ original N× child elements.
 ## 3. ACF field registration (Hybrid)
 
 - `inc/acf/register.php` registers:
-  - **Options group** — `Domesca Options` (global contact/footer + repeatable footer columns + enquiry options + CF7 shortcode).
+  - **Options group** — `Domesca Global Options` (contact/branding, footer,
+    and forms; footer columns are menu-driven, and project type/stage are
+    managed inside Contact Form 7, not the theme).
   - **Landing group** — Flexible Content `landing_sections` (front page).
   - **Home group** — Flexible Content `home_sections` (template-home.php).
 - Allowed ACF types: text, textarea, wysiwyg, image (array), url, email,
@@ -93,9 +95,15 @@ Each section is a self-contained file in `template-parts/sections/`:
 
 ## 9. Forms
 
-- ACF option `contact_form_7_shortcode` → `do_shortcode()`.
-- If empty, the theme's built-in AJAX form (`inc/ajax.php` +
-  `assets/js/theme-forms.js`) is used.
+- ACF option `hero_form_shortcode` → `template-parts/form/enquiry.php`
+  (hero/banner form).
+- ACF option `contact_form_shortcode` → `template-parts/form/contact.php`
+  (final CTA / before-footer form).
+- If the corresponding shortcode is empty, the theme's built-in AJAX form
+  (`inc/ajax.php` + `assets/js/theme-forms.js`) is used.
+- `enquiry_types` and `enquiry_stages` old option repeaters were removed; the
+  project-type / stage dropdowns come from `defaults.php` and are expected to
+  be recreated inside the CF7 form when a shortcode is used.
 - Visual styling comes from the theme CSS.
 
 ## 10. Verification

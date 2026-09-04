@@ -199,6 +199,64 @@ function dsc_create_default_footer_menu() {
 add_action( 'after_switch_theme', 'dsc_create_default_footer_menu' );
 
 /**
+ * Create a default Footer Bottom menu and assign it to the bottom-bar location.
+ *
+ * The Footer Bottom menu should contain the small legal/utility links shown in
+ * the very bottom bar (About, Services, Projects, Contact, Privacy Policy).
+ */
+function dsc_create_default_footer_bottom_menu() {
+	$locations = get_theme_mod( 'nav_menu_locations' );
+	if ( ! empty( $locations['footer_bottom'] ) ) {
+		return;
+	}
+
+	$menu    = wp_get_nav_menu_object( 'Footer Bottom' );
+	$menu_id = $menu ? (int) $menu->term_id : 0;
+
+	if ( ! $menu_id ) {
+		$menu_id = wp_create_nav_menu( 'Footer Bottom' );
+	}
+
+	if ( ! $menu_id ) {
+		return;
+	}
+
+	// Only populate an empty menu.
+	if ( ! wp_get_nav_menu_items( $menu_id ) ) {
+		$links = array(
+			'About'    => '#about',
+			'Services' => '#services',
+			'Projects' => '#projects',
+			'Contact'  => '#contact',
+		);
+
+		foreach ( $links as $title => $url ) {
+			wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-title'  => $title,
+				'menu-item-url'    => $url,
+				'menu-item-type'   => 'custom',
+				'menu-item-status' => 'publish',
+			) );
+		}
+
+		// Add the WordPress privacy page if one exists.
+		$privacy = function_exists( 'get_privacy_policy_url' ) ? get_privacy_policy_url() : '';
+		if ( $privacy ) {
+			wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-title'  => __( 'Privacy Policy', 'domesca-homes' ),
+				'menu-item-url'    => $privacy,
+				'menu-item-type'   => 'custom',
+				'menu-item-status' => 'publish',
+			) );
+		}
+	}
+
+	$locations['footer_bottom'] = $menu_id;
+	set_theme_mod( 'nav_menu_locations', $locations );
+}
+add_action( 'after_switch_theme', 'dsc_create_default_footer_bottom_menu' );
+
+/**
  * Security hardening (Rule 17).
  */
 function dsc_security_hardening() {

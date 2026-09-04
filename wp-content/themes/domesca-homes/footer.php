@@ -11,11 +11,12 @@ $phone    = dsc_phone();
 $phone_tx = dsc_phone_display();
 $email    = dsc_email();
 $footer_about = dsc_opt( 'footer_about', 'Lifting Properties, Elevating Standards. A Melbourne-based building company delivering custom homes, renovations, knockdown rebuilds and multi-unit developments across Melbourne&rsquo;s north and west since 2013.' );
-$copyright = dsc_opt( 'copyright', '&copy;2020 Domesca Homes Pty Ltd. All rights reserved.' );
+$copyright = dsc_copyright();
 $facebook  = dsc_facebook();
 $address   = dsc_opt( 'address', "Hillside, Victoria 3037\nServicing Melbourne's north & west" );
-
-$columns = dsc_rows( 'footer_columns', array(), 'option' );
+$address_url = dsc_address_url();
+$touch_title = dsc_footer_touch_title();
+$quote_text  = dsc_footer_quote_text();
 ?>
 <footer class="ft">
   <div class="wrap wrap-wide">
@@ -40,22 +41,6 @@ $columns = dsc_rows( 'footer_columns', array(), 'option' );
 
       <?php if ( dsc_render_footer_columns( 'footer' ) ) : ?>
         <?php // WordPress Appearance → Menus → Footer menu is used for the columns. ?>
-      <?php elseif ( ! empty( $columns ) ) : ?>
-        <?php foreach ( $columns as $i => $col ) : ?>
-          <?php $col_title = dsc_row_key( $col, 'title', '' ); $links = dsc_row_key( $col, 'links', array() ); $panel = 'ft-col-' . $i; ?>
-          <nav class="ft__col" aria-label="<?php echo esc_attr( $col_title ); ?>">
-            <h4><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="<?php echo esc_attr( $panel ); ?>"><?php echo esc_html( $col_title ); ?><span class="ft__ic" aria-hidden="true"></span></button></h4>
-            <div class="ft__panel" id="<?php echo esc_attr( $panel ); ?>">
-              <?php if ( ! empty( $links ) ) : ?>
-                <ul class="ft__nav">
-                  <?php foreach ( $links as $link_item ) : ?>
-                    <li><a href="<?php echo esc_url( dsc_row_key( $link_item, 'url', '#' ) ); ?>"<?php echo dsc_row_key( $link_item, 'target', false ) ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( dsc_row_key( $link_item, 'label', '' ) ); ?></a></li>
-                  <?php endforeach; ?>
-                </ul>
-              <?php endif; ?>
-            </div>
-          </nav>
-        <?php endforeach; ?>
       <?php else : ?>
         <nav class="ft__col" aria-label="Services">
           <h4><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="ft-services">Services<span class="ft__ic" aria-hidden="true"></span></button></h4>
@@ -86,11 +71,11 @@ $columns = dsc_rows( 'footer_columns', array(), 'option' );
               <li><a href="#contact">Contact Us</a></li>
             </ul>
           </div>
-        </nav>
+          </nav>
       <?php endif; ?>
 
       <div class="ft__col">
-        <h4><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="ft-touch">Get In Touch<span class="ft__ic" aria-hidden="true"></span></button></h4>
+        <h4><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="ft-touch"><?php echo esc_html( $touch_title ); ?><span class="ft__ic" aria-hidden="true"></span></button></h4>
         <div class="ft__panel" id="ft-touch">
           <ul class="ft__contact">
             <li>
@@ -103,11 +88,15 @@ $columns = dsc_rows( 'footer_columns', array(), 'option' );
             </li>
             <li>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span><?php echo nl2br( esc_html( $address ) ); ?></span>
+              <?php if ( $address_url ) : ?>
+                <a href="<?php echo esc_url( $address_url ); ?>" target="_blank" rel="noopener"><?php echo nl2br( esc_html( $address ) ); ?></a>
+              <?php else : ?>
+                <span><?php echo nl2br( esc_html( $address ) ); ?></span>
+              <?php endif; ?>
             </li>
           </ul>
         </div>
-        <a class="btn btn--block ft__cta" href="#enquire">Request a Quote</a>
+        <a class="btn btn--block ft__cta" href="#enquire"><?php echo esc_html( $quote_text ); ?></a>
       </div>
     </div>
 

@@ -64,9 +64,20 @@ wp-content/themes/
 4. In **Settings → Reading**:
    - `Your homepage displays` → **A static page**
    - `Homepage` → a page assigned to template **Domesca Landing Page**
-5. **Appearance → Menus** → assign menu to **Header Primary Menu** (a default menu is created on activation).
-6. **Domesca Options** — set contact/global fields.
-7. Edit the front page and reorder **Landing Page Sections**.
+5. **Appearance → Menus → Manage Locations** → assign menus:
+   - **Header Primary Menu** → `Primary` (desktop nav + dropdown + mobile drawer)
+   - **Footer Menu (columns)** → `Footer` (footer columns: top-level = heading, children = links)
+   - **Footer Bottom Menu (legal/bottom bar)** → `Footer Bottom` (footer bottom-bar links)
+   (the theme creates default `Primary`, `Footer`, and `Footer Bottom` menus on
+   activation — edit/add them under **Appearance → Menus**.)
+6. Footer/header logo → **Appearance → Customize → Site Identity → Logo**.
+7. **Domesca Options** — set contact, footer and form fields.
+8. Edit the front page and reorder **Landing Page Sections**.
+9. (Optional) Add Contact Form 7 forms and paste the shortcode into
+   **Domesca Options → Forms**.
+
+> **Footer columns note:** footer columns are driven by the WordPress `Footer`
+> menu (Appearance → Menus), not by a Domesca Options repeater.
 
 ## How this follows the 19 rules
 
