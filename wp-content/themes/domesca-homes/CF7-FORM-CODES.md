@@ -2,6 +2,23 @@
 
 Ye file dono CF7 forms ke ready-to-paste HTML codes deti hai.
 
+## Dono forms ALAG kyun hain (yahi exact difference rakhein)
+
+| Field | Hero / banner form | Final CTA / contact form |
+|---|---|---|
+| Full name | ✅ | ✅ |
+| Phone | ✅ | ✅ |
+| Email | ✅ | ✅ |
+| Project type | ✅ | ✅ |
+| Project suburb | ✅ | ❌ |
+| What stage are you at? | ✅ | ❌ |
+| Tell us about your project (message x3) | ✅ | ❌ |
+| Your message (message x4) | ❌ | ✅ |
+
+> ⚠️ **Galti se dono me same code mat daalna.** Hero form me `Project suburb` +
+> `What stage are you at?` hona chahiye. Final CTA form me sirf `Your message`
+> (simple textarea) hona chahiye. Neeche alag-alag codes diye hain.
+
 Install steps:
 
 1. **Contact → Add New** → do naye forms banayein:
