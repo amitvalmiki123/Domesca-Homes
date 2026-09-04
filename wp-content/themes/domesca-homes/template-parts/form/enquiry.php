@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 $cf7 = dsc_opt( 'hero_form_shortcode', '' );
 if ( $cf7 && function_exists( 'do_shortcode' ) ) {
 	echo do_shortcode( $cf7 ); // phpcs:ignore WordPress.Security.EscapeOutput
+	dsc_form_note( true );
 	return;
 }
 
@@ -63,8 +64,5 @@ $stages   = $defaults['enquiry_stages'];
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
   </button>
   <p class="form-status" role="status" aria-live="polite"></p>
-  <p class="qform__note">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
-    <span><?php echo esc_html__( 'Your details are used only to respond to your enquiry — see our Privacy Policy. Prefer to talk? Call ', 'domesca-homes' ); ?><a href="tel:<?php echo esc_attr( dsc_phone() ); ?>"><strong><?php echo esc_html( dsc_phone_display() ); ?></strong></a>.</span>
-  </p>
+  <?php dsc_form_note( true ); ?>
 </form>

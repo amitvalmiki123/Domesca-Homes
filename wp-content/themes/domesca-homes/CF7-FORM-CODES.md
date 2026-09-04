@@ -19,6 +19,11 @@ Ye file dono CF7 forms ke ready-to-paste HTML codes deti hai.
 > `What stage are you at?` hona chahiye. Final CTA form me sirf `Your message`
 > (simple textarea) hona chahiye. Neeche alag-alag codes diye hain.
 
+> ℹ️ **Bottom privacy note theme khud add karta hai.** CF7 form ke andar
+> privacy note likhne ki zaroorat nahi hai — theme `hero_form_shortcode` /
+> `contact_form_shortcode` ke output ke neeche automatically
+> "Your details are used only..." wali line dikhata hai.
+
 Install steps:
 
 1. **Contact → Add New** → do naye forms banayein:

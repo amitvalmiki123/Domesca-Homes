@@ -168,6 +168,25 @@ function dsc_copyright( $default = '&copy;{year} {site}. All rights reserved.' )
 }
 
 /**
+ * Render the small privacy/phone line shown under the submit button.
+ *
+ * Used after both the built-in AJAX form and a Contact Form 7 shortcode so
+ * the footer note stays visible in every version of the form.
+ *
+ * @param bool $with_phone Include the "Prefer to talk? Call ..." text.
+ */
+function dsc_form_note( $with_phone = true ) {
+	echo '<p class="qform__note">';
+	echo '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>';
+	echo '<span>' . esc_html__( 'Your details are used only to respond to your enquiry — see our Privacy Policy.', 'domesca-homes' );
+	if ( $with_phone ) {
+		echo ' ' . esc_html__( 'Prefer to talk? Call ', 'domesca-homes' );
+		echo '<a href="tel:' . esc_attr( dsc_phone() ) . '"><strong>' . esc_html( dsc_phone_display() ) . '</strong></a>.';
+	}
+	echo '</span></p>';
+}
+
+/**
  * Logo data for the header or footer.
  *
  * Header: uses the WordPress Customizer "Site Identity → Logo".
