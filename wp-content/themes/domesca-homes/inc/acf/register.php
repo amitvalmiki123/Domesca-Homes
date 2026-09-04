@@ -156,6 +156,7 @@ function dsc_register_fields() {
 				'type'          => 'email',
 				'default_value' => 'Info@Domescahomes.com.au',
 			),
+		),
 		'location' => array(
 			array(
 				array( 'param' => 'options_page', 'operator' => '==', 'value' => 'dsc-theme-options' ),
@@ -163,7 +164,7 @@ function dsc_register_fields() {
 		),
 		'menu_order' => 0,
 		'show_in_rest' => true,
-	) ) );
+	) );
 
 	/* ---------------------------------------------------------------
 	 * Front / Landing page (ads.html as front page)
