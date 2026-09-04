@@ -11,8 +11,8 @@
 defined( 'ABSPATH' ) || exit;
 
 define( 'THEME_VERSION', '1.0.0' );
-define( 'THEME_DIR', get_template_directory() );
-define( 'THEME_URI', get_template_directory_uri() );
+define( 'THEME_DIR', get_stylesheet_directory() );
+define( 'THEME_URI', get_stylesheet_directory_uri() );
 
 // Compatibility aliases used by the older template part files.
 define( 'DSC_THEME_VERSION', THEME_VERSION );
