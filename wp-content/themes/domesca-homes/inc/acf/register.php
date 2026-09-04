@@ -484,6 +484,7 @@ function dsc_landing_process_fields() {
 				array( 'key' => 'field_dsc_l_proc_text', 'name' => 'text', 'label' => 'Description', 'type' => 'textarea', 'rows' => 3 ),
 			),
 		),
+		array( 'key' => 'field_dsc_l_proc_note_label', 'name' => 'note_label', 'label' => 'Note label', 'type' => 'text', 'default_value' => 'Indicative build timeframes.' ),
 		array( 'key' => 'field_dsc_l_proc_note', 'name' => 'note', 'label' => 'Note (WYSIWYG)', 'type' => 'wysiwyg', 'toolbar' => 'basic', 'media_upload' => 0 ),
 		array( 'key' => 'field_dsc_l_proc_btn', 'name' => 'button', 'label' => 'Button label', 'type' => 'text' ),
 		array( 'key' => 'field_dsc_l_proc_url', 'name' => 'url', 'label' => 'Button URL', 'type' => 'text' ),

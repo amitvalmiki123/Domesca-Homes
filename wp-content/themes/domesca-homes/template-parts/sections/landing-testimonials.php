@@ -56,7 +56,7 @@ if ( ! is_array( $items ) ) {
           <?php endif; ?>
           <figcaption class="tmc__by">
             <span class="tmc__av" aria-hidden="true"><?php echo esc_html( $init ); ?></span>
-            <span><b><?php echo esc_html( $name ); ?></b><span><?php echo esc_html( $role ); ?></span></span>
+            <span class="tmc__meta"><b><?php echo esc_html( $name ); ?></b><span><?php echo esc_html( $role ); ?></span></span>
           </figcaption>
         </figure>
       <?php $i++; endforeach; ?>

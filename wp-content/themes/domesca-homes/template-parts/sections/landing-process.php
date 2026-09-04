@@ -35,7 +35,10 @@ if ( ! is_array( $steps ) ) {
     </ol>
 
     <div class="proc__note rv">
-      <p><strong><?php echo esc_html__( 'Indicative build timeframes.', 'domesca-homes' ); ?></strong> <?php echo wp_kses_post( $key( 'note', $proc['note'] ) ); ?></p>
+      <div class="proc__note__text">
+        <strong class="proc__note__label"><?php echo esc_html( $key( 'note_label', 'Indicative build timeframes.' ) ); ?></strong>
+        <?php echo wp_kses_post( $key( 'note', $proc['note'] ) ); ?>
+      </div>
       <a class="btn" href="<?php echo esc_url( $key( 'url', '#enquiry-form' ) ); ?>"><?php echo esc_html( $key( 'button', $proc['button'] ) ); ?></a>
     </div>
   </div>
