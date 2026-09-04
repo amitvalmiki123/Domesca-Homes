@@ -30,38 +30,38 @@ Form tab code:
   <div class="field--2">
     <div class="field">
       <label>Full name <span class="req">*</span></label>
-      [text* name autocomplete:name placeholder "Your name"]
+      [text* your-name autocomplete:name placeholder "Your name"]
     </div>
     <div class="field">
       <label>Phone <span class="req">*</span></label>
-      [tel* phone autocomplete:tel placeholder "04__ ___ ___"]
+      [tel* your-phone autocomplete:tel placeholder "04__ ___ ___"]
     </div>
   </div>
 
   <div class="field">
     <label>Email <span class="req">*</span></label>
-    [email* email autocomplete:email placeholder "you@example.com"]
+    [email* your-email autocomplete:email placeholder "you@example.com"]
   </div>
 
   <div class="field--2">
     <div class="field">
       <label>Project type</label>
-      [select project_type "New home construction" "Knockdown rebuild" "Custom / luxury home" "Not sure yet"]
+      [select your-project-type "New home construction" "Knockdown rebuild" "Custom / luxury home" "Not sure yet"]
     </div>
     <div class="field">
       <label>Project suburb</label>
-      [text suburb placeholder "e.g. Hillside"]
+      [text your-suburb placeholder "e.g. Hillside"]
     </div>
   </div>
 
   <div class="field">
     <label>What stage are you at?</label>
-    [select stage "I have plans and permits ready" "I have plans, but no permits yet" "I have land, but no plans yet" "I'm still looking for land" "I have a home to knock down and rebuild" "Just starting to research"]
+    [select your-stage "I have plans and permits ready" "I have plans, but no permits yet" "I have land, but no plans yet" "I'm still looking for land" "I have a home to knock down and rebuild" "Just starting to research"]
   </div>
 
   <div class="field">
     <label>Tell us about your project</label>
-    [textarea message x3 placeholder "Site details, block size, budget range, timing…"]
+    [textarea your-message x3 placeholder "Site details, block size, budget range, timing…"]
   </div>
 
   [submit "Send My Enquiry"]
@@ -70,17 +70,17 @@ Form tab code:
 
 Mail tab defaults:
 - **To**: `Info@Domescahomes.com.au`
-- **From**: `[your-name] <[email]>` (ya WordPress admin email)
-- **Subject**: `New enquiry from [project_type] — [name]`
+- **From**: `[your-name] <[your-email]>` (ya WordPress admin email)
+- **Subject**: `New enquiry from [your-project-type] — [your-name]`
 - **Message**:
   ```
-  Name: [name]
-  Phone: [phone]
-  Email: [email]
-  Project type: [project_type]
-  Suburb: [suburb]
-  Stage: [stage]
-  Message: [message]
+  Name: [your-name]
+  Phone: [your-phone]
+  Email: [your-email]
+  Project type: [your-project-type]
+  Suburb: [your-suburb]
+  Stage: [your-stage]
+  Message: [your-message]
   ```
 
 ---
@@ -96,27 +96,27 @@ Form tab code:
   <div class="field--2">
     <div class="field">
       <label>Full name <span class="req">*</span></label>
-      [text* name autocomplete:name placeholder "Your name"]
+      [text* your-name autocomplete:name placeholder "Your name"]
     </div>
     <div class="field">
       <label>Phone <span class="req">*</span></label>
-      [tel* phone autocomplete:tel placeholder "04__ ___ ___"]
+      [tel* your-phone autocomplete:tel placeholder "04__ ___ ___"]
     </div>
   </div>
 
   <div class="field">
     <label>Email <span class="req">*</span></label>
-    [email* email autocomplete:email placeholder "you@example.com"]
+    [email* your-email autocomplete:email placeholder "you@example.com"]
   </div>
 
   <div class="field">
     <label>Project type</label>
-    [select project_type "New home construction" "Knockdown rebuild" "Custom / luxury home" "Not sure yet"]
+    [select your-project-type "New home construction" "Knockdown rebuild" "Custom / luxury home" "Not sure yet"]
   </div>
 
   <div class="field">
     <label>Your message</label>
-    [textarea message x4 placeholder "Tell us about your project…"]
+    [textarea your-message x4 placeholder "Tell us about your project…"]
   </div>
 
   [submit "Send My Enquiry"]
@@ -125,15 +125,15 @@ Form tab code:
 
 Mail tab defaults:
 - **To**: `Info@Domescahomes.com.au`
-- **From**: `[your-name] <[email]>`
-- **Subject**: `New enquiry from [project_type] — [name]`
+- **From**: `[your-name] <[your-email]>`
+- **Subject**: `New enquiry from [your-project-type] — [your-name]`
 - **Message**:
   ```
-  Name: [name]
-  Phone: [phone]
-  Email: [email]
-  Project type: [project_type]
-  Message: [message]
+  Name: [your-name]
+  Phone: [your-phone]
+  Email: [your-email]
+  Project type: [your-project-type]
+  Message: [your-message]
   ```
 
 ---
