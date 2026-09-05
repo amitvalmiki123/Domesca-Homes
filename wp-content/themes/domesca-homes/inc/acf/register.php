@@ -346,6 +346,72 @@ function dsc_register_fields() {
 		'menu_order' => 2,
 		'show_in_rest' => true,
 	) );
+
+	/* ---------------------------------------------------------------
+	 * Page Banner Fields (for inner pages)
+	 * --------------------------------------------------------------- */
+	acf_add_local_field_group( array(
+		'key'      => 'group_dsc_page_banner',
+		'title'    => __( 'Page Banner Settings', 'domesca-homes' ),
+		'fields'   => array(
+			array(
+				'key'          => 'field_dsc_banner_title',
+				'name'         => 'banner_title',
+				'label'        => 'Custom Banner Heading',
+				'instructions' => 'Leave empty to use the page title.',
+				'type'         => 'text',
+			),
+			array(
+				'key'          => 'field_dsc_banner_sub',
+				'name'         => 'banner_sub',
+				'label'        => 'Banner Subtitle',
+				'instructions' => 'Short introductory text displayed beneath the heading.',
+				'type'         => 'textarea',
+				'rows'         => 3,
+			),
+			array(
+				'key'           => 'field_dsc_banner_image',
+				'name'          => 'banner_image',
+				'label'         => 'Banner Background Image',
+				'type'          => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			),
+			array(
+				'key'           => 'field_dsc_banner_plain',
+				'name'          => 'banner_plain',
+				'label'         => 'Hide Enquiry Form on Banner (Plain Mode)',
+				'type'          => 'true_false',
+				'default_value' => 0,
+				'ui'            => 1,
+			),
+		),
+		'location' => array(
+			array(
+				array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/template-about.php' ),
+			),
+			array(
+				array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/template-services.php' ),
+			),
+			array(
+				array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/template-service-detail.php' ),
+			),
+			array(
+				array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/template-portfolio.php' ),
+			),
+			array(
+				array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/template-contact.php' ),
+			),
+			array(
+				array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/template-location.php' ),
+			),
+			array(
+				array( 'param' => 'page_template', 'operator' => '==', 'value' => 'default' ),
+			),
+		),
+		'menu_order' => 10,
+		'show_in_rest' => true,
+	) );
 }
 add_action( 'acf/init', 'dsc_register_fields' );
 

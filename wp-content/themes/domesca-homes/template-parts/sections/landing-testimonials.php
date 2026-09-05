@@ -7,24 +7,31 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$section  = isset( $args['section'] ) ? $args['section'] : array();
+$section  = isset( $args['section'] ) && is_array( $args['section'] ) ? $args['section'] : array();
 $defaults = dsc_default_landing();
-$tm       = $defaults['testimonials'];
-$key      = function( $name, $fallback ) use ( $section ) {
-	return dsc_row_key( $section, $name, $fallback );
-};
+$tm       = isset( $defaults['testimonials'] ) && is_array( $defaults['testimonials'] ) ? $defaults['testimonials'] : array();
 
-$items = $key( 'items', $tm['items'] );
-if ( ! is_array( $items ) ) {
-	$items = $tm['items'];
+$eyebrow  = dsc_row_key( $section, 'eyebrow', isset( $tm['eyebrow'] ) ? $tm['eyebrow'] : 'Testimonials' );
+$title    = dsc_row_key( $section, 'title', isset( $tm['title'] ) ? $tm['title'] : 'What our clients <span class="serif-accent">say.</span>' );
+$lead     = dsc_row_key( $section, 'lead', isset( $tm['lead'] ) ? $tm['lead'] : 'Real reviews from homeowners and developers across Melbourne.' );
+$foot     = dsc_row_key( $section, 'foot', isset( $tm['foot'] ) ? $tm['foot'] : 'Whether it\'s a family home or an investment development, we take the time to understand your goals.' );
+$foot_btn = dsc_row_key( $section, 'foot_button', isset( $tm['foot_btn'] ) ? $tm['foot_btn'] : ( isset( $tm['foot_button'] ) ? $tm['foot_button'] : 'Get Your Free Quote' ) );
+
+$items = dsc_row_key( $section, 'items', isset( $tm['items'] ) ? $tm['items'] : array() );
+if ( ! is_array( $items ) || empty( $items ) ) {
+	$items = isset( $tm['items'] ) ? $tm['items'] : array();
 }
 ?>
 <section class="sec tm" id="testimonials">
   <div class="wrap wrap-wide">
     <div class="sec-head rv">
-      <p class="eyebrow eyebrow--light"><?php echo esc_html( $key( 'eyebrow', $tm['eyebrow'] ) ); ?></p>
-      <h2 class="d2"><?php echo wp_kses_post( $key( 'title', $tm['title'] ) ); ?></h2>
-      <p class="lead"><?php echo esc_html( $key( 'lead', $tm['lead'] ) ); ?></p>
+      <?php if ( $eyebrow ) : ?>
+        <p class="eyebrow eyebrow--light"><?php echo esc_html( $eyebrow ); ?></p>
+      <?php endif; ?>
+      <h2 class="d2"><?php echo wp_kses_post( $title ); ?></h2>
+      <?php if ( $lead ) : ?>
+        <p class="lead"><?php echo esc_html( $lead ); ?></p>
+      <?php endif; ?>
     </div>
 
     <div class="tm__grid">
@@ -33,9 +40,9 @@ if ( ! is_array( $items ) ) {
         $delay = 0 === $i ? '' : ( 1 === $i ? ' rv-d1' : ' rv-d2' );
         $quote = dsc_row_key( $item, 'quote', '' );
         $more  = dsc_row_key( $item, 'more', '' );
-        $init  = dsc_row_key( $item, 'initials', 'JS' );
-        $name  = dsc_row_key( $item, 'name', '' );
-        $role  = dsc_row_key( $item, 'role', '' );
+        $name  = dsc_row_key( $item, 'name', dsc_row_key( $item, 'author', 'Client' ) );
+        $init  = dsc_row_key( $item, 'initials', strtoupper( substr( $name, 0, 2 ) ) );
+        $role  = dsc_row_key( $item, 'role', dsc_row_key( $item, 'meta', '' ) );
         $id    = 'tm-' . ( $i + 1 );
         ?>
         <figure class="tmc rv<?php echo esc_attr( $delay ); ?>">
@@ -62,9 +69,11 @@ if ( ! is_array( $items ) ) {
       <?php $i++; endforeach; ?>
     </div>
 
+    <?php if ( $foot || $foot_btn ) : ?>
     <div class="tm__foot rv">
-      <p><?php echo esc_html( $key( 'foot', $tm['foot'] ) ); ?></p>
-      <a class="btn btn--white" href="#enquiry-form"><?php echo esc_html( $key( 'foot_button', $tm['foot_btn'] ) ); ?></a>
+      <?php if ( $foot ) : ?><p><?php echo esc_html( $foot ); ?></p><?php endif; ?>
+      <?php if ( $foot_btn ) : ?><a class="btn btn--white" href="#enquire"><?php echo esc_html( $foot_btn ); ?></a><?php endif; ?>
     </div>
+    <?php endif; ?>
   </div>
 </section>

@@ -9,14 +9,14 @@ defined( 'ABSPATH' ) || exit;
 
 $section = isset( $args['section'] ) && is_array( $args['section'] ) ? $args['section'] : array();
 
-$title       = dsc_row_key( $section, 'title' ) ?: get_the_title();
-$sub         = dsc_row_key( $section, 'sub' ) ?: dsc_field( 'banner_sub', '' );
-$image       = dsc_row_key( $section, 'image' ) ?: dsc_field( 'banner_image', '' );
-$plain       = dsc_row_key( $section, 'plain', false );
+$title       = dsc_field( 'banner_title', '' ) ?: ( dsc_row_key( $section, 'title' ) ?: get_the_title() );
+$sub         = dsc_field( 'banner_sub', '' ) ?: ( dsc_row_key( $section, 'sub' ) ?: get_the_excerpt() );
+$image       = dsc_field( 'banner_image', '' ) ?: ( dsc_row_key( $section, 'image' ) ?: 'exterior-townhouse-dusk.jpg' );
+$plain       = dsc_field( 'banner_plain', false ) ?: dsc_row_key( $section, 'plain', false );
 $crumb_title = dsc_row_key( $section, 'crumb_title' ) ?: get_the_title();
 
 if ( ! $sub ) {
-	$sub = get_the_excerpt() ?: dsc_tagline() . ' — Custom homes, townhouse and unit developments, renovations and extensions across Melbourne.';
+	$sub = dsc_tagline() . ' — Custom homes, townhouse and unit developments, renovations and extensions across Melbourne.';
 }
 
 $img_data = dsc_image_data( $image, array(

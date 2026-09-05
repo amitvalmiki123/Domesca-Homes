@@ -15,7 +15,7 @@ if ( $cf7 && function_exists( 'do_shortcode' ) ) {
 }
 
 $defaults = dsc_default_landing();
-$types    = $defaults['enquiry_types'];
+$types    = isset( $defaults['enquiry_types'] ) && is_array( $defaults['enquiry_types'] ) ? $defaults['enquiry_types'] : array();
 ?>
 <form class="qform__body" data-dsc-form novalidate>
   <div class="field--2">
