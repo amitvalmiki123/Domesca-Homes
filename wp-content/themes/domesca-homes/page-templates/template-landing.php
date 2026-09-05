@@ -4,7 +4,7 @@
  * Template Post Type: page
  *
  * Use this template for the paid-traffic landing page (converted from
- * ads.html). Assign it to the page set as the static front page.
+ * ads.html). Assign it to the page set as the static front page or ADS page.
  *
  * @package Domesca_Homes
  */
@@ -20,11 +20,17 @@ if ( have_posts() ) {
 $sections = dsc_rows( 'landing_sections', array() );
 
 if ( empty( $sections ) ) :
-	?>
-	<div id="page-<?php the_ID(); ?>" class="dsc-entry dsc-entry--landing">
-		<?php the_content(); ?>
-	</div>
-	<?php
+	get_template_part( 'template-parts/sections/landing-hero' );
+	get_template_part( 'template-parts/sections/landing-creds' );
+	get_template_part( 'template-parts/sections/landing-about' );
+	get_template_part( 'template-parts/sections/landing-why' );
+	get_template_part( 'template-parts/sections/landing-assure' );
+	get_template_part( 'template-parts/sections/landing-process' );
+	get_template_part( 'template-parts/sections/landing-projects' );
+	get_template_part( 'template-parts/sections/google-reviews' );
+	get_template_part( 'template-parts/sections/landing-areas' );
+	get_template_part( 'template-parts/sections/landing-faq' );
+	get_template_part( 'template-parts/sections/landing-cta' );
 else :
 	dsc_render_sections( $sections, 'landing' );
 endif;

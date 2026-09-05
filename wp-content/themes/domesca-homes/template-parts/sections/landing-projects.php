@@ -20,7 +20,7 @@ if ( ! is_array( $items ) || empty( $items ) ) {
 	$items = isset( $proj['items'] ) ? $proj['items'] : array();
 }
 ?>
-<section class="sec" id="portfolio">
+<section class="sec" id="projects">
   <div class="wrap wrap-wide">
     <div class="sec-head rv">
       <?php if ( $eyebrow ) : ?>

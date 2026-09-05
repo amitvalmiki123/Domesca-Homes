@@ -38,14 +38,14 @@ $phone_tx = dsc_phone_display();
   <div class="wrap wrap-wide hero__in">
     <div class="hero__copy">
       <?php if ( ! empty( $badges ) ) : ?>
-        <div class="hero__badges rv">
+        <ul class="hero__badges rv">
           <?php foreach ( $badges as $badge ) : ?>
             <?php $label = is_array( $badge ) ? dsc_row_key( $badge, 'label', '' ) : (string) $badge; ?>
             <?php if ( $label ) : ?>
-              <span class="hero__badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <?php echo esc_html( $label ); ?></span>
+              <li><span class="hero__badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <?php echo esc_html( $label ); ?></span></li>
             <?php endif; ?>
           <?php endforeach; ?>
-        </div>
+        </ul>
       <?php endif; ?>
 
       <?php if ( $eyebrow ) : ?>

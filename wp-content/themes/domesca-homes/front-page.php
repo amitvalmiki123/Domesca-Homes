@@ -23,7 +23,7 @@ if ( empty( $sections ) ) :
 	get_template_part( 'template-parts/sections/landing-assure' );
 	get_template_part( 'template-parts/sections/landing-process' );
 	get_template_part( 'template-parts/sections/landing-projects' );
-	get_template_part( 'template-parts/sections/landing-testimonials' );
+	get_template_part( 'template-parts/sections/google-reviews' );
 	get_template_part( 'template-parts/sections/landing-areas' );
 	get_template_part( 'template-parts/sections/landing-faq' );
 	get_template_part( 'template-parts/sections/landing-cta' );

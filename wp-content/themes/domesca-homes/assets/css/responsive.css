@@ -16,9 +16,7 @@
     max-height:calc(100vh - var(--sticky-top,112px) - 24px);
     overflow:auto;overscroll-behavior:contain
   }
-}@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}@media (max-width:1560px){
-  .hdr__phone{display:none}
-}@media (max-width:1440px){
+}@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}@media (max-width:1440px){
   .nav__link{font-size:.865rem;padding:12px 9px}
   .nav__link::after{left:9px;right:9px}
 }@media (max-width:1360px){
@@ -30,6 +28,7 @@
   .nav__link::after{left:5px;right:5px}
   .brand img{height:42px}
 }@media (max-width:1160px){
+  .hdr__phone{display:none}
   .nav,.hdr__cta .btn{display:none}
   .hdr__call{display:grid}
   .burger{display:grid;margin-left:0}
