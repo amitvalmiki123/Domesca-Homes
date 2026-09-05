@@ -23,6 +23,10 @@ function dsc_section_part( $layout = '', $page = 'landing' ) {
 		return '';
 	}
 
+	if ( in_array( $layout, array( 'google-reviews', 'google_reviews', 'grev' ), true ) ) {
+		return 'template-parts/sections/google-reviews';
+	}
+
 	$home_only = array( 'services', 'developers' );
 	if ( 'home' === $page && in_array( $layout, $home_only, true ) ) {
 		return 'template-parts/sections/home-' . $layout;

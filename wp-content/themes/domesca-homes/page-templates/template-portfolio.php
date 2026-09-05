@@ -27,7 +27,7 @@ get_template_part( 'template-parts/sections/page-banner', null, array( 'section'
 get_template_part( 'template-parts/sections/landing-creds' );
 get_template_part( 'template-parts/sections/landing-projects' );
 get_template_part( 'template-parts/sections/landing-why' );
-get_template_part( 'template-parts/sections/landing-testimonials' );
+get_template_part( 'template-parts/sections/google-reviews' );
 get_template_part( 'template-parts/sections/landing-cta' );
 
 get_footer();

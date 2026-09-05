@@ -25,7 +25,7 @@ $banner_args = array(
 get_template_part( 'template-parts/sections/page-banner', null, array( 'section' => $banner_args ) );
 get_template_part( 'template-parts/sections/landing-creds' );
 get_template_part( 'template-parts/sections/landing-about' );
-get_template_part( 'template-parts/sections/landing-testimonials' );
+get_template_part( 'template-parts/sections/google-reviews' );
 get_template_part( 'template-parts/sections/landing-projects' );
 get_template_part( 'template-parts/sections/landing-cta' );
 
