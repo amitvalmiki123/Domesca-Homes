@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/landing.css">
+<link rel="stylesheet" href="assets/css/ads.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
@@ -27,21 +27,48 @@
     <nav class="nav" aria-label="Primary">
       <div class="nav__item"><a class="nav__link" href="index.html">Home</a></div>
       <div class="nav__item"><a class="nav__link" href="index.html#about">About Us</a></div>
+      <div class="nav__item"><a class="nav__link" href="index.html#process">Plans &amp; Design</a></div>
       <div class="nav__item">
-        <a class="nav__link" href="index.html#services">Services
+        <a class="nav__link" href="index.html#services">Developments
           <svg class="chev" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z"/></svg>
         </a>
         <div class="drop">
-          <a href="index.html#plans">Our Plans</a>
-          <a href="index.html#services">New Builds</a>
           <a href="index.html#services">Townhouse Developments</a>
-          <a href="index.html#services">Multi-Unit Projects</a>
-          <a href="index.html#services">Extensions</a>
-          <a href="index.html#services">Renovations</a>
+          <a href="index.html#services">New Homes</a>
+          <a href="index.html#services">Unit Developments</a>
         </div>
       </div>
-      <div class="nav__item"><a class="nav__link" href="index.html#plans">Our Plans</a></div>
-      <div class="nav__item"><a class="nav__link" href="index.html#portfolio">Portfolio</a></div>
+      <div class="nav__item">
+        <a class="nav__link" href="index.html#services">Renovations &amp; Extensions
+          <svg class="chev" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z"/></svg>
+        </a>
+        <div class="drop">
+          <a href="index.html#services">Renovations &amp; Extensions</a>
+          <a href="index.html#services">Kitchen Renovations</a>
+          <a href="index.html#services">Bathroom Renovations</a>
+          <a href="index.html#services">Laundry Renovations</a>
+          <a href="index.html#services">House Extensions</a>
+        </div>
+      </div>
+      <div class="nav__item">
+        <a class="nav__link" href="index.html#projects">Projects
+          <svg class="chev" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z"/></svg>
+        </a>
+        <div class="drop">
+          <a href="index.html#projects">New Homes</a>
+          <a href="index.html#projects">Townhouse Developments</a>
+          <a href="index.html#projects">Unit Developments</a>
+          <a href="index.html#projects">Renovations &amp; Extensions</a>
+        </div>
+      </div>
+      <div class="nav__item">
+        <a class="nav__link" href="index.html#areas">Areas We Build
+          <svg class="chev" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z"/></svg>
+        </a>
+        <div class="drop">
+          <a href="index.html#areas">Locations (TBC)</a>
+        </div>
+      </div>
       <div class="nav__item"><a class="nav__link" href="index.html#contact">Contact Us</a></div>
     </nav>
 
@@ -53,6 +80,9 @@
         <span class="hdr__phone-tx"><small>Call us now</small><b>0411 526 251</b></span>
       </a>
       <a class="btn btn--dark" href="index.html#enquire">Get a Free Quote</a>
+      <a class="hdr__call" href="tel:+61411526251" aria-label="Call us on 0411 526 251">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+      </a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Open menu"><span></span></button>
     </div>
   </div>
@@ -71,21 +101,48 @@
     <ul class="mnav__body">
       <li><a class="mnav__a" href="index.html">Home</a></li>
       <li><a class="mnav__a" href="index.html#about">About Us</a></li>
+      <li><a class="mnav__a" href="index.html#process">Plans &amp; Design</a></li>
       <li>
-        <button class="mnav__a" type="button" aria-expanded="false">Services
-          <svg class="chev" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z"/></svg>
+        <button class="mnav__a" type="button" aria-expanded="false">Developments
+          <span class="mnav__pm" aria-hidden="true"></span>
         </button>
         <div class="mnav__sub"><div>
-          <a href="index.html#plans">Our Plans</a>
-          <a href="index.html#services">New Builds</a>
           <a href="index.html#services">Townhouse Developments</a>
-          <a href="index.html#services">Multi-Unit Projects</a>
-          <a href="index.html#services">Extensions</a>
-          <a href="index.html#services">Renovations</a>
+          <a href="index.html#services">New Homes</a>
+          <a href="index.html#services">Unit Developments</a>
         </div></div>
       </li>
-      <li><a class="mnav__a" href="index.html#plans">Our Plans</a></li>
-      <li><a class="mnav__a" href="index.html#portfolio">Portfolio</a></li>
+      <li>
+        <button class="mnav__a" type="button" aria-expanded="false">Renovations &amp; Extensions
+          <span class="mnav__pm" aria-hidden="true"></span>
+        </button>
+        <div class="mnav__sub"><div>
+          <a href="index.html#services">Renovations &amp; Extensions</a>
+          <a href="index.html#services">Kitchen Renovations</a>
+          <a href="index.html#services">Bathroom Renovations</a>
+          <a href="index.html#services">Laundry Renovations</a>
+          <a href="index.html#services">House Extensions</a>
+        </div></div>
+      </li>
+      <li>
+        <button class="mnav__a" type="button" aria-expanded="false">Projects
+          <span class="mnav__pm" aria-hidden="true"></span>
+        </button>
+        <div class="mnav__sub"><div>
+          <a href="index.html#projects">New Homes</a>
+          <a href="index.html#projects">Townhouse Developments</a>
+          <a href="index.html#projects">Unit Developments</a>
+          <a href="index.html#projects">Renovations &amp; Extensions</a>
+        </div></div>
+      </li>
+      <li>
+        <button class="mnav__a" type="button" aria-expanded="false">Areas We Build
+          <span class="mnav__pm" aria-hidden="true"></span>
+        </button>
+        <div class="mnav__sub"><div>
+          <a href="index.html#areas">Locations (TBC)</a>
+        </div></div>
+      </li>
       <li><a class="mnav__a" href="index.html#contact">Contact Us</a></li>
     </ul>
     <div class="mnav__foot">
@@ -197,7 +254,7 @@
       <p>We may update this policy from time to time. The current version will always be available on this page, with the date it was last updated shown at the top.</p>
 
       <div class="roof-rule" style="margin:2.6rem 0 1.8rem"></div>
-      <a class="btn" href="ADS.html">
+      <a class="btn" href="ads.html">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
         Back to Domesca Homes
       </a>
@@ -220,27 +277,28 @@
       </div>
 
       <nav class="ft__col" aria-label="Services">
-        <h3 class="ft__h"><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="ft-services">Services<span class="ft__ic" aria-hidden="true"></span></button></h3>
+        <h4><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="ft-services">Services<span class="ft__ic" aria-hidden="true"></span></button></h4>
         <div class="ft__panel" id="ft-services">
           <ul class="ft__nav">
-            <li><a href="index.html#plans">Our Plans</a></li>
-            <li><a href="index.html#services">New Builds</a></li>
+            <li><a href="index.html#services">New Home Construction</a></li>
             <li><a href="index.html#services">Townhouse Developments</a></li>
-            <li><a href="index.html#services">Multi-Unit Projects</a></li>
-            <li><a href="index.html#services">Extensions</a></li>
-            <li><a href="index.html#services">Renovations</a></li>
+            <li><a href="index.html#services">Unit Developments</a></li>
+            <li><a href="index.html#services">Renovations &amp; Extensions</a></li>
+            <li><a href="index.html#services">Kitchen Renovations</a></li>
+            <li><a href="index.html#services">Bathroom Renovations</a></li>
+            <li><a href="index.html#services">Laundry Renovations</a></li>
+            <li><a href="index.html#services">House Extensions</a></li>
           </ul>
         </div>
       </nav>
 
       <nav class="ft__col" aria-label="Company">
-        <h3 class="ft__h"><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="ft-company">Company<span class="ft__ic" aria-hidden="true"></span></button></h3>
+        <h4><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="ft-company">Company<span class="ft__ic" aria-hidden="true"></span></button></h4>
         <div class="ft__panel" id="ft-company">
           <ul class="ft__nav">
             <li><a href="index.html#about">About Us</a></li>
-            <li><a href="index.html#plans">Our Plans</a></li>
-            <li><a href="index.html#portfolio">Portfolio</a></li>
-            <li><a href="index.html#process">How We Build</a></li>
+            <li><a href="index.html#process">Plans &amp; Design</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
             <li><a href="index.html#testimonials">Testimonials</a></li>
             <li><a href="index.html#areas">Areas We Build</a></li>
             <li><a href="index.html#faq">FAQs</a></li>
@@ -250,7 +308,7 @@
       </nav>
 
       <div class="ft__col">
-        <h3 class="ft__h"><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="ft-touch">Get In Touch<span class="ft__ic" aria-hidden="true"></span></button></h3>
+        <h4><button class="ft__toggle" type="button" data-ft-toggle aria-expanded="true" aria-controls="ft-touch">Get In Touch<span class="ft__ic" aria-hidden="true"></span></button></h4>
         <div class="ft__panel" id="ft-touch">
           <ul class="ft__contact">
             <li>
@@ -276,14 +334,13 @@
       <nav aria-label="Footer">
         <a href="index.html#about">About</a>
         <a href="index.html#services">Services</a>
-        <a href="index.html#portfolio">Portfolio</a>
+        <a href="index.html#projects">Projects</a>
         <a href="index.html#contact">Contact</a>
-        <a href="privacy-policy.html" aria-current="page">Privacy Policy</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
       </nav>
     </div>
   </div>
 </footer>
-
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
