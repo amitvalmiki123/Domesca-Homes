@@ -19,6 +19,15 @@
   --ink-800:#171b21;
   --ink-700:#232830;
 
+  /* Dark SURFACES are a deep navy shaded from the brand blue rather than
+     near-black. It reads noticeably lighter and warmer than #0a0c0f while
+     keeping white text well clear of AA. Text stays on the --ink ramp. */
+  --surface-0:#0e1e34;   /* footer — the deepest step */
+  --surface-1:#12253f;   /* main dark sections, utility bar, form header */
+  --surface-2:#18314f;   /* raised cards on a dark section */
+  --surface-3:#1f3d60;   /* hover state for those cards */
+  --scrim:12,26,45;      /* rgb triplet for image overlays */
+
   --n-700:#39414d;
   --n-600:#5a6472;
   --n-500:#7b8492;
@@ -96,7 +105,7 @@ p:last-child{margin-bottom:0}
 
 .eyebrow{
   display:inline-flex;align-items:center;gap:.62em;
-  font-family:var(--f-display);font-size:.735rem;font-weight:600;
+  font-family:var(--f-display);font-size:.75rem;font-weight:600;
   letter-spacing:.19em;text-transform:uppercase;color:var(--blue);
   margin-bottom:1.05rem;
 }
@@ -135,7 +144,7 @@ p:last-child{margin-bottom:0}
 .btn:hover svg{transform:translateX(3px)}
 .btn:active{transform:translateY(0)}
 .btn--lg{padding:1.16em 2.05em;font-size:1rem}
-.btn--dark{--bg:var(--ink-900);--bd:var(--ink-900)}
+.btn--dark{--bg:var(--surface-1);--bd:var(--surface-1)}
 .btn--dark:hover{--bg:var(--blue);--bd:var(--blue)}
 .btn--ghost{--bg:transparent;--fg:var(--ink-900);--bd:var(--n-300)}
 .btn--ghost:hover{--bd:var(--ink-900);box-shadow:none}
@@ -153,7 +162,7 @@ p:last-child{margin-bottom:0}
 .link-arrow:hover{border-color:var(--blue);gap:.85em}
 
 /* ---------- 6. Utility bar ---------- */
-.util{background:var(--ink-900);color:rgba(255,255,255,.76);font-size:.815rem}
+.util{background:var(--surface-1);color:rgba(255,255,255,.76);font-size:.815rem}
 .util__in{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:42px;padding-block:7px}
 .util__tag{
   display:inline-flex;align-items:center;gap:.65em;
@@ -215,16 +224,6 @@ p:last-child{margin-bottom:0}
 .hdr__phone-tx small{display:block;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--n-600);font-family:var(--f-display);font-weight:600;line-height:1.5}
 .hdr__phone-tx b{display:block;font-family:var(--f-display);font-size:.96rem;font-weight:600;color:var(--ink-900);letter-spacing:-.01em;line-height:1.25}
 
-/* Tap-to-call on phones/tablets. The full phone block (.hdr__phone) is hidden
-   below 1560px, so this compact icon sits immediately left of the hamburger
-   and keeps one-tap calling available on every page. Same 46px box as the
-   burger so the pair reads as one control group. */
-.hdr__call{display:none;width:46px;height:46px;place-items:center;border:1px solid var(--n-200);
-  border-radius:var(--r);flex:0 0 46px;background:var(--blue-50);color:var(--blue);
-  transition:background .2s,color .2s,border-color .2s,transform .15s}
-.hdr__call svg{display:block}
-.hdr__call:hover,.hdr__call:focus-visible{background:var(--blue);border-color:var(--blue);color:#fff}
-.hdr__call:active{transform:scale(.93)}
 .burger{display:none;width:46px;height:46px;place-items:center;border:1px solid var(--n-200);border-radius:var(--r);flex:0 0 46px}
 .burger span{display:block;width:20px;height:1.5px;background:var(--ink-900);position:relative;transition:background .2s}
 .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:1.5px;background:var(--ink-900);transition:transform .3s var(--ease),top .3s var(--ease)}
@@ -254,7 +253,7 @@ p:last-child{margin-bottom:0}
   transition:visibility 0s linear var(--mnav-dur)
 }
 .mnav.is-open{visibility:visible;pointer-events:auto;transition-delay:0s}
-.mnav__scrim{position:fixed;inset:0;background:rgba(10,12,15,.56);opacity:0;touch-action:none;
+.mnav__scrim{position:fixed;inset:0;background:rgba(var(--scrim),.52);opacity:0;touch-action:none;
   transition:opacity var(--mnav-dur) var(--ease)}
 .mnav__panel{
   /* fixed, not absolute: the panel is then positioned against the viewport and
@@ -316,23 +315,27 @@ html.is-locked{overflow:hidden}
 html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 
 /* ---------- 9. HERO ---------- */
-.hero{position:relative;background:var(--ink-900);color:#fff;isolation:isolate;overflow:hidden}
+.hero{position:relative;background:var(--surface-1);color:#fff;isolation:isolate;overflow:hidden}
 .hero__media{position:absolute;inset:0;z-index:-2}
 .hero__media img{width:100%;height:100%;object-fit:cover;object-position:center 62%;
   animation:heroZoom 22s var(--ease) forwards}
 @keyframes heroZoom{from{transform:scale(1.09)}to{transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.hero__media img{animation:none}}
+/* The scrim is kept deliberately EVEN across the width so the photograph reads
+   as a full-width image rather than fading out behind the copy. It still steps
+   down left-to-right, but only from .80 to .48 rather than .86 to .14, so the
+   picture is present everywhere instead of only on the right-hand side. */
 .hero__scrim{position:absolute;inset:0;z-index:-1;
   background:
-    linear-gradient(103deg, rgba(6,8,11,.94) 0%, rgba(6,8,11,.86) 34%, rgba(6,8,11,.52) 58%, rgba(6,8,11,.30) 100%),
-    linear-gradient(to top, rgba(6,8,11,.72) 0%, rgba(6,8,11,0) 42%);
+    linear-gradient(100deg, rgba(var(--scrim),.80) 0%, rgba(var(--scrim),.66) 40%, rgba(var(--scrim),.54) 72%, rgba(var(--scrim),.48) 100%),
+    linear-gradient(to top, rgba(var(--scrim),.34) 0%, rgba(var(--scrim),0) 40%);
 }
 .hero__in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,4.5vw,72px);
   align-items:center;padding-block:clamp(56px,6.6vw,104px);min-height:clamp(600px,84vh,860px)}
 .hero__copy{max-width:44rem}
 .hero .d1{color:#fff;text-wrap:balance}
 .hero .d1 em{display:block;color:var(--blue-200);font-size:.86em}
-.hero__sub{margin-top:1.25rem;font-size:clamp(1.03rem,1.35vw,1.19rem);line-height:1.7;color:rgba(255,255,255,.82);max-width:56ch}
+.hero__sub{margin-top:1.25rem;font-size:clamp(1.03rem,1.35vw,1.19rem);line-height:1.7;color:rgba(255,255,255,.9);max-width:56ch}
 .hero__actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:1.9rem}
 
 .hero__badges{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:1.25rem}
@@ -356,7 +359,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   background:#fff;color:var(--ink-850);border-radius:var(--r-lg);
   box-shadow:0 30px 80px rgba(0,0,0,.42);overflow:hidden;position:relative
 }
-.qform__head{padding:24px 26px 20px;background:var(--ink-900);color:#fff;position:relative;overflow:hidden}
+.qform__head{padding:24px 26px 20px;background:var(--surface-1);color:#fff;position:relative;overflow:hidden}
 .qform__head::after{
   content:"";position:absolute;right:-30px;top:-40px;width:150px;height:150px;border-radius:50%;
   background:radial-gradient(circle,rgba(22,83,166,.55),transparent 70%)
@@ -366,7 +369,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .qform__head p{margin:.5rem 0 0;font-size:.855rem;color:rgba(255,255,255,.66);line-height:1.55;position:relative}
 .qform__body{padding:20px 26px 24px;display:grid;gap:11px}
 .field{display:grid;gap:6px}
-.field label{font-family:var(--f-display);font-size:.735rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--n-600)}
+.field label{font-family:var(--f-display);font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--n-600)}
 .field label .req{color:var(--blue)}
 .field input,.field select,.field textarea{
   width:100%;padding:11px 14px;border:1px solid var(--n-200);border-radius:var(--r);
@@ -446,7 +449,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .svc__media{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--n-100)}
 .svc__media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
 .svc:hover .svc__media img{transform:scale(1.07)}
-.svc__media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(6,8,11,.6),transparent 55%)}
+.svc__media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(var(--scrim),.46),transparent 58%)}
 .svc__no{
   position:absolute;left:20px;bottom:16px;z-index:2;font-family:var(--f-display);font-weight:600;
   font-size:.76rem;letter-spacing:.18em;color:rgba(255,255,255,.82)
@@ -461,16 +464,26 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .svc__foot{margin-top:auto;padding-top:1.4rem}
 .svc .link-arrow{position:relative;z-index:2}
 
+/* ---------- 12b. Our Plans — the two routes in ---------- */
+.plan-routes{display:grid;gap:14px;margin-top:2.1rem;padding-top:1.9rem;border-top:1px solid var(--n-200)}
+.plan-route{display:flex;gap:16px;align-items:flex-start}
+.plan-route__ic{
+  flex:0 0 44px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;
+  background:var(--blue-50);color:var(--blue)
+}
+.plan-route h3{font-size:1.06rem;letter-spacing:-.018em;margin-bottom:.4rem}
+.plan-route p{font-size:.925rem;color:var(--n-600);line-height:1.64;margin:0}
+
 /* ---------- 13. Why choose (dark) ---------- */
-.why{background:var(--ink-900);color:#fff;position:relative;overflow:hidden;isolation:isolate}
+.why{background:var(--surface-1);color:#fff;position:relative;overflow:hidden;isolation:isolate}
 .why__bg{position:absolute;inset:0;z-index:-2}
 .why__bg img{width:100%;height:100%;object-fit:cover}
-.why__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(8,10,14,.97) 0%,rgba(8,10,14,.93) 45%,rgba(8,10,14,.8) 100%)}
+.why__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(var(--scrim),.90) 0%,rgba(var(--scrim),.84) 45%,rgba(var(--scrim),.62) 100%)}
 .why h2{color:#fff}
 .why .lead{color:rgba(255,255,255,.72)}
 .why__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:clamp(38px,4.5vw,64px);background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.11);border-radius:var(--r-lg);overflow:hidden}
-.why__cell{background:var(--ink-900);padding:clamp(26px,2.7vw,38px);position:relative;transition:background .35s}
-.why__cell:hover{background:var(--ink-800)}
+.why__cell{background:var(--surface-1);padding:clamp(26px,2.7vw,38px);position:relative;transition:background .35s}
+.why__cell:hover{background:var(--surface-2)}
 .why__cell b{display:block;font-family:var(--f-display);font-size:.75rem;font-weight:600;letter-spacing:.2em;color:var(--blue-200);margin-bottom:1.1rem}
 .why__cell h3{color:#fff;font-size:1.13rem;letter-spacing:-.018em;margin-bottom:.7rem}
 .why__cell p{font-size:.925rem;color:rgba(255,255,255,.66);line-height:1.66;margin:0}
@@ -503,7 +516,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   border:1px solid var(--n-200);background:#fff;color:var(--n-600);transition:all .25s var(--ease)
 }
 .chip:hover{border-color:var(--blue);color:var(--blue)}
-.chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--ink-900);border-color:var(--ink-900);color:#fff}
+.chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--surface-1);border-color:var(--surface-1);color:#fff}
 /* Mosaic: every tile spans the same number of implicit rows, so wide and
    narrow tiles always finish flush — no ragged gaps between rows. */
 .proj__grid{
@@ -520,7 +533,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .tile:hover img{transform:scale(1.06)}
 .tile__ov{
   position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:20px;color:#fff;background:linear-gradient(to top,rgba(6,8,11,.86) 0%,rgba(6,8,11,.18) 46%,transparent 72%);
+  padding:20px;color:#fff;background:linear-gradient(to top,rgba(var(--scrim),.80) 0%,rgba(var(--scrim),.16) 46%,transparent 72%);
   opacity:0;transition:opacity .4s var(--ease)
 }
 .tile:hover .tile__ov,.tile:focus-within .tile__ov{opacity:1}
@@ -536,7 +549,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .dev__media{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:5/4;box-shadow:var(--shadow-md)}
 .dev__media img{width:100%;height:100%;object-fit:cover}
 .dev__badge{
-  position:absolute;left:22px;bottom:22px;background:rgba(10,12,15,.88);backdrop-filter:blur(8px);
+  position:absolute;left:22px;bottom:22px;background:rgba(var(--scrim),.86);backdrop-filter:blur(8px);
   color:#fff;padding:14px 20px;border-radius:var(--r);border-left:2px solid var(--blue)
 }
 .dev__badge b{display:block;font-family:var(--f-display);font-size:.95rem;font-weight:600}
@@ -548,7 +561,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .dev__list svg{flex:0 0 auto;margin-top:4px;color:var(--blue)}
 
 /* ---------- 17. Testimonials ---------- */
-.tm{background:var(--ink-900);color:#fff}
+.tm{background:var(--surface-1);color:#fff}
 .tm h2{color:#fff}
 .tm .lead{color:rgba(255,255,255,.7)}
 .tm__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.9vw,26px);margin-top:clamp(38px,4.4vw,60px);align-items:stretch}
@@ -556,11 +569,11 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
    and the quote mark, "read full review" link and author block all line up
    across the grid, whatever length each review happens to be. */
 .tmc{
-  background:var(--ink-800);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);
+  background:var(--surface-2);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);
   padding:clamp(24px,2.6vw,34px);position:relative;transition:transform .4s var(--ease),border-color .3s,background .3s;
   display:flex;flex-direction:column;height:100%
 }
-.tmc:hover{transform:translateY(-5px);border-color:rgba(169,195,230,.4);background:var(--ink-700)}
+.tmc:hover{transform:translateY(-5px);border-color:rgba(169,195,230,.4);background:var(--surface-3)}
 .tmc__q{font-family:var(--f-accent);font-size:3.4rem;line-height:.6;color:var(--blue);display:block;margin-bottom:.55rem;flex:0 0 auto}
 .tmc__stars{display:flex;gap:3px;margin-bottom:1rem}
 .tmc__stars svg{color:#f0b429}
@@ -575,6 +588,163 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .tmc .more-btn:hover{border-color:var(--blue-200)}
 .tm__foot{margin-top:clamp(30px,3.4vw,44px);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
 .tm__foot p{margin:0;color:rgba(255,255,255,.6);font-size:.9rem}
+
+/* ---------- 16b. Inner-page banner ----------
+   Shorter than the homepage hero but the same construction: photo, navy scrim,
+   copy left, enquiry form right (the brief asks for a form in every landing
+   page banner). */
+.pbanner{position:relative;background:var(--surface-1);color:#fff;isolation:isolate;overflow:hidden}
+.pbanner__media{position:absolute;inset:0;z-index:-2}
+.pbanner__media img{width:100%;height:100%;object-fit:cover;object-position:center 58%}
+.pbanner__scrim{position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(100deg,rgba(var(--scrim),.80) 0%,rgba(var(--scrim),.66) 40%,rgba(var(--scrim),.56) 100%)}
+.pbanner__in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(30px,4vw,64px);align-items:center;padding-block:clamp(48px,5.6vw,86px)}
+.pbanner h1{color:#fff;text-wrap:balance;margin-top:.6rem}
+.pbanner__sub{margin-top:1.1rem;font-size:clamp(1rem,1.3vw,1.14rem);line-height:1.7;
+  color:rgba(255,255,255,.9);max-width:56ch}
+.pbanner .hero__actions{margin-top:1.7rem}
+
+/* No-form variant — used where a banner form would duplicate the page's own
+   purpose, e.g. Contact. Single column, copy constrained so the line length
+   stays readable across the full width. */
+.pbanner--plain .pbanner__in{grid-template-columns:1fr;padding-block:clamp(52px,6vw,92px)}
+.pbanner--plain .pbanner__copy{max-width:64ch}
+
+.crumb{display:flex;flex-wrap:wrap;align-items:center;gap:.55em;
+  font-family:var(--f-display);font-size:.775rem;font-weight:500;color:rgba(255,255,255,.74)}
+.crumb a{border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.crumb a:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+.crumb [aria-current]{color:var(--blue-200)}
+
+/* ---------- 16c. Alternating content/image rows ----------
+   The inner-page rhythm: copy one side, image the other, flipping each row.
+   .split--flip moves the media to the left on wide screens; on narrow screens
+   every row stacks with the image first so the page still reads image-then-text. */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(32px,4.6vw,76px);align-items:center}
+.split + .split{margin-top:clamp(56px,7vw,104px)}
+.split__media{position:relative;border-radius:var(--r-lg);overflow:hidden;
+  aspect-ratio:4/3;box-shadow:var(--shadow-md)}
+.split__media img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.split__media:hover img{transform:scale(1.04)}
+.split--flip .split__media{order:-1}
+.split__copy .eyebrow{margin-bottom:.9rem}
+.split__copy h2,.split__copy h3{margin-bottom:1rem}
+.split__list{display:grid;gap:11px;margin-top:1.5rem}
+.split__list li{display:flex;gap:.75em;align-items:flex-start;font-size:.945rem;color:var(--n-700);line-height:1.6}
+.split__list svg{flex:0 0 auto;margin-top:4px;color:var(--blue)}
+.split__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:1.9rem}
+
+/* A caption plate on the image, same treatment as the developers band. */
+.split__tag{
+  position:absolute;left:18px;bottom:18px;background:rgba(var(--scrim),.86);
+  backdrop-filter:blur(8px);color:#fff;padding:11px 16px;border-radius:var(--r);
+  border-left:2px solid var(--blue);font-family:var(--f-display);font-size:.83rem;font-weight:500
+}
+
+@media (max-width:980px){
+  .pbanner__in{grid-template-columns:1fr;gap:34px;padding-block:clamp(40px,7vw,64px)}
+  .qform{max-width:560px}
+  .split{grid-template-columns:1fr;gap:28px}
+  .split--flip .split__media,.split__media{order:-1}
+  .split__media{aspect-ratio:16/10}
+}
+
+/* ---------- 16d. Contact page ----------
+   Contact carries only the three things it should: details, map and one form.
+   The contact rows reuse .cta__meta's shape but on a light background. */
+.contact-meta{display:grid;gap:14px;margin-top:2rem}
+.contact-meta a,.contact-meta div{display:flex;align-items:center;gap:14px}
+.contact-meta .ic{
+  width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:50%;
+  background:var(--blue-50);color:var(--blue);transition:all .3s var(--ease)
+}
+.contact-meta a:hover .ic{background:var(--blue);color:#fff;transform:translateY(-2px)}
+.contact-meta small{display:block;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--n-600);font-family:var(--f-display);font-weight:600}
+.contact-meta b{display:block;font-family:var(--f-display);font-size:1.02rem;font-weight:500;
+  color:var(--ink-900);letter-spacing:-.01em}
+.contact-meta a:hover b{color:var(--blue)}
+
+/* The map runs the full width of the viewport at the foot of the page, so it
+   sits outside .wrap and breaks the usual gutter. */
+.contact-map-full{position:relative;line-height:0;border-top:1px solid var(--n-200)}
+.contact-map-full iframe{
+  width:100%;height:clamp(320px,40vw,540px);border:0;display:block;
+  filter:grayscale(.35) contrast(1.04)
+}
+
+/* On a light band the form needs its own edge, since the dark header that
+   normally frames .qform is not there. */
+.qform--light{border:1px solid var(--n-200);box-shadow:var(--shadow-md)}
+.qform--light .qform__body{padding:clamp(22px,2.4vw,30px)}
+/* The form sits in the split's second column, so it must not be centre-aligned
+   with the copy — it stretches to fill its own cell. */
+.split > .qform{align-self:stretch}
+
+/* ---------- 17b. Google Reviews ----------
+   White cards on the navy band so Google's own colours read correctly. The
+   aggregate rating and review count are placeholders until the real Google
+   Business Profile figures are supplied — the .ph highlight marks them. */
+.grev{display:grid;grid-template-columns:300px minmax(0,1fr);gap:clamp(24px,3vw,44px);
+  margin-top:clamp(36px,4.2vw,58px);align-items:start}
+
+.grev__summary{
+  background:#fff;border-radius:var(--r-lg);padding:clamp(24px,2.4vw,30px);
+  box-shadow:0 18px 44px rgba(0,0,0,.22);position:sticky;top:110px
+}
+.grev__brand{display:flex;align-items:center;gap:10px;margin-bottom:1.1rem}
+.grev__brand b{font-family:var(--f-display);font-size:1rem;font-weight:600;color:var(--ink-900);letter-spacing:-.01em}
+.grev__score{display:flex;align-items:baseline;gap:10px}
+.grev__score b{font-family:var(--f-display);font-size:2.9rem;font-weight:600;letter-spacing:-.04em;color:var(--ink-900);line-height:1}
+.grev__score span{font-size:.85rem;color:var(--n-600)}
+.grev__stars{display:flex;gap:2px;margin-top:.7rem}
+.grev__stars svg{color:#fbbc04}
+.grev__count{margin-top:.55rem;font-size:.875rem;color:var(--n-600)}
+.grev__actions{display:grid;gap:9px;margin-top:1.4rem}
+.grev__actions .btn{width:100%;font-size:.875rem;padding:.9em 1.2em}
+.ph{
+  display:inline-block;background:#ffe9a8;border-bottom:2px dotted #d99000;
+  padding:0 .28em;border-radius:2px;color:#5c4200;font-style:normal
+}
+.grev__score .ph{font-size:2.9rem;line-height:1}
+
+.grev__list{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.7vw,22px)}
+.grevc{
+  background:#fff;border-radius:var(--r-lg);padding:clamp(20px,2.1vw,26px);
+  display:flex;flex-direction:column;height:100%;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease)
+}
+.grevc:hover{transform:translateY(-5px);box-shadow:0 20px 46px rgba(0,0,0,.26)}
+.grevc__head{display:flex;align-items:center;gap:12px;flex:0 0 auto}
+.grevc__av{
+  width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-display);font-weight:600;font-size:.95rem;color:#fff
+}
+.grevc__who{min-width:0}
+.grevc__who b{display:block;font-family:var(--f-display);font-size:.94rem;font-weight:600;color:var(--ink-900);letter-spacing:-.01em}
+.grevc__who span{display:block;font-size:.77rem;color:var(--n-600)}
+.grevc__g{margin-left:auto;flex:0 0 auto}
+.grevc__stars{display:flex;gap:2px;margin:.95rem 0 .8rem;flex:0 0 auto}
+.grevc__stars svg{color:#fbbc04}
+.grevc blockquote{margin:0;font-size:.925rem;line-height:1.72;color:var(--n-700);flex:1 1 auto}
+.grevc blockquote p{margin-bottom:.85em}
+.grevc .more-btn{font-size:.82rem;margin-top:.9rem;align-self:flex-start;flex:0 0 auto}
+
+@media (max-width:1080px){
+  .grev{grid-template-columns:1fr}
+  .grev__summary{position:static;display:grid;grid-template-columns:auto 1fr;gap:8px 28px;align-items:center}
+  .grev__brand{grid-column:1/-1;margin-bottom:0}
+  .grev__actions{grid-column:1/-1;grid-template-columns:1fr 1fr;margin-top:.6rem}
+}
+@media (max-width:860px){
+  .grev__list{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .grev__summary{grid-template-columns:1fr}
+  .grev__actions{grid-template-columns:1fr}
+}
 
 /* ---------- 18. Areas ---------- */
 .areas__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(34px,4.6vw,72px);align-items:center}
@@ -661,10 +831,10 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .faq__grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(32px,4vw,64px);align-items:start}
 
 /* ---------- 20. Final CTA / contact ---------- */
-.cta{position:relative;background:var(--ink-900);color:#fff;overflow:hidden;isolation:isolate}
+.cta{position:relative;background:var(--surface-1);color:#fff;overflow:hidden;isolation:isolate}
 .cta__bg{position:absolute;inset:0;z-index:-2}
 .cta__bg img{width:100%;height:100%;object-fit:cover}
-.cta__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(6,8,11,.96) 0%,rgba(6,8,11,.9) 42%,rgba(6,8,11,.62) 100%)}
+.cta__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(var(--scrim),.82) 0%,rgba(var(--scrim),.68) 42%,rgba(var(--scrim),.56) 100%)}
 .cta__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.86fr);gap:clamp(36px,5vw,80px);align-items:center}
 .cta h2{color:#fff}
 .cta__sub{margin-top:1.35rem;font-size:clamp(1rem,1.3vw,1.14rem);line-height:1.7;color:rgba(255,255,255,.78);max-width:52ch}
@@ -676,14 +846,14 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .cta__meta b{display:block;font-family:var(--f-display);font-size:1.02rem;font-weight:500;color:#fff;letter-spacing:-.01em}
 
 /* ---------- 21. Footer ---------- */
-.ft{background:#050609;color:rgba(255,255,255,.62);font-size:.9rem}
+.ft{background:var(--surface-0);color:rgba(255,255,255,.62);font-size:.9rem}
 .ft__top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;gap:clamp(28px,3.4vw,52px);padding-block:clamp(52px,6vw,82px)}
 .ft__logo img{height:52px;width:auto;filter:brightness(0) invert(1)}
 .ft__about{margin-top:1.4rem;line-height:1.72;color:rgba(255,255,255,.55);font-size:.895rem;max-width:38ch}
 .ft__soc{display:flex;gap:10px;margin-top:1.5rem}
 .ft__soc a{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.16);border-radius:50%;color:rgba(255,255,255,.7);transition:all .3s var(--ease)}
 .ft__soc a:hover{background:var(--blue);border-color:var(--blue);color:#fff;transform:translateY(-2px)}
-.ft h4{color:#fff;font-size:.775rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:1.35rem}
+.ft .ft__h{color:#fff;font-size:.775rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:1.35rem}
 /* Footer headings double as accordion triggers on phones (section 25). Here the
    button simply inherits the h4, so the desktop footer looks untouched and the
    marker stays hidden until the columns stack. */
@@ -725,7 +895,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 }
 .mbar a{display:flex;align-items:center;justify-content:center;gap:.55em;padding:15px 10px;
   flex:1 1 0;min-width:0;max-width:50%;
-  font-family:var(--f-display);font-weight:600;font-size:.9rem;background:var(--ink-900);color:#fff}
+  font-family:var(--f-display);font-weight:600;font-size:.9rem;background:var(--surface-1);color:#fff}
 .mbar a svg{flex:0 0 auto}
 .mbar__t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mbar a.is-primary{background:var(--blue)}
@@ -772,30 +942,34 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 /* ==========================================================================
    25. Responsive
    ========================================================================== */
-/* The primary menu carries 8 top-level items, so the header is stepped down
-   in three stages before it collapses to the off-canvas menu. The phone number
-   stays reachable throughout via the utility bar and the sticky mobile bar. */
-@media (max-width:1560px){
-  .hdr__phone{display:none}
-}
-@media (max-width:1440px){
-  .nav__link{font-size:.865rem;padding:12px 9px}
+/* The approved menu is six top-level items, so the header needs far less
+   shepherding than the old eight-item one: the phone number now survives down
+   to ~1100px, and the full menu to the tablet breakpoint. Below that the
+   off-canvas menu takes over and the phone lives in the utility bar and the
+   sticky mobile bar. */
+@media (max-width:1280px){
+  .nav__link{font-size:.87rem;padding:12px 9px}
   .nav__link::after{left:9px;right:9px}
 }
-@media (max-width:1360px){
-  .nav__link{font-size:.83rem;padding:12px 7px}
-  .nav__link::after{left:7px;right:7px}
-  .hdr__cta .btn{padding:.92em 1.3em;font-size:.875rem}
+@media (max-width:1100px){
+  .hdr__phone{display:none}
+  .brand img{height:44px}
 }
-@media (max-width:1240px){
-  .nav__link{padding:12px 5px}
-  .nav__link::after{left:5px;right:5px}
-  .brand img{height:42px}
-}
-@media (max-width:1160px){
+@media (max-width:980px){
   .nav,.hdr__cta .btn{display:none}
-  .hdr__call{display:grid}
-  .burger{display:grid;margin-left:0}
+  .burger{display:grid;margin-left:auto}
+
+  /* Google's mobile-usability guidance is a ~48px touch target. An inline text
+     link is only as tall as its line box (~15-22px), so the ones people
+     actually tap get vertical padding on touch layouts. */
+  .util__links a{padding-block:11px}
+  .ft__nav a{padding-block:10px}
+  .ft__nav li{margin-bottom:0}
+  .ft__bot nav{gap:4px 20px}
+  .ft__bot nav a{padding-block:11px}
+  .ft__contact a{display:inline-block;padding-block:7px}
+  .more-btn{padding-block:9px}
+  .link-arrow{padding-block:8px}
 }
 @media (max-width:1080px){
   .hero__in{grid-template-columns:1fr;gap:44px;min-height:0;padding-block:clamp(56px,9vw,96px)}
@@ -807,8 +981,6 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
      too, not just phones. */
   .field input,.field select,.field textarea{font-size:16px}
   .svc-grid{grid-template-columns:1fr 1fr}
-  .svc:last-child{grid-column:1/-1}
-  .svc:last-child .svc__media{aspect-ratio:21/8}
   .why__grid{grid-template-columns:1fr 1fr}
   .proc__grid{grid-template-columns:repeat(3,1fr);gap:34px 24px}
   .step:nth-child(n+4)::before{width:100%}
@@ -826,7 +998,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   .cred:nth-child(3){border-left:0}
   .cred:nth-child(n+3){border-top:1px solid var(--n-200)}
   .tile,.tile.is-wide,.tile.is-half{grid-column:span 6}
-  .tile__ov{opacity:1;background:linear-gradient(to top,rgba(6,8,11,.82) 0%,rgba(6,8,11,.1) 44%,transparent 66%)}
+  .tile__ov{opacity:1;background:linear-gradient(to top,rgba(var(--scrim),.76) 0%,rgba(var(--scrim),.1) 44%,transparent 66%)}
   .tile__ov b,.tile__ov span{transform:none}
   .mbar{display:flex}
   body{padding-bottom:56px}
@@ -840,7 +1012,6 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   .util__links{flex-wrap:wrap;justify-content:center;gap:4px 16px;padding-block:2px}
   .util__sep{display:none}
   .svc-grid{grid-template-columns:1fr}
-  .svc:last-child .svc__media{aspect-ratio:16/11}
   .why__grid{grid-template-columns:1fr}
   .proc__grid{grid-template-columns:1fr 1fr}
   .about__points{grid-template-columns:1fr}
@@ -866,7 +1037,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   .ft__top{grid-template-columns:1fr;gap:0}
   .ft__brand{padding-bottom:30px}
   .ft__top>*+*{border-top:1px solid rgba(255,255,255,.1)}
-  .ft h4{margin-bottom:0}
+  .ft .ft__h{margin-bottom:0}
   .ft__toggle{padding:17px 0;cursor:pointer}
   .ft__ic{
     display:grid;place-items:center;position:relative;flex:0 0 26px;width:26px;height:26px;
