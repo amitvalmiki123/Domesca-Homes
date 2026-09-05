@@ -1,53 +1,47 @@
 # Domesca Homes — WordPress Parent/Child Theme
 
-Custom WordPress theme generated from the Domesca Homes static HTML design
-(Ads: `ads.html`, Main home: `index.html`), following the **WordPress Theme
-Conversion Master Prompt** workflow with a **Hybrid ACF Pro** implementation.
+Custom WordPress theme generated from the Domesca Homes website design
+(Ads: `ads.html`, Main home: `index.html`, and full site pages), following the
+**WordPress Theme Conversion Master Prompt** workflow with a **Hybrid ACF Pro**
+implementation.
 
 ## What is included
 
 - **Minimal parent theme** (`domesca-parent`) — 3 files only: `style.css`, `index.php`, `functions.php`.
-- **Child theme** (`domesca-homes`) — all theme work.
-- **Content Audit Table** (`CONTENT-AUDIT.md`) — Rule 2 field mapping for every page/section/element.
-- **defaults.php** — all original HTML content as PHP arrays (fallback).
-- **ACF field groups** in `inc/acf/` (hybrid: Repeater + Flexible Content + Options page).
+- **Child theme** (`domesca-homes`) — all theme templates, styling, scripts, and functionality.
+- **Page Templates**:
+  - `Domesca Landing Page` (`template-landing.php`) — Paid ads landing page (`ads.html`)
+  - `Domesca Home Page` (`template-home.php`) — Main homepage layout (`index.html`)
+  - `Domesca About Us` (`template-about.php`) — Company story & pillars (`about.html`)
+  - `Domesca Services` (`template-services.php`) — Services overview (`services.html`)
+  - `Domesca Service Detail` (`template-service-detail.php`) — New Builds, Extensions, Renovations, Multi-Unit, Townhouse Developments, Our Plans
+  - `Domesca Portfolio` (`template-portfolio.php`) — Photo gallery & completed projects (`portfolio.html`)
+  - `Domesca Contact Us` (`template-contact.php`) — Contact meta, form & Google map embed (`contact.html`)
+  - `Domesca Location Page` (`template-location.php`) — Suburb / Location page (`location-hillside.html`)
+- **Content Audit Table** (`CONTENT-AUDIT.md`) — Rule 2 field mapping.
+- **defaults.php** — All default HTML content as PHP fallback arrays (zero-config out of the box).
+- **ACF Pro field groups** in `inc/acf/` (Flexible Content + Repeater + Options page).
 - **WordPress Customizer** (`inc/customizer.php`) — colours, typography, spacing, container (Rule 19).
 - **CSS architecture** — `assets/css/main.css` (base) + `assets/css/responsive.css` (media queries only).
 - **Installable zips** — `domesca-parent.zip` and `domesca-homes.zip` in the repo root.
 
-## Folder structure
+## Navigation & Header
 
-```
-wp-content/themes/
-├── domesca-parent/                # minimal parent (3 files)
-└── domesca-homes/                 # child — all work
-    ├── style.css                  # Template: domesca-parent
-    ├── functions.php              # constants THEME_DIR/THEME_URI/THEME_VERSION
-    ├── defaults.php               # all original HTML content as arrays
-    ├── header.php / footer.php
-    ├── front-page.php             # ads.html front page
-    ├── page-templates/            # template-landing.php / template-home.php
-    ├── inc/
-    │   ├── setup.php / enqueue.php / nav.php / ajax.php / customizer.php
-    │   ├── helpers/
-    │   │   ├── field-helpers.php
-    │   │   ├── image-helpers.php
-    │   │   └── section-helpers.php
-    │   └── acf/
-    │       ├── register.php       # shared ACF Pro field registration
-    │       ├── options-fields.php
-    │       ├── landing-fields.php
-    │       └── home-fields.php
-    ├── template-parts/
-    │   ├── form/                  # enquiry / contact markup
-    │   └── sections/              # one self-contained file per section
-    │       ├── landing-*.php
-    │       └── home-*.php
-    └── assets/
-        ├── css/                   # main.css + responsive.css
-        ├── js/                    # main.js, theme-forms.js, customizer-preview.js
-        └── images/
-```
+- **Primary Menu**:
+  1. Home (`/`)
+  2. About Us (`/about-us/`)
+  3. Services (`/services/`) with dropdown:
+     - Our Plans (`/our-plans/`)
+     - New Builds (`/new-builds/`)
+     - Townhouse Developments (`/townhouse-developments/`)
+     - Multi-Unit Projects (`/multi-unit-projects/`)
+     - Extensions (`/extensions/`)
+     - Renovations (`/renovations/`)
+  4. Our Plans (`/our-plans/`)
+  5. Portfolio (`/portfolio/`)
+  6. Contact Us (`/contact-us/`)
+- **Header CTA**: Phone `0411 526 251` (`Call us now`) + `Get a Free Quote` button.
+- **Mobile Drawer**: Responsive off-canvas navigation with accessible +/- sub-menu toggles.
 
 ## Requirements
 
@@ -63,40 +57,11 @@ wp-content/themes/
 3. Install/activate ACF Pro (recommended).
 4. In **Settings → Reading**:
    - `Your homepage displays` → **A static page**
-   - `Homepage` → a page assigned to template **Domesca Landing Page**
+   - `Homepage` → a page assigned to template **Domesca Home Page** (or **Domesca Landing Page**)
 5. **Appearance → Menus → Manage Locations** → assign menus:
-   - **Header Primary Menu** → `Primary` (desktop nav + dropdown + mobile drawer)
-   - **Footer Menu (columns)** → `Footer` (footer columns: top-level = heading, children = links)
-   - **Footer Bottom Menu (legal/bottom bar)** → `Footer Bottom` (footer bottom-bar links)
-   (the theme creates default `Primary`, `Footer`, and `Footer Bottom` menus on
-   activation — edit/add them under **Appearance → Menus**.)
+   - **Header Primary Menu** → `Primary`
+   - **Footer Menu (columns)** → `Footer`
+   - **Footer Bottom Menu (legal/bottom bar)** → `Footer Bottom`
 6. **Header logo** → **Appearance → Customize → Site Identity → Logo**.
-   **Footer logo** → **Domesca Options → Footer → Footer logo** (separate image).
-7. **Domesca Options** — set contact, footer and form fields.
-8. Edit the front page and reorder **Landing Page Sections**.
-9. (Optional) Add Contact Form 7 forms and paste the shortcode into
-   **Domesca Options → Forms**.
-
-> **Footer columns note:** footer columns are driven by the WordPress `Footer`
-> menu (Appearance → Menus), not by a Domesca Options repeater.
-
-## How this follows the 19 rules
-
-| Rule | Implementation |
-|---|---|
-| 1 | Minimal parent (3 files) + full child theme |
-| 2 | `CONTENT-AUDIT.md` completed; ACF fields for every element |
-| 3 | Empty fields output nothing |
-| 4 | `show` + `order` on every section; `dsc_render_sections()` |
-| 5 | Original BEM-style HTML classes preserved |
-| 6–9 | CSS variables, `clamp()`, container widths in `main.css` |
-| 10 | Self-contained section files in `template-parts/sections/` |
-| 11 | `main.css` (base) + `responsive.css` (@media only) |
-| 12 | CF7 shortcode option + fallback to built-in AJAX forms |
-| 13 | One H1 per page |
-| 14 | Semantic header/footer with `wp_head`/`wp_footer`/`wp_body_open` |
-| 15 | 3-tier image alt fallback |
-| 16 | Escaping via `esc_html`/`esc_url`/`esc_attr`/`wp_kses_post` |
-| 17 | Security hardening (generator, XML-RPC, REST user, nosniff) |
-| 18 | Eager above-fold / lazy below-fold images, fonts with swap, width/height |
-| 19 | Customizer with live preview |
+   **Footer logo** → **Domesca Options → Footer → Footer logo**.
+7. **Domesca Options** — set contact info, phone `0411 526 251`, email, footer text, and forms.

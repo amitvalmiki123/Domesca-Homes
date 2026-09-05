@@ -57,60 +57,69 @@ function dsc_create_default_menus() {
 		$menu_id = $menu ? (int) $menu->term_id : 0;
 		if ( ! $menu_id ) {
 			$menu_id = wp_create_nav_menu( 'Primary' );
-			$items   = array(
-				'Home'           => home_url( '/' ),
-				'About Us'       => '#about',
-				'Plans & Design' => '#process',
+
+			// 1. Home
+			wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-title'  => __( 'Home', 'domesca-homes' ),
+				'menu-item-url'    => home_url( '/' ),
+				'menu-item-type'   => 'custom',
+				'menu-item-status' => 'publish',
+			) );
+
+			// 2. About Us
+			wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-title'  => __( 'About Us', 'domesca-homes' ),
+				'menu-item-url'    => home_url( '/about-us/' ),
+				'menu-item-type'   => 'custom',
+				'menu-item-status' => 'publish',
+			) );
+
+			// 3. Services (with dropdown children)
+			$services_id = wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-title'  => __( 'Services', 'domesca-homes' ),
+				'menu-item-url'    => home_url( '/services/' ),
+				'menu-item-type'   => 'custom',
+				'menu-item-status' => 'publish',
+			) );
+
+			$service_children = array(
+				'Our Plans'              => home_url( '/our-plans/' ),
+				'New Builds'             => home_url( '/new-builds/' ),
+				'Townhouse Developments' => home_url( '/townhouse-developments/' ),
+				'Multi-Unit Projects'    => home_url( '/multi-unit-projects/' ),
+				'Extensions'             => home_url( '/extensions/' ),
+				'Renovations'            => home_url( '/renovations/' ),
 			);
 
-			$parent_ids = array();
-			foreach ( $items as $title => $url ) {
-				$parent_ids[ $title ] = wp_update_nav_menu_item( $menu_id, 0, array(
-					'menu-item-title'  => $title,
-					'menu-item-url'    => $url,
+			foreach ( $service_children as $child_title => $child_url ) {
+				wp_update_nav_menu_item( $menu_id, $services_id, array(
+					'menu-item-title'  => $child_title,
+					'menu-item-url'    => $child_url,
 					'menu-item-type'   => 'custom',
 					'menu-item-status' => 'publish',
 				) );
 			}
 
-			$drops = array(
-				'Developments'         => array( 'Townhouse Developments', 'New Homes', 'Unit Developments' ),
-				'Renovations & Extensions' => array( 'Renovations & Extensions', 'Kitchen Renovations', 'Bathroom Renovations', 'Laundry Renovations', 'House Extensions' ),
-			);
-
-			foreach ( $drops as $parent_title => $children ) {
-				$parent_id = wp_update_nav_menu_item( $menu_id, 0, array(
-					'menu-item-title'  => $parent_title,
-					'menu-item-url'    => '#services',
-					'menu-item-type'   => 'custom',
-					'menu-item-status' => 'publish',
-				) );
-
-				foreach ( $children as $child_title ) {
-					wp_update_nav_menu_item( $menu_id, $parent_id, array(
-						'menu-item-title'  => $child_title,
-						'menu-item-url'    => '#services',
-						'menu-item-type'   => 'custom',
-						'menu-item-status' => 'publish',
-					) );
-				}
-			}
-
+			// 4. Our Plans
 			wp_update_nav_menu_item( $menu_id, 0, array(
-				'menu-item-title'  => 'Projects',
-				'menu-item-url'    => '#projects',
+				'menu-item-title'  => __( 'Our Plans', 'domesca-homes' ),
+				'menu-item-url'    => home_url( '/our-plans/' ),
 				'menu-item-type'   => 'custom',
 				'menu-item-status' => 'publish',
 			) );
+
+			// 5. Portfolio
 			wp_update_nav_menu_item( $menu_id, 0, array(
-				'menu-item-title'  => 'Areas We Build',
-				'menu-item-url'    => '#areas',
+				'menu-item-title'  => __( 'Portfolio', 'domesca-homes' ),
+				'menu-item-url'    => home_url( '/portfolio/' ),
 				'menu-item-type'   => 'custom',
 				'menu-item-status' => 'publish',
 			) );
+
+			// 6. Contact Us
 			wp_update_nav_menu_item( $menu_id, 0, array(
-				'menu-item-title'  => 'Contact Us',
-				'menu-item-url'    => '#contact',
+				'menu-item-title'  => __( 'Contact Us', 'domesca-homes' ),
+				'menu-item-url'    => home_url( '/contact-us/' ),
 				'menu-item-type'   => 'custom',
 				'menu-item-status' => 'publish',
 			) );
@@ -125,9 +134,6 @@ add_action( 'after_switch_theme', 'dsc_create_default_menus' );
 
 /**
  * Create the Footer menu and assign it to the footer location.
- *
- * The footer menu uses the same tree format as the header: top-level items are
- * column headings and their children are the links inside that column.
  */
 function dsc_create_default_footer_menu() {
 	$locations = get_theme_mod( 'nav_menu_locations' );
@@ -148,18 +154,23 @@ function dsc_create_default_footer_menu() {
 
 	$columns = array(
 		'Services' => array(
-			'New Home Construction', 'Townhouse Developments', 'Unit Developments',
-			'Renovations & Extensions', 'Kitchen Renovations', 'Bathroom Renovations',
-			'Laundry Renovations', 'House Extensions',
+			'New Home Construction'    => home_url( '/new-builds/' ),
+			'Townhouse Developments'   => home_url( '/townhouse-developments/' ),
+			'Unit Developments'        => home_url( '/multi-unit-projects/' ),
+			'Renovations & Extensions' => home_url( '/renovations/' ),
+			'Kitchen Renovations'      => home_url( '/renovations/' ),
+			'Bathroom Renovations'     => home_url( '/renovations/' ),
+			'Laundry Renovations'      => home_url( '/renovations/' ),
+			'House Extensions'         => home_url( '/extensions/' ),
 		),
 		'Company' => array(
-			'About Us' => '#about',
-			'Plans & Design' => '#process',
-			'Projects' => '#projects',
-			'Testimonials' => '#testimonials',
-			'Areas We Build' => '#areas',
-			'FAQs' => '#faq',
-			'Contact Us' => '#contact',
+			'About Us'       => home_url( '/about-us/' ),
+			'Our Plans'      => home_url( '/our-plans/' ),
+			'Portfolio'      => home_url( '/portfolio/' ),
+			'Testimonials'   => home_url( '/#testimonials' ),
+			'Areas We Build' => home_url( '/#areas' ),
+			'FAQs'           => home_url( '/#faq' ),
+			'Contact Us'     => home_url( '/contact-us/' ),
 		),
 	);
 
@@ -174,15 +185,6 @@ function dsc_create_default_footer_menu() {
 			) );
 
 			foreach ( $links as $label => $url ) {
-				if ( is_int( $label ) ) {
-					$label = $url;
-					$url   = '#' . strtolower( str_replace( array( ' & ', ' ' ), array( '-', '-' ), $label ) );
-					// Target a sensible generic anchor for known sections.
-					$url   = in_array( $label, array( 'About Us', 'Plans & Design', 'Projects', 'Testimonials', 'Areas We Build', 'FAQs', 'Contact Us' ), true )
-						? $url
-						: '#services';
-				}
-
 				wp_update_nav_menu_item( $menu_id, $parent_id, array(
 					'menu-item-title'  => $label,
 					'menu-item-url'    => $url,
@@ -200,9 +202,6 @@ add_action( 'after_switch_theme', 'dsc_create_default_footer_menu' );
 
 /**
  * Create a default Footer Bottom menu and assign it to the bottom-bar location.
- *
- * The Footer Bottom menu should contain the small legal/utility links shown in
- * the very bottom bar (About, Services, Projects, Contact, Privacy Policy).
  */
 function dsc_create_default_footer_bottom_menu() {
 	$locations = get_theme_mod( 'nav_menu_locations' );
@@ -224,10 +223,10 @@ function dsc_create_default_footer_bottom_menu() {
 	// Only populate an empty menu.
 	if ( ! wp_get_nav_menu_items( $menu_id ) ) {
 		$links = array(
-			'About'    => '#about',
-			'Services' => '#services',
-			'Projects' => '#projects',
-			'Contact'  => '#contact',
+			'About'    => home_url( '/about-us/' ),
+			'Services' => home_url( '/services/' ),
+			'Projects' => home_url( '/portfolio/' ),
+			'Contact'  => home_url( '/contact-us/' ),
 		);
 
 		foreach ( $links as $title => $url ) {

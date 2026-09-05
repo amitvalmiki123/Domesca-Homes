@@ -46,7 +46,28 @@ function dsc_render_desktop_nav( $location = 'primary' ) {
 	$tree = dsc_menu_tree( $location );
 
 	if ( empty( $tree ) ) {
-		echo '<nav class="nav" aria-label="Primary"><div class="nav__item"><a class="nav__link" href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Home', 'domesca-homes' ) . '</a></div></nav>';
+		?>
+		<nav class="nav" aria-label="Primary">
+			<div class="nav__item"><a class="nav__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></div>
+			<div class="nav__item"><a class="nav__link" href="<?php echo esc_url( home_url( '/about-us/' ) ); ?>">About Us</a></div>
+			<div class="nav__item has-children">
+				<a class="nav__link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services
+					<svg class="chev" viewBox="0 0 12 8" fill="currentColor" aria-hidden="true"><path d="M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z"/></svg>
+				</a>
+				<div class="drop">
+					<a href="<?php echo esc_url( home_url( '/our-plans/' ) ); ?>">Our Plans</a>
+					<a href="<?php echo esc_url( home_url( '/new-builds/' ) ); ?>">New Builds</a>
+					<a href="<?php echo esc_url( home_url( '/townhouse-developments/' ) ); ?>">Townhouse Developments</a>
+					<a href="<?php echo esc_url( home_url( '/multi-unit-projects/' ) ); ?>">Multi-Unit Projects</a>
+					<a href="<?php echo esc_url( home_url( '/extensions/' ) ); ?>">Extensions</a>
+					<a href="<?php echo esc_url( home_url( '/renovations/' ) ); ?>">Renovations</a>
+				</div>
+			</div>
+			<div class="nav__item"><a class="nav__link" href="<?php echo esc_url( home_url( '/our-plans/' ) ); ?>">Our Plans</a></div>
+			<div class="nav__item"><a class="nav__link" href="<?php echo esc_url( home_url( '/portfolio/' ) ); ?>">Portfolio</a></div>
+			<div class="nav__item"><a class="nav__link" href="<?php echo esc_url( home_url( '/contact-us/' ) ); ?>">Contact Us</a></div>
+		</nav>
+		<?php
 		return;
 	}
 
@@ -87,7 +108,28 @@ function dsc_render_mobile_nav( $location = 'primary' ) {
 	echo '<ul class="mnav__body">';
 
 	if ( empty( $tree ) ) {
-		echo '<li><a class="mnav__a" href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Home', 'domesca-homes' ) . '</a></li></ul>';
+		?>
+		<li><a class="mnav__a" href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
+		<li><a class="mnav__a" href="<?php echo esc_url( home_url( '/about-us/' ) ); ?>">About Us</a></li>
+		<li>
+			<div class="mnav__row">
+				<a class="mnav__a mnav__link" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a>
+				<button class="mnav__pm" type="button" aria-expanded="false" aria-controls="mnav-sub-fallback-services" aria-label="Toggle Services submenu"><span class="mnav__pm-i" aria-hidden="true"></span></button>
+			</div>
+			<div class="mnav__sub" id="mnav-sub-fallback-services"><div>
+				<a href="<?php echo esc_url( home_url( '/our-plans/' ) ); ?>">Our Plans</a>
+				<a href="<?php echo esc_url( home_url( '/new-builds/' ) ); ?>">New Builds</a>
+				<a href="<?php echo esc_url( home_url( '/townhouse-developments/' ) ); ?>">Townhouse Developments</a>
+				<a href="<?php echo esc_url( home_url( '/multi-unit-projects/' ) ); ?>">Multi-Unit Projects</a>
+				<a href="<?php echo esc_url( home_url( '/extensions/' ) ); ?>">Extensions</a>
+				<a href="<?php echo esc_url( home_url( '/renovations/' ) ); ?>">Renovations</a>
+			</div></div>
+		</li>
+		<li><a class="mnav__a" href="<?php echo esc_url( home_url( '/our-plans/' ) ); ?>">Our Plans</a></li>
+		<li><a class="mnav__a" href="<?php echo esc_url( home_url( '/portfolio/' ) ); ?>">Portfolio</a></li>
+		<li><a class="mnav__a" href="<?php echo esc_url( home_url( '/contact-us/' ) ); ?>">Contact Us</a></li>
+		<?php
+		echo '</ul>';
 		return;
 	}
 
@@ -115,11 +157,6 @@ function dsc_render_mobile_nav( $location = 'primary' ) {
 
 /**
  * Footer menu columns.
- *
- * The Footer menu location should contain top-level items (Services, Company,
- * Get In Touch ...) as column headings and their child items as links. If no
- * Footer menu is assigned, this returns an empty tree so the theme falls back
- * to the static/options columns.
  */
 function dsc_render_footer_columns( $location = 'footer' ) {
 	$tree = dsc_menu_tree( $location );
@@ -152,9 +189,6 @@ function dsc_render_footer_columns( $location = 'footer' ) {
 
 /**
  * Footer bottom bar links (About, Services, Projects, Contact, Privacy).
- *
- * Uses the Footer Bottom Menu location. When the location is empty the theme
- * falls back to the original static links so the design stays intact.
  */
 function dsc_render_footer_bottom( $location = 'footer_bottom' ) {
 	$items = dsc_get_menu_items( $location );

@@ -1,4 +1,3 @@
-
 /* ===== style.css (base) ===== */
 :root{
   --blue:#1653a6;
@@ -242,3 +241,64 @@ body:not(:has(.mbar)){padding-bottom:0}.incl{display:grid;grid-template-columns:
   border-radius:var(--r-lg);padding:20px 24px;margin-bottom:2.4rem
 }.admin-note b{display:block;font-family:var(--f-display);font-size:.78rem;letter-spacing:.16em;
   text-transform:uppercase;color:#8a5d00;margin-bottom:.55rem}.admin-note p{margin:0;font-size:.92rem;line-height:1.65;color:#5c4200}
+/* ---------- Page Banner (inner pages) ---------- */
+.pbanner{position:relative;background:var(--ink-900);color:#fff;isolation:isolate;overflow:hidden}
+.pbanner__media{position:absolute;inset:0;z-index:-2}
+.pbanner__media img{width:100%;height:100%;object-fit:cover;object-position:center 50%;animation:heroZoom 22s var(--ease) forwards}
+.pbanner__scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(6,8,11,.95) 0%,rgba(6,8,11,.88) 45%,rgba(6,8,11,.65) 100%)}
+.pbanner__in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,4.5vw,72px);align-items:center;min-height:clamp(480px,58vh,660px);padding-block:clamp(60px,7.5vw,100px)}
+.pbanner--plain .pbanner__in{display:block;min-height:clamp(380px,46vh,520px);padding-block:clamp(56px,7vw,92px)}
+.pbanner__copy{max-width:44rem}
+.pbanner--plain .pbanner__copy{max-width:54rem}
+.pbanner .d2,.pbanner h1{color:#fff;margin-top:.75rem;text-wrap:balance}
+.pbanner__sub{margin-top:1.15rem;font-size:clamp(1.02rem,1.25vw,1.16rem);line-height:1.7;color:rgba(255,255,255,.82);max-width:56ch}
+
+/* ---------- Breadcrumb ---------- */
+.crumb{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.55em;font-family:var(--f-display);font-size:.84rem;letter-spacing:.03em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.5rem}
+.crumb a{color:var(--blue-200);transition:color .2s;text-decoration:none}
+.crumb a:hover{color:#fff;text-decoration:underline}
+.crumb span[aria-current="page"]{color:rgba(255,255,255,.88)}
+
+/* ---------- Contact Details Meta ---------- */
+.contact-meta{display:grid;gap:14px;margin-top:2rem}
+.contact-meta>*,.contact-meta>a{display:flex;align-items:center;gap:16px;padding:14px 18px;background:#fff;border:1px solid var(--n-200);border-radius:var(--r);transition:all .25s var(--ease);text-decoration:none;color:inherit}
+.contact-meta a:hover{border-color:var(--blue-200);background:var(--blue-50);transform:translateX(4px)}
+.contact-meta .ic{width:40px;height:40px;flex:0 0 40px;border-radius:50%;display:grid;place-items:center;background:var(--blue-50);color:var(--blue)}
+.contact-meta small{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--n-500);font-family:var(--f-display)}
+.contact-meta b{display:block;font-size:1.02rem;color:var(--ink-900);font-weight:600;font-family:var(--f-display);margin-top:1px}
+
+/* ---------- Full Width Contact Map ---------- */
+.contact-map-full{width:100%;height:clamp(360px,45vw,520px);background:var(--n-100);overflow:hidden;border-top:1px solid var(--n-200)}
+.contact-map-full iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(.2) contrast(1.02)}
+
+/* ---------- Plan Routes (two ways in) ---------- */
+.plan-routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:2rem}
+.plan-route{background:#fff;border:1px solid var(--n-200);border-radius:var(--r-lg);padding:24px 22px;display:flex;gap:16px;align-items:flex-start;transition:all .28s var(--ease);box-shadow:var(--shadow-sm)}
+.plan-route:hover{border-color:var(--blue-200);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.plan-route__ic{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;background:var(--blue-50);color:var(--blue)}
+.plan-route h3{font-size:1.06rem;letter-spacing:-.015em;margin-bottom:.45rem;color:var(--ink-900)}
+.plan-route p{font-size:.91rem;color:var(--n-600);line-height:1.6;margin:0}
+
+/* ---------- Google Reviews Split Component ---------- */
+.grev{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(28px,4vw,56px);margin-top:clamp(36px,4.5vw,60px);align-items:start}
+.grev__summary{background:var(--ink-800);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);padding:clamp(28px,3vw,38px);position:sticky;top:var(--sticky-top)}
+.grev__brand{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;color:#fff;font-family:var(--f-display);font-weight:600;font-size:1.05rem}
+.grev__score{font-family:var(--f-display);font-size:3.2rem;font-weight:700;line-height:1;color:#fff;display:flex;align-items:baseline;gap:.4rem}
+.grev__score span{font-size:1.1rem;font-weight:400;color:rgba(255,255,255,.6)}
+.grev__stars{display:flex;gap:4px;color:#f0b429;margin-top:.75rem;margin-bottom:.5rem}
+.grev__count{font-size:.9rem;color:rgba(255,255,255,.68);margin-bottom:1.5rem}
+.grev__actions{display:grid;gap:10px}
+.grev__actions .btn{width:100%}
+.grev__list{display:grid;gap:18px}
+.grevc{background:var(--ink-800);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);padding:clamp(22px,2.5vw,30px);transition:all .28s var(--ease)}
+.grevc:hover{border-color:rgba(169,195,230,.4);background:var(--ink-700);transform:translateY(-3px)}
+.grevc__head{display:flex;align-items:center;gap:14px;margin-bottom:1rem}
+.grevc__av{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:600;font-size:.92rem;color:#fff}
+.grevc__who{flex:1 1 auto;min-width:0}
+.grevc__who b{display:block;color:#fff;font-size:.98rem;font-weight:600;font-family:var(--f-display)}
+.grevc__who span{display:block;color:rgba(255,255,255,.55);font-size:.8rem;margin-top:2px}
+.grevc__g{width:22px;height:22px;flex:0 0 22px;opacity:.85;display:grid;place-items:center}
+.grevc__stars{display:flex;gap:3px;color:#f0b429;margin-bottom:1rem}
+.grevc blockquote{margin:0;font-size:.955rem;line-height:1.72;color:rgba(255,255,255,.8)}
+.grevc blockquote p{margin-bottom:.8em}
+.grevc blockquote p:last-child{margin-bottom:0}

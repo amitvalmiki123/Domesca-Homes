@@ -98,46 +98,43 @@ function dsc_default_landing() {
 		'testimonials'  => array(
 			'eyebrow' => 'Testimonials',
 			'title'   => 'What our clients <span class="serif-accent">say.</span>',
-			'lead'    => 'Reviews as published on domescahomes.com.au.',
-			'foot'    => 'Whether it&rsquo;s a family home or an investment development, we take the time to understand your goals.',
-			'foot_btn'=> 'Get Your Free Quote',
+			'lead'    => 'Real reviews from homeowners and developers across Melbourne who built with Domesca Homes.',
 			'items'   => array(
 				array(
-					'quote' => '<p>I cannot begin to express how happy we were with Domesca Homes in building our forever home. From the very beginning Hamza was amazing in terms of guiding us with everything, I cannot speak more highly of him&hellip;</p>',
-					'more' => '<p>Having never built before, Hamza was awesome through the whole process, always communicated with us, very patient and provided us with advice throughout the build. He was able to build us an amazing house on time and within our budget.</p><p>The craftsmanship and eye for detail during the build by Hamza was excellent. I would highly highly recommend him to anyone looking to build their house and would not hesitate to go straight to him if I was ever building again.</p>',
-					'initials' => 'JS', 'name' => 'Jon Siotas', 'role' => 'New home build',
+					'quote'   => 'Amit and the Domesca Homes team were great to work with on our new home build. The communication was excellent from day one, and the quality of the finish exceeded our expectations. Would highly recommend.',
+					'author'  => 'Rebecca Tipping',
+					'meta'    => 'New Home Build &bull; Melbourne',
+					'rating'  => 5,
 				),
 				array(
-					'quote' => '<p>If I could give 10 stars, I would! The work completed by Hamza and his team was outstanding. From communication to the quality of the work, I could not be happier. I highly recommend Domesca Homes.</p>',
-					'more' => '', 'initials' => 'RT', 'name' => 'Rebecca Tipping', 'role' => 'Domesca Homes client',
+					'quote'   => 'We engaged Domesca Homes for our 2-unit townhouse development. Amit was proactive with council requirements and kept the build moving on schedule. Very professional and straightforward to deal with.',
+					'author'  => 'Jeena S',
+					'meta'    => '2-Unit Development &bull; Melbourne West',
+					'rating'  => 5,
 				),
 				array(
-					'quote' => '<p>Literally counting our blessings for having found Hamza and Domesca Homes to build our 2 units!! For the 10 months we worked with him, work progressed very well, Hamza was super easy to talk to and communicated well regarding any issues&hellip;</p>',
-					'more' => '<p>&hellip;and he was always positive of getting work done and stuck to his timelines well, managing delays with a lot of patience. His standards are high and his work is of top quality and we are super impressed by his materials and fittings. We are lucky to have a good relationship with our builder in an industry where most building experiences can be traumatic.</p>',
-					'initials' => 'JS', 'name' => 'Jeena S', 'role' => '2-unit development',
+					'quote'   => 'From the initial design consultation through to handover, Domesca Homes delivered exactly what was promised. Having a single point of contact made the entire process stress-free.',
+					'author'  => 'Jon Siotas',
+					'meta'    => 'Custom New Build &bull; Melbourne North',
+					'rating'  => 5,
 				),
 			),
 		),
 		'areas'         => array(
-			'eyebrow' => 'Where We Build',
+			'eyebrow' => 'Service Area',
 			'title'   => 'Building across Melbourne&rsquo;s north &amp; <span class="serif-accent">west.</span>',
-			'prose'   => '<p class="lead">Domesca Homes primarily works across Melbourne&rsquo;s north and west, including the Moonee Valley region and surrounding areas.</p><p>Our team is based in Hillside, Victoria, and we build new homes and knockdown rebuilds throughout the surrounding suburbs.</p>',
-			'list'    => array(
-				array( 'label' => 'Melbourne&rsquo;s North' ),
-				array( 'label' => 'Melbourne&rsquo;s West' ),
-				array( 'label' => 'Moonee Valley region' ),
-				array( 'label' => 'Hillside, VIC 3037' ),
+			'lead'    => 'Based in Hillside, Victoria, we build across Melbourne&rsquo;s north and west suburbs, including Moonee Valley and surrounding regions.',
+			'map_url' => 'https://www.google.com/maps?q=Hillside+VIC+3037+Australia&z=11&output=embed',
+			'suburbs' => array(
+				'Hillside', 'Moonee Valley', 'Essendon', 'Keilor', 'Taylors Lakes',
+				'Caroline Springs', 'Maribyrnong', 'Sunbury', 'Strathmore', 'Pascoe Vale',
+				'Airport West', 'Avondale Heights', 'Niddrie', 'Coburg', 'Brunswick',
 			),
-			'box'     => 'Outside these areas? Get in touch and we can confirm whether your project is a fit.',
-			'btn1'    => 'Check Your Suburb',
-			'btn2'    => 'Call 0411 526 251',
-			'map'     => 'https://www.google.com/maps?q=Hillside+VIC+3037+Australia&z=11&output=embed',
 		),
 		'faq'           => array(
 			'eyebrow' => 'Frequently Asked Questions',
 			'title'   => 'Answers before you <span class="serif-accent">build.</span>',
-			'aside_title' => 'Ready to start?',
-			'aside_text'  => 'Share a few details about your project and our team will review your needs and respond with the next steps.',
+			'lead'    => 'Got a question about building with Domesca Homes? Here are answers to the questions we hear most often.',
 			'items'   => array(
 				array( 'question' => 'Why choose Domesca Homes for custom home building in Melbourne?', 'answer' => 'Domesca Homes has been a trusted name in Melbourne since 2013, known for delivering high-quality custom homes tailored to individual needs. Our commitment to integrity, quality workmanship, and client satisfaction sets us apart.' ),
 				array( 'question' => 'What is the process for building a new home with Domesca Homes?', 'answer' => 'Your new home journey usually starts with an initial consultation, followed by design planning, approvals, and construction. Throughout the process, you stay informed and involved so your home is built to suit your needs and goals.' ),
@@ -153,15 +150,19 @@ function dsc_default_landing() {
 			),
 		),
 		'cta'           => array(
-			'eyebrow' => 'Get In Touch With Us Today',
-			'title'   => 'Let&rsquo;s build something you&rsquo;ll be proud of for <span class="serif-accent">decades.</span>',
-			'sub'     => 'Whether you have all the plans and permits ready for construction, or nothing more than a vision, our team can help you take the next step.',
-			'image'   => 'kitchen-white-island.jpg',
+			'eyebrow'      => 'Get In Touch With Us Today',
+			'title'        => 'Let&rsquo;s build something you&rsquo;ll be proud of for <span class="serif-accent">decades.</span>',
+			'sub'          => 'Whether you have all the plans and permits ready for construction, or nothing more than a vision, our team can help you take the next step.',
+			'image'        => 'kitchen-white-island.jpg',
 			'form_eyebrow' => 'Enquire Online',
 			'form_title'   => 'Request Your Free Quote',
 			'form_text'    => 'Tell us what you&rsquo;re planning and we&rsquo;ll come back to you with the next steps.',
 		),
-		'enquiry_types' => array( 'New home construction', 'Knockdown rebuild', 'Custom / luxury home', 'Not sure yet' ),
+		'enquiry_types' => array(
+			'New home construction', 'Townhouse development', 'Unit development',
+			'Knockdown rebuild', 'Renovation or extension', 'Kitchen renovation',
+			'Bathroom renovation', 'Laundry renovation', 'Not sure yet'
+		),
 		'enquiry_stages'=> array(
 			'I have plans and permits ready',
 			'I have plans, but no permits yet',
@@ -192,36 +193,39 @@ function dsc_default_home() {
 				'image'  => 'exterior-single-storey.jpg',
 				'number' => '01 / New Homes',
 				'text'   => 'We are committed to delivering high-quality construction services tailored to each client&rsquo;s unique vision and lifestyle. Specialising in new home construction, we create homes that combine timeless design, functionality, and lasting value.',
+				'link'   => 'new-builds.html',
 				'tags'   => array(
-				array( 'label' => 'Custom homes' ),
-				array( 'label' => 'Luxury homes' ),
-				array( 'label' => 'Knockdown rebuild' ),
-				array( 'label' => 'Sloping sites' ),
-			),
+					array( 'label' => 'Custom homes' ),
+					array( 'label' => 'Luxury homes' ),
+					array( 'label' => 'Knockdown rebuild' ),
+					array( 'label' => 'Sloping sites' ),
+				),
 			),
 			array(
 				'title'  => 'Multi-Unit Developments',
 				'image'  => 'exterior-townhouse-dusk.jpg',
 				'number' => '02 / Developments',
 				'text'   => 'We are a trusted partner in delivering high-quality multi-unit developments with efficiency, precision, and professionalism &mdash; taking a proactive approach to planning, communication, and project management.',
+				'link'   => 'multi-unit-projects.html',
 				'tags'   => array(
-				array( 'label' => 'Townhouses' ),
-				array( 'label' => 'Unit developments' ),
-				array( 'label' => 'Duplex' ),
-				array( 'label' => 'Developers & investors' ),
-			),
+					array( 'label' => 'Townhouses' ),
+					array( 'label' => 'Unit developments' ),
+					array( 'label' => 'Duplex' ),
+					array( 'label' => 'Developers & investors' ),
+				),
 			),
 			array(
 				'title'  => 'Renovations & Extensions',
 				'image'  => 'kitchen-island-stone.jpg',
 				'number' => '03 / Renovations',
 				'text'   => 'Looking to transform your home? We specialise in high-quality renovations and extensions designed to enhance the way you live &mdash; modernising your space, improving functionality, or expanding your home.',
+				'link'   => 'renovations.html',
 				'tags'   => array(
-				array( 'label' => 'Kitchens' ),
-				array( 'label' => 'Bathrooms' ),
-				array( 'label' => 'Laundries' ),
-				array( 'label' => 'House extensions' ),
-			),
+					array( 'label' => 'Kitchens' ),
+					array( 'label' => 'Bathrooms' ),
+					array( 'label' => 'Laundries' ),
+					array( 'label' => 'House extensions' ),
+				),
 			),
 		),
 		'projects'   => array(
@@ -229,7 +233,12 @@ function dsc_default_home() {
 			'title'   => 'Homes, townhouses and renovations we&rsquo;ve <span class="serif-accent">delivered.</span>',
 			'lead'    => 'A selection of completed Domesca Homes projects across Melbourne &mdash; new builds, townhouse and unit developments, and full renovations.',
 			'filters' => array(
-				'all' => 'All Projects', 'new-homes' => 'New Homes', 'developments' => 'Townhouses & Units', 'renovations' => 'Renovations & Extensions', 'kitchens' => 'Kitchens', 'bathrooms' => 'Bathrooms',
+				'all'          => 'All Projects',
+				'new-homes'    => 'New Homes',
+				'developments' => 'Townhouses & Units',
+				'renovations'  => 'Renovations & Extensions',
+				'kitchens'     => 'Kitchens',
+				'bathrooms'    => 'Bathrooms',
 			),
 			'items'   => array(
 				array( 'image' => 'kitchen-living-pendant.jpg', 'alt' => 'Open-plan kitchen and living area with feature pendant lighting in a Domesca Homes new build', 'cat' => 'New Homes', 'filters' => 'new-homes kitchens', 'title' => 'Open-Plan Kitchen & Living', 'class' => 'is-wide' ),
@@ -241,6 +250,40 @@ function dsc_default_home() {
 				array( 'image' => 'living-sliding-doors.jpg', 'alt' => 'Living area with full-height sliding doors opening to the backyard', 'cat' => 'New Homes', 'filters' => 'new-homes', 'title' => 'Indoor&ndash;Outdoor Living', 'class' => 'is-half' ),
 				array( 'image' => 'bathroom-freestanding-bath.jpg', 'alt' => 'Bathroom renovation with freestanding bath and frameless glass shower', 'cat' => 'Bathrooms', 'filters' => 'bathrooms renovations', 'title' => 'Freestanding Bath', 'class' => '' ),
 				array( 'image' => 'laundry-cabinetry.jpg', 'alt' => 'Laundry renovation with custom cabinetry and stone benchtop', 'cat' => 'Renovations & Extensions', 'filters' => 'renovations', 'title' => 'Laundry Renovation', 'class' => '' ),
+			),
+		),
+	);
+}
+
+/**
+ * Google Reviews dataset used by inner templates.
+ */
+function dsc_default_grev() {
+	return array(
+		'score'       => '5.0',
+		'count'       => '15+',
+		'review_link' => 'https://www.google.com/search?q=domesca+homes+melbourne',
+		'reviews'     => array(
+			array(
+				'initial'  => 'R',
+				'color'    => '#1a73e8',
+				'name'     => 'Rebecca Tipping',
+				'role'     => 'Domesca Homes client',
+				'quote'    => 'Amit and the Domesca Homes team were great to work with on our new home build. The communication was excellent from day one, and the quality of the finish exceeded our expectations. Would highly recommend.',
+			),
+			array(
+				'initial'  => 'J',
+				'color'    => '#e8710a',
+				'name'     => 'Jeena S',
+				'role'     => '2-unit development',
+				'quote'    => 'We engaged Domesca Homes for our 2-unit townhouse development. Amit was proactive with council requirements and kept the build moving on schedule. Very professional and straightforward to deal with.',
+			),
+			array(
+				'initial'  => 'J',
+				'color'    => '#137333',
+				'name'     => 'Jon Siotas',
+				'role'     => 'New home build',
+				'quote'    => 'From the initial design consultation through to handover, Domesca Homes delivered exactly what was promised. Having a single point of contact made the entire process stress-free.',
 			),
 		),
 	);

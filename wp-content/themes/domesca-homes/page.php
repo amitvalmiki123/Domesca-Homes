@@ -8,17 +8,27 @@
 defined( 'ABSPATH' ) || exit;
 
 get_header();
+
+if ( have_posts() ) {
+	the_post();
+}
+
+$banner_args = array(
+	'title'       => get_the_title(),
+	'sub'         => get_the_excerpt(),
+	'plain'       => true,
+	'crumb_title' => get_the_title(),
+);
+
+get_template_part( 'template-parts/sections/page-banner', null, array( 'section' => $banner_args ) );
 ?>
-<div class="dsc-page">
-  <div class="wrap wrap-wide" style="padding-block:4rem">
-    <?php while ( have_posts() ) : the_post(); ?>
-      <article <?php post_class(); ?>>
-        <?php the_title( '<h1 class="d1">', '</h1>' ); ?>
-        <div class="prose" style="margin-top:1.5rem">
-          <?php the_content(); ?>
-        </div>
-      </article>
-    <?php endwhile; ?>
+<div class="dsc-page sec">
+  <div class="wrap wrap-wide">
+    <article <?php post_class( 'doc' ); ?>>
+      <div class="prose">
+        <?php the_content(); ?>
+      </div>
+    </article>
   </div>
 </div>
 <?php
