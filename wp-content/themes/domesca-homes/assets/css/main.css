@@ -387,9 +387,41 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .field input:focus,.field select:focus,.field textarea:focus{
   outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(22,83,166,.13)
 }
-.field select{appearance:none;cursor:pointer;
+.field select{appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235a6472' d='M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.field select:focus{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235a6472' d='M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+/* Contact Form 7 inside the theme form shell — match the built-in form exactly */
+.qform__body .wpcf7{margin:0;padding:0}
+.qform__body .wpcf7-form-control-wrap{display:block;width:100%}
+.qform__body .wpcf7-form-control{margin:0}
+.qform__body p{margin:0}
+.qform__body .wpcf7-not-valid-tip{font-size:.78rem;line-height:1.45;margin-top:4px;color:#c62828}
+.qform__body .wpcf7-response-output{margin:12px 0 0;padding:11px 14px;border:1px solid;border-radius:var(--r);font-size:.86rem}
+.qform__body .wpcf7-spinner{position:absolute;right:14px;top:50%;transform:translateY(-50%)}
+.qform__body .wpcf7 input[type="text"],
+.qform__body .wpcf7 input[type="email"],
+.qform__body .wpcf7 input[type="tel"],
+.qform__body .wpcf7 input[type="url"],
+.qform__body .wpcf7 select,
+.qform__body .wpcf7 textarea{
+  width:100%;padding:11px 14px;border:1px solid var(--n-200);border-radius:var(--r);
+  background:var(--n-50);font-size:.94rem;font-family:inherit;transition:border-color .2s,background .2s,box-shadow .2s
+}
+.qform__body .wpcf7 textarea{resize:vertical;min-height:84px;line-height:1.6}
+.qform__body .wpcf7 input:focus,.qform__body .wpcf7 select:focus,.qform__body .wpcf7 textarea:focus{
+  outline:none;border-color:var(--blue);background-color:#fff;box-shadow:0 0 0 3px rgba(22,83,166,.13)
+}
+.qform__body .wpcf7 select{appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235a6472' d='M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;background-position:right 14px center!important;padding-right:36px}
+.qform__body .wpcf7 select:focus{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235a6472' d='M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;background-position:right 14px center!important
+}
+.qform__body .wpcf7 input[type="submit"].wpcf7-submit{--bg:var(--blue);--fg:#fff;--bd:var(--blue);position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.6em;width:100%;font-family:var(--f-display);font-weight:600;font-size:1rem;line-height:1.2;padding:1.16em 2.05em;border-radius:var(--r);background:var(--bg);color:var(--fg);border:1.5px solid var(--bd);cursor:pointer;transition:transform .28s var(--ease),box-shadow .28s var(--ease),background .22s,color .22s,border-color .22s}
+.qform__body .wpcf7 input[type="submit"].wpcf7-submit:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(22,83,166,.28)}
+.qform__body .wpcf7 input[type="submit"].wpcf7-submit.is-disabled{cursor:wait;opacity:.7}
 .field--2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .qform__note{display:flex;gap:.6em;align-items:flex-start;font-size:.75rem;color:var(--n-600);line-height:1.55;margin-top:2px}
 .qform__note svg{flex:0 0 auto;margin-top:2px;color:var(--blue)}
