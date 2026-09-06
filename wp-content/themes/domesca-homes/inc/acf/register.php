@@ -581,6 +581,7 @@ function dsc_landing_testimonials_fields() {
 		array( 'key' => 'field_dsc_l_tm_url', 'name' => 'url', 'label' => 'Google review URL', 'type' => 'url', 'default_value' => 'https://www.google.com/search?q=Domesca+Homes+Hillside' ),
 		array( 'key' => 'field_dsc_l_tm_foot', 'name' => 'foot', 'label' => 'Footer text', 'type' => 'textarea', 'rows' => 2 ),
 		array( 'key' => 'field_dsc_l_tm_foot_btn', 'name' => 'foot_button', 'label' => 'Footer button label', 'type' => 'text' ),
+		array( 'key' => 'field_dsc_l_tm_foot_url', 'name' => 'foot_url', 'label' => 'Footer button URL', 'type' => 'text', 'default_value' => '#enquiry-form' ),
 		array(
 			'key'          => 'field_dsc_l_tm_items',
 			'name'         => 'items',

@@ -104,6 +104,7 @@ function dsc_default_landing() {
 			'url'     => 'https://www.google.com/search?q=Domesca+Homes+Hillside',
 			'foot'    => 'Whether it&rsquo;s a family home or an investment development, we take the time to understand your goals.',
 			'foot_btn'=> 'Get Your Free Quote',
+			'foot_url'=> '#enquiry-form',
 			'items'   => array(
 				array(
 					'quote' => '<p>If I could give 10 stars, I would! The work completed by Hamza and his team was outstanding. From communication to the quality of the work, I could not be happier. I highly recommend Domesca Homes.</p>',

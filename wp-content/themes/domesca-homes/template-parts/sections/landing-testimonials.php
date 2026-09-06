@@ -121,7 +121,7 @@ $avatar_colors = array( '#1a73e8', '#e8710a', '#137333' );
 
     <div class="tm__foot rv">
       <p><?php echo esc_html( $key( 'foot', $tm['foot'] ) ); ?></p>
-      <a class="btn btn--white" href="#enquiry-form"><?php echo esc_html( $key( 'foot_button', $tm['foot_btn'] ) ); ?></a>
+      <a class="btn btn--white" href="<?php echo esc_url( $key( 'foot_url', $tm['foot_url'] ) ); ?>"><?php echo esc_html( $key( 'foot_button', $tm['foot_btn'] ) ); ?></a>
     </div>
   </div>
 </section>

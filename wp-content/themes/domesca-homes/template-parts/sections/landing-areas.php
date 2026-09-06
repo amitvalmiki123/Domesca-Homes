@@ -21,7 +21,7 @@ if ( ! is_array( $list ) ) {
 $map = $key( 'map', $areas['map'] );
 ?>
 <section class="sec" id="areas">
-  <div class="wrap wrap-wide areas__grid">
+  <div class="wrap wrap-wide areas__grid sticky-split">
     <div class="rv">
       <p class="eyebrow"><?php echo esc_html( $key( 'eyebrow', $areas['eyebrow'] ) ); ?></p>
       <h2 class="d2"><?php echo wp_kses_post( $key( 'title', $areas['title'] ) ); ?></h2>
@@ -44,7 +44,7 @@ $map = $key( 'map', $areas['map'] );
       </div>
     </div>
 
-    <div class="areas__map rv rv-d1">
+    <div class="areas__map rv rv-d1 sticky-col">
       <iframe title="Map showing the Domesca Homes service area around Hillside, Victoria" src="<?php echo esc_url( $map ); ?>" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>

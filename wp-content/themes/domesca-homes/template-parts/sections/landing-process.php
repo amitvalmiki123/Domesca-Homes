@@ -37,7 +37,15 @@ if ( ! is_array( $steps ) ) {
     <div class="proc__note rv">
       <p>
         <strong><?php echo esc_html( $key( 'note_label', 'Indicative build timeframes.' ) ); ?></strong>
-        <?php echo wp_kses_post( $key( 'note', $proc['note'] ) ); ?>
+        <?php
+        $note_html = $key( 'note', $proc['note'] );
+        // Keep the label + note on one visual line. If the WYSIWYG field
+        // wrapped the text in <p> tags, strip the outermost ones so it does
+        // not create extra block elements inside the flex layout.
+        $note_html = preg_replace( '#^\s*<p[^>]*>#i', '', $note_html );
+        $note_html = preg_replace( '#</p>\s*$#i', '', $note_html );
+        echo wp_kses_post( $note_html ); // phpcs:ignore WordPress.Security.EscapeOutput
+        ?>
       </p>
       <a class="btn" href="<?php echo esc_url( $key( 'url', '#enquiry-form' ) ); ?>"><?php echo esc_html( $key( 'button', $proc['button'] ) ); ?></a>
     </div>
