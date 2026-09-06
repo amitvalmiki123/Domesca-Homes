@@ -1,0 +1,22 @@
+/*
+Theme Name: Domesca Homes
+Theme URI: https://www.domescahomes.com.au/
+Author: Domesca Homes
+Author URI: https://www.domescahomes.com.au/
+Description: Custom WordPress child theme converted from the Domesca Homes HTML design. All theme work lives here (parent theme is minimal). Uses ACF Pro independently; ACF is optional because defaults.php keeps the site working.
+Template: domesca-parent
+Version: 1.1.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: domesca-homes
+Tags: custom-logo, menu, custom-menu, one-column, custom-colors, translation-ready
+*/
+
+/*
+ * Design CSS is in assets/css/main.css and assets/css/responsive.css
+ * (Rule 11 — responsive file contains @media only). The header above is the
+ * required WordPress theme header only.
+ */
