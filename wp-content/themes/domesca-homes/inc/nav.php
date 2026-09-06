@@ -252,6 +252,125 @@ function dsc_render_footer_bottom( $location = 'footer_bottom' ) {
 }
 
 /**
+ * Build breadcrumb trail items for the current page.
+ *
+ * Dynamic: uses the page's WordPress parent hierarchy when one exists, then
+ * the primary menu tree (e.g. "Services" for /new-builds/, /extensions/...),
+ * and finally the page title itself. Falls back to slug-driven defaults when
+ * no menu is assigned yet.
+ */
+function dsc_breadcrumb_items() {
+	$post_id = get_the_ID();
+	$crumbs  = array(
+		array(
+			'label'    => __( 'Home', 'domesca-homes' ),
+			'url'      => home_url( '/' ),
+			'is_current' => false,
+		),
+	);
+
+	if ( ! $post_id ) {
+		return $crumbs;
+	}
+
+	$title = get_the_title( $post_id );
+	$added = array();
+
+	// 1. WordPress ancestor pages (parent / grandparent...).
+	$ancestors = array_reverse( get_post_ancestors( $post_id ) );
+	foreach ( $ancestors as $ancestor_id ) {
+		$crumbs[] = array(
+			'label'      => get_the_title( $ancestor_id ),
+			'url'        => get_permalink( $ancestor_id ),
+			'is_current' => false,
+		);
+		$added[] = $ancestor_id;
+	}
+
+	// 2. Primary menu parent (e.g. Services is the parent of New Builds).
+	if ( empty( $added ) ) {
+		$menu_parent = dsc_inner_menu_parent();
+		if ( ! empty( $menu_parent['label'] ) ) {
+			$crumbs[] = array(
+				'label'      => $menu_parent['label'],
+				'url'        => $menu_parent['url'],
+				'is_current' => false,
+			);
+		}
+	}
+
+	// 3. Current page.
+	$crumbs[] = array(
+		'label'      => $title,
+		'url'        => '',
+		'is_current' => true,
+	);
+
+	return $crumbs;
+}
+
+/**
+ * Find the primary-menu parent of the current page, based on slug.
+ */
+function dsc_inner_menu_parent() {
+	$post_id = get_the_ID();
+	$slug    = $post_id ? get_post_field( 'post_name', $post_id ) : '';
+
+	// When no menu is assigned the theme ships these default relationships.
+	$map = array(
+		'our-plans'              => array( 'label' => __( 'Services', 'domesca-homes' ), 'url' => home_url( '/services/' ) ),
+		'new-builds'             => array( 'label' => __( 'Services', 'domesca-homes' ), 'url' => home_url( '/services/' ) ),
+		'townhouse-developments' => array( 'label' => __( 'Services', 'domesca-homes' ), 'url' => home_url( '/services/' ) ),
+		'multi-unit-projects'    => array( 'label' => __( 'Services', 'domesca-homes' ), 'url' => home_url( '/services/' ) ),
+		'extensions'             => array( 'label' => __( 'Services', 'domesca-homes' ), 'url' => home_url( '/services/' ) ),
+		'renovations'            => array( 'label' => __( 'Services', 'domesca-homes' ), 'url' => home_url( '/services/' ) ),
+	);
+
+	if ( isset( $map[ $slug ] ) ) {
+		return $map[ $slug ];
+	}
+
+	// Prefer the actual primary menu tree when available.
+	$tree = dsc_menu_tree( 'primary' );
+	foreach ( $tree as $item ) {
+		if ( empty( $item->children ) ) {
+			continue;
+		}
+		foreach ( $item->children as $child ) {
+			if ( $child->object_id && (int) $child->object_id === (int) $post_id ) {
+				return array(
+					'label' => $item->title,
+					'url'   => $item->url,
+				);
+			}
+		}
+	}
+
+	return array();
+}
+
+/**
+ * Render the page-banner breadcrumb.
+ */
+function dsc_render_breadcrumb() {
+	$crumbs = dsc_breadcrumb_items();
+	$last   = count( $crumbs ) - 1;
+
+	echo '<nav class="crumb" aria-label="' . esc_attr__( 'Breadcrumb', 'domesca-homes' ) . '">';
+	foreach ( $crumbs as $i => $crumb ) {
+		if ( 0 < $i ) {
+			echo '<span aria-hidden="true">/</span>';
+		}
+		if ( $i === $last || empty( $crumb['url'] ) ) {
+			echo '<span aria-current="page">' . esc_html( $crumb['label'] ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		} else {
+			echo '<a href="' . esc_url( $crumb['url'] ) . '">' . esc_html( $crumb['label'] ) . '</a>';
+		}
+	}
+	echo '</nav>';
+}
+
+/**
  * Small icon helper for the "what you get"/included cells.
  */
 function dsc_why_icon( $icon = '' ) {

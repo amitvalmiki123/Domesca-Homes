@@ -9,8 +9,19 @@ defined( 'ABSPATH' ) || exit;
 
 $section  = isset( $args['section'] ) ? $args['section'] : array();
 $defaults = dsc_inner_portfolio();
-$key      = function ( $name, $fallback ) use ( $section, $defaults ) {
-	return dsc_row_key( $section, $name, $fallback );
+
+$shared = dsc_shared_projects();
+
+// Order of precedence: shared (global) > this page's saved row > theme defaults.
+if ( is_array( $section ) && ! empty( $section ) ) {
+	$defaults = array_merge( $defaults, $section );
+}
+if ( ! empty( $shared ) ) {
+	$defaults = array_merge( $defaults, $shared );
+}
+
+$key = function ( $name, $fallback ) use ( $defaults ) {
+	return dsc_row_key( $defaults, $name, $fallback );
 };
 
 $eyebrow = $key( 'eyebrow', 'Portfolio &mdash; Photo Gallery' );

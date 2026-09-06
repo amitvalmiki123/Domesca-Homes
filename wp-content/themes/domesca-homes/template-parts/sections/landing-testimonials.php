@@ -10,8 +10,20 @@ defined( 'ABSPATH' ) || exit;
 $section  = isset( $args['section'] ) ? $args['section'] : array();
 $defaults = dsc_default_landing();
 $tm       = $defaults['testimonials'];
-$key      = function( $name, $fallback ) use ( $section, $tm ) {
-	return dsc_row_key( $section, $name, $fallback );
+
+$shared = dsc_shared_testimonials();
+
+// Order of precedence: shared (global) > this page's saved row > theme defaults.
+$tm = $tm;
+if ( is_array( $section ) && ! empty( $section ) ) {
+	$tm = array_merge( $tm, $section );
+}
+if ( ! empty( $shared ) ) {
+	$tm = array_merge( $tm, $shared );
+}
+
+$key = function( $name, $fallback ) use ( $tm ) {
+	return dsc_row_key( $tm, $name, $fallback );
 };
 
 $rating = $key( 'rating', $tm['rating'] );

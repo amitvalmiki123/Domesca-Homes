@@ -9,9 +9,15 @@ defined( 'ABSPATH' ) || exit;
 
 $section  = isset( $args['section'] ) ? $args['section'] : array();
 $defaults = dsc_default_landing();
-$items    = dsc_row_key( $section, 'items', $defaults['creds'] );
-if ( ! is_array( $items ) ) {
-	$items = $defaults['creds'];
+
+$shared = dsc_shared_creds();
+if ( ! empty( $shared ) ) {
+	$items = $shared;
+} else {
+	$items = dsc_row_key( $section, 'items', $defaults['creds'] );
+	if ( ! is_array( $items ) ) {
+		$items = $defaults['creds'];
+	}
 }
 ?>
 <section class="creds" aria-label="Domesca Homes at a glance">

@@ -33,6 +33,7 @@ require_once THEME_DIR . '/inc/acf/options-fields.php';
 require_once THEME_DIR . '/inc/acf/landing-fields.php';
 require_once THEME_DIR . '/inc/acf/home-fields.php';
 require_once THEME_DIR . '/inc/acf/inner-fields.php';
+require_once THEME_DIR . '/inc/acf/inner-page-fields.php';
 
 /**
  * Quick check used by templates.

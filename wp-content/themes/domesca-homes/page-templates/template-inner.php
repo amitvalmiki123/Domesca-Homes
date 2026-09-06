@@ -1,33 +1,16 @@
 <?php
 /**
- * Template Name: Domesca Inner Page
+ * Template Name: Domesca Inner Page (Custom)
  * Template Post Type: page
  *
- * Renders the new static inner-page design (about, services, plans, builds,
- * renovations, extensions, portfolio, contact, location/landing-page layouts).
- * Uses ACF flexible content when populated and falls back to the converted
- * HTML defaults otherwise.
+ * Generic fallback template kept for backward compatibility. For the normal
+ * content-entry workflow use the page-type templates (About, Services, Our
+ * Plans, New Builds, Townhouse Developments, Multi-Unit Projects, Extensions,
+ * Renovations, Portfolio, Contact, Privacy Policy, Plain Page).
  *
  * @package Domesca_Homes
  */
 
 defined( 'ABSPATH' ) || exit;
 
-get_header();
-
-if ( have_posts() ) {
-	the_post();
-}
-
-$type     = dsc_inner_type_from_page();
-$sections = dsc_rows( 'page_sections', array() );
-
-if ( empty( $sections ) ) {
-	$sections = dsc_inner_default_sections( $type );
-}
-
-echo '<div id="page-' . esc_attr( get_the_ID() ) . '" class="dsc-entry dsc-entry--inner">';
-dsc_render_sections( $sections, 'inner' );
-echo '</div>';
-
-get_footer();
+dsc_render_inner_page( dsc_inner_type_from_page() );

@@ -99,6 +99,144 @@ function dsc_wysiwyg( $name = '', $default = '', $context = 'page' ) {
 }
 
 /* -------------------------------------------------------------------------
+ * Shared section options (Credibility strip / Google Reviews / Portfolio)
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Shared credentials strip rows from Theme Options.
+ *
+ * Returns an array of rows only when the option has been filled in.
+ */
+function dsc_shared_creds() {
+	$rows = dsc_opt( 'shared_creds', array() );
+	if ( is_array( $rows ) && ! empty( $rows ) ) {
+		$out = array();
+		foreach ( $rows as $row ) {
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+			$out[] = array(
+				'value' => isset( $row['value'] ) ? $row['value'] : '',
+				'label' => isset( $row['label'] ) ? $row['label'] : '',
+			);
+		}
+		if ( ! empty( $out ) ) {
+			return $out;
+		}
+	}
+	return array();
+}
+
+/**
+ * Shared Google Reviews section from Theme Options.
+ */
+function dsc_shared_testimonials() {
+	$fill = array(
+		'eyebrow'      => dsc_opt( 'shared_tm_eyebrow', '' ),
+		'title'        => dsc_opt( 'shared_tm_title', '' ),
+		'lead'         => dsc_opt( 'shared_tm_lead', '' ),
+		'rating'       => dsc_opt( 'shared_tm_rating', '' ),
+		'count'        => dsc_opt( 'shared_tm_count', '' ),
+		'url'          => dsc_opt( 'shared_tm_url', '' ),
+		'foot'         => dsc_opt( 'shared_tm_foot', '' ),
+		'foot_button'  => dsc_opt( 'shared_tm_foot_button', '' ),
+		'foot_url'     => dsc_opt( 'shared_tm_foot_url', '' ),
+	);
+
+	$items = dsc_opt( 'shared_tm_items', array() );
+	if ( is_array( $items ) && ! empty( $items ) ) {
+		$rows = array();
+		foreach ( $items as $row ) {
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+			$rows[] = array(
+				'quote'      => isset( $row['quote'] ) ? $row['quote'] : '',
+				'more'       => isset( $row['more'] ) ? $row['more'] : '',
+				'initials'   => isset( $row['initials'] ) ? $row['initials'] : '',
+				'avatar_bg'  => isset( $row['avatar_bg'] ) ? $row['avatar_bg'] : '#1a73e8',
+				'name'       => isset( $row['name'] ) ? $row['name'] : '',
+				'role'       => isset( $row['role'] ) ? $row['role'] : '',
+			);
+		}
+		if ( ! empty( $rows ) ) {
+			$fill['items'] = $rows;
+		}
+	}
+
+	// Keep only non-empty values so a partially filled shared section does not
+	// wipe out the theme defaults for the other fields.
+	$out = array();
+	foreach ( $fill as $k => $v ) {
+		if ( '' !== $v && null !== $v && false !== $v && ( 'items' !== $k || ! empty( $v ) ) ) {
+			$out[ $k ] = $v;
+		}
+	}
+
+	return empty( $out ) ? array() : $out;
+}
+
+/**
+ * Shared portfolio / projects section from Theme Options.
+ */
+function dsc_shared_projects() {
+	$fill = array(
+		'eyebrow' => dsc_opt( 'shared_proj_eyebrow', '' ),
+		'title'   => dsc_opt( 'shared_proj_title', '' ),
+		'lead'    => dsc_opt( 'shared_proj_lead', '' ),
+	);
+
+	$filters = dsc_opt( 'shared_proj_filters', array() );
+	if ( is_array( $filters ) && ! empty( $filters ) ) {
+		$rows = array();
+		foreach ( $filters as $row ) {
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+			$rows[] = array(
+				'key'   => isset( $row['key'] ) ? $row['key'] : 'all',
+				'label' => isset( $row['label'] ) ? $row['label'] : '',
+			);
+		}
+		if ( ! empty( $rows ) ) {
+			$fill['filters'] = $rows;
+		}
+	}
+
+	$items = dsc_opt( 'shared_proj_items', array() );
+	if ( is_array( $items ) && ! empty( $items ) ) {
+		$rows = array();
+		foreach ( $items as $row ) {
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+			$rows[] = array(
+				'image'    => isset( $row['image'] ) ? $row['image'] : '',
+				'alt'      => isset( $row['alt'] ) ? $row['alt'] : '',
+				'category' => isset( $row['category'] ) ? $row['category'] : '',
+				'filters'  => isset( $row['filters'] ) ? $row['filters'] : '',
+				'title'    => isset( $row['title'] ) ? $row['title'] : '',
+				'class'    => isset( $row['class'] ) ? $row['class'] : '',
+			);
+		}
+		if ( ! empty( $rows ) ) {
+			$fill['items'] = $rows;
+		}
+	}
+
+	// Keep only non-empty values so a partially filled shared section does not
+	// wipe out the theme defaults for the other fields.
+	$out = array();
+	foreach ( $fill as $k => $v ) {
+		if ( '' !== $v && null !== $v && false !== $v && ( 'filters' !== $k || ! empty( $v ) ) && ( 'items' !== $k || ! empty( $v ) ) ) {
+			$out[ $k ] = $v;
+		}
+	}
+
+	return empty( $out ) ? array() : $out;
+}
+
+/* -------------------------------------------------------------------------
  * Global option shortcuts
  * ------------------------------------------------------------------------- */
 

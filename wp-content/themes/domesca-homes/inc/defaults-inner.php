@@ -1475,6 +1475,35 @@ function dsc_resolve_inner_urls( $value ) {
 	return $value;
 }
 
+/**
+ * Render a specific inner page type.
+ *
+ * Each template file (template-about.php, template-services.php, ...) is a
+ * thin wrapper around this helper. The type is fixed by the template so the
+ * editor no longer needs the "Page type / defaults" selector.
+ */
+function dsc_render_inner_page( $type = 'about' ) {
+	$type = sanitize_key( (string) $type );
+
+	get_header();
+
+	if ( have_posts() ) {
+		the_post();
+	}
+
+	$sections = dsc_rows( 'page_sections', array() );
+
+	if ( empty( $sections ) ) {
+		$sections = dsc_inner_default_sections( $type );
+	}
+
+	echo '<div id="page-' . esc_attr( get_the_ID() ) . '" class="dsc-entry dsc-entry--inner">';
+	dsc_render_sections( $sections, 'inner' );
+	echo '</div>';
+
+	get_footer();
+}
+
 function dsc_inner_type_from_page() {
 	$pages = dsc_inner_pages();
 

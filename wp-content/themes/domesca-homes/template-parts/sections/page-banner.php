@@ -36,11 +36,7 @@ $form_text    = $key( 'form_text', __( 'Share a few details about your project a
 
   <div class="wrap wrap-wide pbanner__in">
     <div class="pbanner__copy">
-      <nav class="crumb" aria-label="<?php echo esc_attr__( 'Breadcrumb', 'domesca-homes' ); ?>">
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html__( 'Home', 'domesca-homes' ); ?></a>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page"><?php echo esc_html( $title ); ?></span>
-      </nav>
+      <?php dsc_render_breadcrumb(); ?>
       <h1 class="d2 rv"><?php echo wp_kses_post( $title ); ?></h1>
       <?php if ( $sub ) : ?>
         <p class="pbanner__sub rv rv-d1"><?php echo wp_kses_post( $sub ); ?></p>

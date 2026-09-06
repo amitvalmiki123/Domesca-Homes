@@ -10,8 +10,19 @@ defined( 'ABSPATH' ) || exit;
 $section  = isset( $args['section'] ) ? $args['section'] : array();
 $defaults = dsc_default_landing();
 $proj     = $defaults['projects'];
-$key      = function( $name, $fallback ) use ( $section ) {
-	return dsc_row_key( $section, $name, $fallback );
+
+$shared = dsc_shared_projects();
+
+// Order of precedence: shared (global) > this page's saved row > theme defaults.
+if ( is_array( $section ) && ! empty( $section ) ) {
+	$proj = array_merge( $proj, $section );
+}
+if ( ! empty( $shared ) ) {
+	$proj = array_merge( $proj, $shared );
+}
+
+$key = function( $name, $fallback ) use ( $proj ) {
+	return dsc_row_key( $proj, $name, $fallback );
 };
 
 $items = $key( 'items', $proj['items'] );

@@ -1,363 +1,215 @@
 # Domesca Homes — Inner Page Content Entry Guide
 
-Ye guide batati hai ki WordPress admin me inner pages (About, Services, New Builds, Portfolio, Contact, Privacy Policy, etc.) ka content kaise bharein. Ye theme ke **"Domesca Inner Page" template** ke liye hai — front page (`ads.html` landing) ke liye alag guide hai.
+Ye guide batati hai ki WordPress admin me inner pages (About, Services, New Builds, Portfolio, Contact, Privacy Policy, etc.) ka content kaise bharein.
+
+> **Important:** Is update ke baad inner pages ka workflow badal gaya hai.
+> - Har page type ka **apna alag template** hai (About Page, Services Page, ...).
+> - **Page type / defaults dropdown hat gaya** — template select karte hi page type fix ho jata hai.
+> - **Common sections** (Credentials strip, Google Reviews, Portfolio/Projects) ab sab pages ke liye **Domesca Options → Shared Sections** me ek baar edit hote hain, aur har page par automatic update hote hain.
+> - Breadcrumbs ab dynamic hain — page slug / menu ke hisaab se aate hain.
 
 ---
 
 ## 1. Inner page kaise banayen
 
 1. WP Admin → **Pages → Add New**.
-2. Title daalein (H1/banner me use hota hai).
-3. Right side **Page Attributes → Template** me **`Domesca Inner Page`** select karein.
-4. `Publish` karein (ya pehle **Update** nahi karna ho to draft me bhi fields dikh jayenge).
-5. Page ki **URL/slug** page type decide karne me help karti hai. Ye slugs automatically sahi HTML-content layout load karte hain:
+2. Title daalein (banner/H1 ke liye).
+3. Right side **Page Attributes → Template** me apna template choose karein:
 
-| Page slug | Page type (content) |
-|---|---|
-| `/about/` | About Us |
-| `/services/` | Services |
-| `/our-plans/` | Our Plans |
-| `/new-builds/` | New Builds |
-| `/townhouse-developments/` | Townhouse Developments |
-| `/multi-unit-projects/` | Multi-Unit Projects |
-| `/extensions/` | Extensions |
-| `/renovations/` | Renovations |
-| `/portfolio/` | Portfolio |
-| `/contact/` | Contact |
-| `/location-hillside/` | Location / Hillside |
-| `/privacy-policy/` | Privacy Policy |
-| koi bhi custom slug | Plain / Custom content page |
+   | Template | Kis page ke liye |
+   |---|---|
+   | `Domesca About Page` | About Us |
+   | `Domesca Services Page` | Services |
+   | `Domesca Our Plans Page` | Our Plans |
+   | `Domesca New Builds Page` | New Builds |
+   | `Domesca Townhouse Developments Page` | Townhouse Developments |
+   | `Domesca Multi-Unit Projects Page` | Multi-Unit Projects |
+   | `Domesca Extensions Page` | Extensions |
+   | `Domesca Renovations Page` | Renovations |
+   | `Domesca Portfolio Page` | Portfolio |
+   | `Domesca Contact Page` | Contact |
+   | `Domesca Location / Hillside Page` | Location / Hillside |
+   | `Domesca Privacy Policy Page` | Privacy Policy |
+   | `Domesca Plain Page` | Plain / custom content |
 
-> Note: Agar Page Type dropdown me zyada concrete choice nahi hai, to slug se page type auto-detect hota hai. Custom slug ke liye `Page type / defaults` dropdown se **Plain / Custom** ya **About Us** choose kar sakte hain.
+4. Publish / Update karein.
+5. Neeche **es page ke sections** field group dikhega (template ke hisaab se).
+
+> **Note:** `Domesca Inner Page (Custom)` sirf purane pages ke liye backward-compat fallback hai. Naye pages ke liye upar wale specific templates use karein.
 
 ---
 
-## 2. 2 content modes samjhein
-
-Inner page ka content 2 tarike se aata hai — **koi bharna zaroori nahi**:
+## 2. 2 content modes
 
 ### Mode A — Defaults (recommended start)
-- **Page sections** list khali chhodo.
-- Theme automatically selected `Page type` ke converted HTML content render karta hai (banner, creds, splits, reviews, projects, FAQ, CTA — jo page me design me hai).
-- Ye mode sabse fast hai: page banao, slug sahi rakho, publish karo — design ready.
+- **Page sections** khali chhodo.
+- Theme automatically us page type ke converted HTML content render karta hai (banner, splits, reviews, projects, FAQ, CTA — design jaisa hai).
+- Ye sabse fast hai: template choose karo, page publish karo, ready.
 
 ### Mode B — Custom ACF sections
 - **Page sections → Add section** se sections add karein.
-- Jaise hi plugin kisi layout me value daalte hain, wahi section default HTML content ki jagah dikhta hai.
-- Khali/unfilled fields design me kuch nahi dikhati (empty field = koi output nahi).
-- Sections ko Add/Reorder/Remove karke poora page apne design se bana sakte hain.
-
-> Best approach: pehle Mode A me page preview dekh lijiye, phir sirf wahi sections customize karein jisme naya text/image chahiye.
+- Jaise hi layout me value daalte hain, wahi section default HTML ke bajaye dikhta hai.
+- **Common sections** (Credentials / Reviews / Portfolio) **yahan content fields nahi dikhengi** — sirf show/order toggle milta hai. Unka content **Domesca Options → Shared Sections** me edit hota hai.
 
 ---
 
-## 3. Steps to edit content
+## 3. Shared sections (ek baar edit → har page update)
 
-1. Page ko edit mode me kholein.
-2. Neeche **Domesca Inner Page** ke fields dikhte hain (same order as above).
-3. **Page type / defaults** se page ka base choose karein (ya slug par trust karein).
-4. **Page sections → Add section** se layout add karein. Har layout ke andar `Show this section?` (yes/no) aur `Order` (number) sabse upar milta hai.
-5. Fields bharein — `Text`, `Textarea`, `WYSIWYG`, `Image`, `Repeater`, `True/False` (toggle), `Select`, `URL`.
-6. Update → page front-end par dekhein.
+Now these are global. Go to **Domesca Options → Shared Sections** tab:
+
+### 3.1 Credentials strip
+- **Value** — bada number/word, e.g. `2013`, `10+`, `Melbourne`.
+- **Label** — uske neeche wali line.
+
+Yahan bhaarte hi ye landing, home, aur saare inner pages par apply ho jata hai.
+
+### 3.2 Google Reviews
+- **Eyebrow / Heading / Intro** — section header.
+- **Google rating / Review count** — e.g. `5.0`, `27`.
+- **Google review URL** — “See All Reviews” link.
+- **Footer text / Footer button label / URL** — reviews ke neeche.
+- **Reviews** repeater — har review ka:
+  - Quote (WYSIWYG)
+  - Continue quote (optional)
+  - Avatar initial + background colour
+  - Name + Role/project
+
+### 3.3 Portfolio / Projects
+- **Eyebrow / Heading / Intro** — section header.
+- **Filter chips** — `key` (lower-case, e.g. `all`, `new-homes`) + `label`.
+- **Project tiles** — har tile:
+  - Image + Alt
+  - Category
+  - Filter keys (space separated)
+  - Title
+  - Width (Default / Wide / Half)
 
 ---
 
-## 4. Har section ke fields — quick reference
+## 4. Har page-specific section ke fields
 
-Har section me sabse pehle 2 common fields hote hain:
+Har non-common section me sabse pehle 2 common fields hote hain:
 
 | Field | Type | Kya karta hai |
 |---|---|---|
-| **Show this section?** | Toggle | `Yes` = section render hota hai; `No` = hide. Default `Yes`. |
-| **Order** | Number | Number jitna chhota, utna pehle dikhta hai. Default `10`. |
-
----
+| **Show this section?** | Toggle | `Yes` = render; `No` = hide. Default `Yes`. |
+| **Order** | Number | Number jitna chhota, utna pehle. Default `10`. |
 
 ### 4.1 Page banner (top hero — `pbanner`)
-Inner page ka sabse upar wala banner. Style me image background + title + buttons + enquiry form hota hai.
-
-| Field | Type | Notes |
-|---|---|---|
-| **Plain (no form column)** | Toggle | `Yes` = form column nahi dikhega (simple banner). |
-| **Background image** | Image | ~1600px, background banega. |
-| **Title (H1)** | Textarea | Page ka main heading. HTML allowed (`<em>`, `<span class="serif-accent">`). |
-| **Subtitle** | Textarea | Small descriptive line. |
-| **Primary button label / URL** | Text | Main CTA, e.g. “Request Your Free Quote”. |
-| **Secondary button label / URL** | Text | Dark/ghost CTA, e.g. “Call 0411 526 251”. |
-| **Show enquiry form** | Toggle | Banner me form dikhana hai ya nahi. |
-| **Form eyebrow / title / text** | Text / Textarea | Form card ke heading aur intro. |
-
-> Banner title blank chhoda to WordPress page title use hota hai.
-> `tel:+61411526251` jaise phone URLs direct paste kar sakte hain.
-
----
-
-### 4.2 Credentials strip (`creds`)
-Numbers wali chhoti strip (2013, 10+, 4, Melbourne, etc.).
-
-| Field | Type | Notes |
-|---|---|---|
-| **Value** | Text | Bada number/word, e.g. `2013`, `10+`, `Melbourne`. |
-| **Label** | Text | Uske neeche wali line. |
-
----
-
-### 4.3 Splits (`splits`)
-Alternating image+text blocks. Har split block ke fields:
-
-| Field | Type | Notes |
-|---|---|---|
-| **Flip (media left)** | Toggle | `Yes` = image left me, text right me; `No` = text left, image right. |
-| **Heading level** | Select | `H2` ya `H3`. |
-| **Eyebrow** | Text | Chhota uppercase label, e.g. “Who We Are”. |
-| **Heading** | Textarea | Section heading (HTML allowed). |
-| **Paragraphs → Type** | Select | `Paragraph` ya `Lead paragraph` (bada intro text). |
-| **Paragraphs → Text / HTML** | WYSIWYG | Multi-paragraph content daal sakte hain. |
-| **Check list → Label / Link URL** | Repeater | Checkmark items (optional). |
-| **Buttons → Label / URL / Style** | Repeater | Primary ya Ghost buttons. |
-| **Image / Alt text / Image tag** | Image / Text | Image, alt text aur image par overlay tag (e.g. “Established 2013”). |
-
----
-
-### 4.4 Services grid (`services`)
-Services page ke cards (New Home Construction, Extensions, etc.).
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading / Intro / Top button** | Text / Textarea | Section header. |
-| **Card → Image** | Image | Service/feature image. |
-| **Card → Number / eyebrow** | Text | Card ka bada label/sequence. |
-| **Card → Title / URL** | Text | Card heading aur link. |
-| **Card → Short description** | Textarea | Visible line. |
-| **Card → Read more (WYSIWYG)** | WYSIWYG | “Read more” ke andar wala content. |
-| **Card → Tags** | Repeater | Small tag buttons/labels. |
-
----
-
-### 4.5 Your plans, or ours (`plans`)
-“Design your own or use ours” wali section (read more toggle ke saath).
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading** | Text / Textarea | Section header. |
-| **Lead text (WYSIWYG)** | WYSIWYG | Pehle visible paragraphs. |
-| **Read more (WYSIWYG)** | WYSIWYG | “Read more” ke andar ke paragraphs. |
-| **Read more label** | Text | Button label, default “Read more about our design process”. |
-| **Plan routes → Icon / Title / Text** | Repeater | Two option cards (`Plans` ya `Pencil` icon). |
-| **Image / Alt text** | Image / Text | Side image. |
-| **Stamp / Stamp text** | Text | Overlay stamp (e.g. year). |
-
----
-
-### 4.6 Why / dark grid (`why`)
-Dark background wala “Why build with us” grid (numbers ke saath).
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading** | Text / Textarea | Section header (white text). |
-| **Background image** | Image | Dark section ka background. |
-| **Grid cell → Number / Title / Text** | Repeater | Har cell ka bada number, heading, description. |
-| **Primary button / URL** | Text | White button. |
-| **Secondary button / URL** | Text | Dark button. |
-| **Note** | Text | Buttons ke neeche chhoti line. |
-
----
-
-### 4.7 Process (`process`)
-“How we build” steps + “Indicative build timeframes” note (blue left border + Get My Free Quote button).
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading / Intro (WYSIWYG)** | Text / Textarea / WYSIWYG | Section header. |
-| **Steps → Step label / Title / Description** | Repeater | Step 01, Step 02, … |
-| **Note label** | Text | Default `Indicative build timeframes.` — aur left-border note heading. |
-| **Note (WYSIWYG)** | WYSIWYG | Timeframes note ka body. `<strong>` tags allowed. |
-| **Button label / URL** | Text | `Get My Free Quote` button. |
-
----
-
-### 4.8 Portfolio / projects (`projects`)
-Photo grid with filter chips.
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading / Intro** | Text / Textarea | Section header. |
-| **Filter chips → Key / Label** | Repeater | Filter buttons. `key` lower-case, e.g. `all`, `new-homes`, `renovations`. |
-| **Tile → Image / Alt** | Image / Text | Project photo + alt. |
-| **Tile → Category** | Text | Overlay label, e.g. “New Homes”. |
-| **Tile → Filter keys** | Text | Space-separated keys jo tile ko filter karte hain, e.g. `new-homes renovations`. |
-| **Tile → Title** | Text | Overlay title. |
-| **Tile → Width** | Select | Default / Wide (2 col) / Half (1 col). |
-
----
-
-### 4.9 Developers / investors (`developers`)
-Development/multi-unit section (image + badge + checklist).
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading / Description (WYSIWYG)** | Text / WYSIWYG | Section header. |
-| **Assist list → Item** | Repeater | Checklist items. |
-| **Image** | Image | Side/feature image. |
-| **Badge title / Badge text** | Text / Textarea | Image par overlay badge. |
-| **Button label / URL** | Text | CTA. |
-
----
-
-### 4.10 Testimonials / Google Reviews (`testimonials`)
-Google Reviews section (rating, count, review cards, footer button).
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading / Intro** | Text / Textarea | Section header. |
-| **Google rating** | Text | e.g. `5.0`. |
-| **Review count** | Text | e.g. `27`. |
-| **Google review URL** | URL | “Google Reviews” link. |
-| **Footer text** | Textarea | Reviews ke neeche line, e.g. “We’re grateful for every review.” |
-| **Footer button label / URL** | Text | e.g. “Read All Reviews”. |
-| **Reviews → Quote (WYSIWYG)** | WYSIWYG | Review ka open text. |
-| **Reviews → Continue quote (WYSIWYG)** | WYSIWYG | Optional “more” part. |
-| **Reviews → Avatar initial / background colour** | Text | e.g. `R`, `#1a73e8`. |
-| **Reviews → Name / Role** | Text | Reviewer name + project type. |
-
----
-
-### 4.11 Areas we build (`areas`)
-Sticky-map wali “Where We Build” section.
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading** | Text / Textarea | Section header. |
-| **Description (WYSIWYG)** | WYSIWYG | Multi-paragraph intro. |
-| **Areas list → Area** | Repeater | Checklist of suburbs/regions. |
-| **Notice box** | Textarea | “Outside these areas?” wali note. |
-| **Button 1 / URL** | Text | e.g. “Check Your Suburb”. |
-| **Button 2 / URL** | Text | e.g. “Call 0411 526 251”. |
-| **Map embed URL** | URL | Google Maps `output=embed` link. |
-
----
-
-### 4.12 FAQ tabs (`faq`)
-Tabbed FAQ section.
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading** | Text / Textarea | Section header. |
-| **FAQ categories → Tab label / id** | Text | Tab ka naam + lower-case id. |
-| **FAQ categories → Questions → Question / Answer (WYSIWYG)** | Text / WYSIWYG | Q&A. Answer me multi-paragraph allowed. |
-| **Aside title / Aside text** | Text / Textarea | Right side “Ready to start?” card. |
-
----
-
-### 4.13 Final CTA / contact (`cta`)
-Bottom full-width CTA with form.
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading / Subtitle** | Text / Textarea | CTA text. |
-| **Background image** | Image | Section background. |
-| **Form eyebrow / title / text** | Text / Textarea | Form card header. |
-
----
-
-### 4.14 Contact split + form (`contact`)
-Contact page ka 2-column layout (details + light form).
-
-| Field | Type | Notes |
-|---|---|---|
-| **Eyebrow / Heading** | Text / Textarea | Section header. |
-| **Description (WYSIWYG)** | WYSIWYG | Intro paragraphs. |
-| **Form eyebrow / title / text** | Text / Textarea | Form card header. |
-
-> Phone, email, address, service area, Facebook — ye **Domesca Global Options** se aate hain, is section me nahi. Contact page par wahi values dikhengi.
-
----
-
-### 4.15 Full-width map (`contact_map`)
-| Field | Type | Notes |
-|---|---|---|
-| **Map embed URL** | URL | Google Maps embed URL. |
-
----
-
-### 4.16 Document / prose (`prose`)
-Privacy Policy / legal / simple text page.
-
-| Field | Type | Notes |
-|---|---|---|
-| **Title** | Text | Page heading (H1). |
-| **Meta line** | Text | Chhoti meta line (e.g. “Last updated: …”). |
-| **Content (WYSIWYG)** | WYSIWYG | Full body. Images allowed in this field. |
-
-> Ye field khali chhoda to page ki normal WordPress editor content (`the_content`) use hota hai.
-
----
-
-## 5. Global settings (inner pages par apply hote hain)
-
-Ye fields page sections me nahi, **Domesca Options** (left admin menu me “Domesca Options”) me set hote hain:
-
-| Setting | Kya karta hai |
+| Field | Notes |
 |---|---|
-| **Phone (full tel link)** | `tel:` link ke liye, e.g. `+61411526251`. |
-| **Phone (displayed)** | Screen par dikhne wala, e.g. `0411 526 251`. |
-| **Email** | Header/footer/contact email. |
-| **Address / service area** | Footer + contact page. |
-| **Header form shortcode** | Hero/banner enquiry form (Contact Form 7). |
-| **Final CTA / contact form shortcode** | Bottom CTA form (Contact Form 7). |
-| **Enquiry recipient email** | Built-in form ka recipient. |
-| **Footer logo** | Footer ka alag (light) logo. |
-| **Footer about / copyright / quote button text** | Footer content. |
+| **Plain (no form column)** | Toggle: `Yes` = form nahi dikhega. |
+| **Background image** | ~1600px. |
+| **Title (H1)** | Main heading, HTML allowed. |
+| **Subtitle** | Chhoti line. |
+| **Primary / Secondary button + URL** | CTAs. |
+| **Show enquiry form** | Toggle. |
+| **Form eyebrow / title / text** | Form card header. |
 
-> **Menus** WordPress **Appearance → Menus** se manage hote hain — header, mobile drawer, footer columns aur footer bottom bar sab same menu system use karte hain.
+### 4.2 Splits
+| Field | Notes |
+|---|---|
+| **Flip (media left)** | Toggle. |
+| **Heading level** | H2/H3. |
+| **Eyebrow / Heading** | Header. |
+| **Paragraphs** | `Paragraph` / `Lead paragraph` + WYSIWYG. |
+| **Check list** | Label + URL. |
+| **Buttons** | Label + URL + Style (Primary/Ghost). |
+| **Image / Alt / Image tag** | Side graphic + overlay tag. |
+
+### 4.3 Services grid
+Header + services repeater (image, number, title, URL, description, read-more, tags).
+
+### 4.4 Your plans, or ours
+Heading, lead, read-more, routes (icon/title/text), image, stamp.
+
+### 4.5 Why / dark grid
+Eyebrow, heading, background image, grid cells (number/title/text), 2 buttons, note.
+
+### 4.6 Process
+Eyebrow/heading/intro, steps (label/title/text), **Note label + Note (WYSIWYG)** — yahi “Indicative build timeframes” blue-left-border note + **Get My Free Quote** button hai.
+
+### 4.7 Developers / investors
+Header, description, assist list, image, badge, button.
+
+### 4.8 Areas we build (sticky map)
+Eyebrow/heading, description, areas list, notice box, button 1/2, map embed URL.
+> `sticky-split` / `sticky-col` map behavior preserve kiya gaya hai — isko remove nahi karna.
+
+### 4.9 FAQ tabs
+Eyebrow/heading, categories (tab label/id + questions), aside title/text.
+
+### 4.10 Final CTA / contact
+Eyebrow/heading/subtitle, background image, form eyebrow/title/text.
+
+### 4.11 Contact split + form
+Eyebrow/heading/description + form header.
+> Phone/email/address/service area/facebook — **Domesca Options** se aate hain, yahan nahi.
+
+### 4.12 Full-width map
+Map embed URL.
+
+### 4.13 Document / prose (privacy, plain)
+Title, meta line, content (WYSIWYG). Khali chhoda to page ki normal editor content use hoti hai.
 
 ---
 
-## 6. Forms (Contact Form 7)
+## 5. Breadcrumbs (dynamic)
 
-- Create CF7 forms normally, then uske shortcode ko **Domesca Options** ke form fields me paste karein.
-- Field names in reserved words ko avoid karein, ye names use karein:
-  `your-name`, `your-phone`, `your-email`, `your-message`, `your-project-type`, `your-suburb`, `your-stage`.
-- Submit button me theme classes zaroor daalein:
-  `[submit class:btn class:btn--block class:btn--lg "Send My Enquiry"]`
-- Select fields custom arrow ke liye theme CSS handle karta hai — CF7 me special styling ko hataayen.
+Breadcrumb ab automatically banta hai:
+- **Home** hamesha pehla.
+- Agar page ka **WordPress parent** hai → parent add hota hai.
+- Agar primary menu me page kisi parent ke neeche hai (e.g. `New Builds` → `Services`) → parent crumb aata hai.
+- Agar koi menu assign nahi hai, to built-in slug map (`new-builds`, `extensions`, `renovations`, ... → Services) use hota hai.
+- Last crumb = current page title.
 
----
-
-## 7. Images & alt text recommendations
-
-- Upload **max ~1600px** wide images (theme zip size ke liye zaroori).
-- **Hero/banner** image par `alt` bhariye (screen readers ko context mile).
-- Har project/service/person image ke liye **Alt text** likhein, e.g.
-  - `Open-plan kitchen and living area in a completed Domesca Homes new build`
-  - `Two-storey brick facade at dusk`
-- **Empty fields output nothing** — isliye koi bhi khali image/title/page chhoda to section me woh element nahi dikhega.
+> Iske liye admin me kuch karne ki zaroorat nahi — page slug/template se auto aata hai.
 
 ---
 
-## 8. Quick workflow (copy-paste checklist)
+## 6. Global settings (inner pages par apply)
 
-1. Page create karo, slug set karo (e.g. `/new-builds/`).
-2. Template = `Domesca Inner Page`.
-3. Page type/defaults select karo.
-4. Page publish karo → preview to confirm defaults matching design.
-5. Sirf wahi sections customize karo jo alag chahiye:
-   - Banner → change title/image/buttons/form.
-   - Splits/Projects → naye text/images/items.
-   - Reviews → rating, count, review cards.
-   - FAQ → questions + answers.
-   - CTA/Contact → form header text/image.
-6. Global details (phone/email/address/menus/footer/logo) Domesca Options me set karo.
-7. Mobile preview bhi dekh lo (drawer + banner form).
+**Domesca Options** me set hote hain:
+- Phone (full tel + display), Email, Address, Service area, Facebook.
+- Hero/banner form shortcode (CF7), Final CTA form shortcode, enquiry recipient.
+- Footer logo, footer about, copyright, quote button text.
+
+**Menus:** WordPress **Appearance → Menus** se. Header, mobile drawer, footer columns, footer bottom — sab native WP menu system.
 
 ---
 
-## 9. Common mistakes (avoid)
+## 7. Forms (Contact Form 7)
 
-- ❌ Page template select karna bhoolna → theme fields nahi dikhenge.
-- ❌ Page type ko slide ke liye wrong slug par chhodna.
-- ❌ Har section add karke baad me sab khali chhod dena — defaults use hota hai, custom sections ko bharna zaroori hai agar add kiya hai.
-- ❌ Image alt blank rakhna (accessibility + SEO).
-- ❌ CF7 field names me reserved words (`name`, `email`, `message`) — use `your-*` names.
-- ❌ Header ka logo hi footer me upload karna — footer light logo alag field me daalein.
-- ❌ “Indicative build timeframes” note ko normal paragraph me daal dena — Process section ke **Note** field me daalein (blue left border design wahi milega).
+- CF7 forms banayen, shortcode **Domesca Options** me paste karein.
+- Field names: `your-name`, `your-phone`, `your-email`, `your-message`, `your-project-type`, `your-suburb`, `your-stage`.
+- Submit: `[submit class:btn class:btn--block class:btn--lg "Send My Enquiry"]`.
+
+---
+
+## 8. Images & alt text
+
+- max ~1600px wide upload karein.
+- Har image ke liye **Alt text** likhein.
+- **Empty fields output nothing** — khali section/element render nahi hota.
+
+---
+
+## 9. Workflow checklist
+
+1. Page banao + template choose karo (About, Services, etc.).
+2. Page publish karo → defaults preview dekho.
+3. **Domesca Options → Shared Sections** me credentials / reviews / portfolio ek baar set karo (har page par auto apply).
+4. Page-specific sections me sirf wahi customize karo jo alag chahiye.
+5. Global info (phone/email/address/menus/logo/forms) Domesca Options me set karo.
+6. Desktop + mobile preview dekho.
+
+---
+
+## 10. Common mistakes (avoid)
+
+- ❌ Shared sections ko page ke andar dhundhna — unka content **Domesca Options → Shared Sections** me hai.
+- ❌ `Domesca Inner Page (Custom)` naye pages ke liye use karna — specific template chuno.
+- ❌ Har page par baar-baar alag reviews/portfolio bharna — shared sections me ek baar bharo.
+- ❌ Image alt blank rakhna.
+- ❌ CF7 reserved field names (`name`, `email`, `message`) — `your-*` use karein.
+- ❌ “Indicative build timeframes” normal paragraph me daalna — Process section ke **Note** field me daalein.
