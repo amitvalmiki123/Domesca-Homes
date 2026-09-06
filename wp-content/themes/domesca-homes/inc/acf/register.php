@@ -303,10 +303,15 @@ function dsc_register_fields() {
 						'name'  => 'services',
 						'sub_fields' => dsc_home_services_fields(),
 					),
+					'plans' => array(
+						'label' => 'Your plans, or ours',
+						'name'  => 'plans',
+						'sub_fields' => dsc_page_plans_fields(),
+					),
 					'why' => array(
 						'label' => 'Why choose us',
 						'name'  => 'why',
-						'sub_fields' => dsc_landing_why_fields(),
+						'sub_fields' => dsc_page_why_fields(),
 					),
 					'process' => array(
 						'label' => 'Process',

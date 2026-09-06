@@ -1418,51 +1418,42 @@ function dsc_inner_default_sections( $type = 'about' ) {
 	}
 	$p = $pages[ $type ];
 
+	// Section order per converted HTML page. These mirror the exact section
+	// sequence in /newpages/*.html rather than applying one generic stack.
+	$order = array(
+		'about'                   => array( 'banner', 'creds', 'splits', 'testimonials', 'projects', 'cta' ),
+		'services'                => array( 'banner', 'creds', 'splits', 'services', 'plans', 'projects', 'testimonials', 'faq', 'cta' ),
+		'our-plans'               => array( 'banner', 'creds', 'splits', 'projects', 'testimonials', 'faq', 'cta' ),
+		'new-builds'              => array( 'banner', 'creds', 'splits', 'projects', 'testimonials', 'faq', 'cta' ),
+		'townhouse-developments'  => array( 'banner', 'creds', 'splits', 'projects', 'testimonials', 'faq', 'cta' ),
+		'multi-unit-projects'     => array( 'banner', 'creds', 'splits', 'projects', 'testimonials', 'faq', 'cta' ),
+		'extensions'              => array( 'banner', 'creds', 'splits', 'projects', 'testimonials', 'faq', 'cta' ),
+		'renovations'             => array( 'banner', 'creds', 'splits', 'projects', 'testimonials', 'faq', 'cta' ),
+		'portfolio'               => array( 'banner', 'creds', 'projects', 'splits', 'testimonials', 'cta' ),
+		'location-hillside'       => array( 'banner', 'creds', 'splits', 'areas', 'projects', 'testimonials', 'faq', 'cta' ),
+		'contact'                 => array( 'banner', 'contact', 'contact_map' ),
+		'privacy-policy'          => array( 'prose' ),
+		'plain'                   => array( 'prose' ),
+	);
+
+	if ( ! isset( $order[ $type ] ) ) {
+		$order[ $type ] = array( 'banner', 'creds', 'splits', 'projects', 'testimonials', 'faq', 'cta' );
+	}
+
 	$sections = array();
 
-	if ( ! empty( $p['banner'] ) ) {
-		$sections[] = array_merge( array( 'acf_fc_layout' => 'banner' ), $p['banner'] );
-	}
+	foreach ( $order[ $type ] as $layout ) {
+		$row = array( 'acf_fc_layout' => $layout );
 
-	if ( 'contact' === $type ) {
-		$sections[] = array( 'acf_fc_layout' => 'contact' );
-		$sections[] = array( 'acf_fc_layout' => 'contact_map' );
-		return $sections;
-	}
+		if ( 'banner' === $layout && ! empty( $p['banner'] ) ) {
+			$row = array_merge( $row, $p['banner'] );
+		} elseif ( 'creds' === $layout && ! empty( $p['creds'] ) ) {
+			$row['items'] = $p['creds'];
+		} elseif ( 'splits' === $layout && ! empty( $p['splits'] ) ) {
+			$row['items'] = $p['splits'];
+		}
 
-	if ( 'privacy-policy' === $type || 'plain' === $type ) {
-		$sections[] = array( 'acf_fc_layout' => 'prose' );
-		return $sections;
-	}
-
-	if ( ! empty( $p['creds'] ) ) {
-		$sections[] = array( 'acf_fc_layout' => 'creds', 'items' => $p['creds'] );
-	}
-
-	if ( ! empty( $p['splits'] ) ) {
-		$sections[] = array( 'acf_fc_layout' => 'splits', 'items' => $p['splits'] );
-	}
-
-	// Service / plan pages also get the services and plans grids.
-	$service_types = array( 'services', 'new-builds', 'townhouse-developments', 'multi-unit-projects', 'extensions', 'renovations' );
-	if ( in_array( $type, $service_types, true ) ) {
-		$sections[] = array( 'acf_fc_layout' => 'services' );
-		$sections[] = array( 'acf_fc_layout' => 'plans' );
-	}
-
-	$sections[] = array( 'acf_fc_layout' => 'portfolio' );
-
-	if ( 'location-hillside' === $type ) {
-		$sections[] = array( 'acf_fc_layout' => 'areas' );
-	}
-
-	if ( 'portfolio' !== $type ) {
-		$sections[] = array( 'acf_fc_layout' => 'testimonials' );
-		$sections[] = array( 'acf_fc_layout' => 'faq' );
-		$sections[] = array( 'acf_fc_layout' => 'cta' );
-	} else {
-		$sections[] = array( 'acf_fc_layout' => 'testimonials' );
-		$sections[] = array( 'acf_fc_layout' => 'cta' );
+		$sections[] = $row;
 	}
 
 	return dsc_resolve_inner_urls( $sections );
@@ -1485,10 +1476,31 @@ function dsc_resolve_inner_urls( $value ) {
 }
 
 function dsc_inner_type_from_page() {
-	$type = dsc_field( 'page_type', 'about' );
-	if ( is_array( $type ) ) {
-		return 'about';
+	$pages = dsc_inner_pages();
+
+	// Prefer an explicit ACF page type where one has actually been saved.
+	if ( function_exists( 'get_field' ) ) {
+		$saved = get_field( 'page_type', get_the_ID() );
+	} else {
+		$saved = get_post_meta( get_the_ID(), 'page_type', true );
 	}
-	return sanitize_key( (string) $type );
+	if ( ! is_array( $saved ) && ! empty( $saved ) ) {
+		$type = sanitize_key( (string) $saved );
+		if ( isset( $pages[ $type ] ) ) {
+			return $type;
+		}
+	}
+
+	// Otherwise infer from the page slug so /new-builds/, /portfolio/ etc.
+	// render the correct converted HTML defaults immediately after creation.
+	$post = get_post( get_the_ID() );
+	if ( $post && ! empty( $post->post_name ) ) {
+		$slug = sanitize_key( $post->post_name );
+		if ( isset( $pages[ $slug ] ) ) {
+			return $slug;
+		}
+	}
+
+	return 'about';
 }
 
