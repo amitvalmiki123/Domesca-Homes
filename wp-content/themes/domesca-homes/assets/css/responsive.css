@@ -1,0 +1,5 @@
+/*
+ * Responsive rules are shipped inside the updated design CSS in
+ * assets/css/main.css. This file remains in the enqueue chain so existing
+ * child-theme overrides can be added here without touching the base file.
+ */
