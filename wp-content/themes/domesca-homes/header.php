@@ -70,9 +70,6 @@ $header_logo = dsc_logo_data( 'header' );
         <span class="hdr__phone-tx"><small><?php echo esc_html__( 'Call us now', 'domesca-homes' ); ?></small><b><?php echo esc_html( $phone_tx ); ?></b></span>
       </a>
       <a class="btn btn--dark" href="#enquire"><?php echo esc_html__( 'Get a Free Quote', 'domesca-homes' ); ?></a>
-      <a class="hdr__call" href="tel:<?php echo esc_attr( $phone ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Call us on %s', 'domesca-homes' ), $phone_tx ) ); ?>">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
-      </a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Open menu"><span></span></button>
     </div>
   </div>

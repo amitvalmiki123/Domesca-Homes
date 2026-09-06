@@ -576,6 +576,9 @@ function dsc_landing_testimonials_fields() {
 		array( 'key' => 'field_dsc_l_tm_eyebrow', 'name' => 'eyebrow', 'label' => 'Eyebrow', 'type' => 'text' ),
 		array( 'key' => 'field_dsc_l_tm_title', 'name' => 'title', 'label' => 'Heading', 'type' => 'textarea', 'rows' => 3, 'new_lines' => '' ),
 		array( 'key' => 'field_dsc_l_tm_lead', 'name' => 'lead', 'label' => 'Intro', 'type' => 'textarea', 'rows' => 2 ),
+		array( 'key' => 'field_dsc_l_tm_rating', 'name' => 'rating', 'label' => 'Google rating (0.0 placeholder works too)', 'type' => 'text', 'default_value' => '0.0' ),
+		array( 'key' => 'field_dsc_l_tm_count', 'name' => 'count', 'label' => 'Review count', 'type' => 'text', 'default_value' => '00' ),
+		array( 'key' => 'field_dsc_l_tm_url', 'name' => 'url', 'label' => 'Google review URL', 'type' => 'url', 'default_value' => 'https://www.google.com/search?q=Domesca+Homes+Hillside' ),
 		array( 'key' => 'field_dsc_l_tm_foot', 'name' => 'foot', 'label' => 'Footer text', 'type' => 'textarea', 'rows' => 2 ),
 		array( 'key' => 'field_dsc_l_tm_foot_btn', 'name' => 'foot_button', 'label' => 'Footer button label', 'type' => 'text' ),
 		array(
@@ -587,7 +590,8 @@ function dsc_landing_testimonials_fields() {
 			'sub_fields'   => array(
 				array( 'key' => 'field_dsc_l_tm_quote', 'name' => 'quote', 'label' => 'Quote (WYSIWYG)', 'type' => 'wysiwyg', 'toolbar' => 'basic', 'media_upload' => 0 ),
 				array( 'key' => 'field_dsc_l_tm_more', 'name' => 'more', 'label' => 'Continue quote (WYSIWYG, optional)', 'type' => 'wysiwyg', 'toolbar' => 'basic', 'media_upload' => 0 ),
-				array( 'key' => 'field_dsc_l_tm_initials', 'name' => 'initials', 'label' => 'Initials', 'type' => 'text' ),
+				array( 'key' => 'field_dsc_l_tm_initials', 'name' => 'initials', 'label' => 'Avatar initial', 'type' => 'text' ),
+				array( 'key' => 'field_dsc_l_tm_avatar', 'name' => 'avatar_bg', 'label' => 'Avatar background colour', 'type' => 'text', 'default_value' => '#1a73e8' ),
 				array( 'key' => 'field_dsc_l_tm_name', 'name' => 'name', 'label' => 'Name', 'type' => 'text' ),
 				array( 'key' => 'field_dsc_l_tm_role', 'name' => 'role', 'label' => 'Role / project', 'type' => 'text' ),
 			),

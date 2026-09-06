@@ -210,27 +210,17 @@ function dsc_create_default_footer_bottom_menu() {
 	// Only populate an empty menu.
 	if ( ! wp_get_nav_menu_items( $menu_id ) ) {
 		$links = array(
-			'About'    => home_url( '/about/' ),
-			'Services' => home_url( '/services/' ),
-			'Portfolio' => home_url( '/portfolio/' ),
-			'Contact'  => home_url( '/contact/' ),
+			'About'         => home_url( '/about/' ),
+			'Services'      => home_url( '/services/' ),
+			'Portfolio'     => home_url( '/portfolio/' ),
+			'Contact'       => home_url( '/contact/' ),
+			'Privacy Policy' => home_url( '/privacy-policy/' ),
 		);
 
 		foreach ( $links as $title => $url ) {
 			wp_update_nav_menu_item( $menu_id, 0, array(
 				'menu-item-title'  => $title,
 				'menu-item-url'    => $url,
-				'menu-item-type'   => 'custom',
-				'menu-item-status' => 'publish',
-			) );
-		}
-
-		// Add the WordPress privacy page if one exists.
-		$privacy = function_exists( 'get_privacy_policy_url' ) ? get_privacy_policy_url() : '';
-		if ( $privacy ) {
-			wp_update_nav_menu_item( $menu_id, 0, array(
-				'menu-item-title'  => __( 'Privacy Policy', 'domesca-homes' ),
-				'menu-item-url'    => $privacy,
 				'menu-item-type'   => 'custom',
 				'menu-item-status' => 'publish',
 			) );

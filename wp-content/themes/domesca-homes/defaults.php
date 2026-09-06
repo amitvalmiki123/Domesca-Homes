@@ -96,25 +96,28 @@ function dsc_default_landing() {
 			),
 		),
 		'testimonials'  => array(
-			'eyebrow' => 'Testimonials',
+			'eyebrow' => 'Google Reviews',
 			'title'   => 'What our clients <span class="serif-accent">say.</span>',
-			'lead'    => 'Reviews as published on domescahomes.com.au.',
+			'lead'    => 'Reviews published by Domesca Homes clients.',
+			'rating'  => '0.0',
+			'count'   => '00',
+			'url'     => 'https://www.google.com/search?q=Domesca+Homes+Hillside',
 			'foot'    => 'Whether it&rsquo;s a family home or an investment development, we take the time to understand your goals.',
 			'foot_btn'=> 'Get Your Free Quote',
 			'items'   => array(
 				array(
-					'quote' => '<p>I cannot begin to express how happy we were with Domesca Homes in building our forever home. From the very beginning Hamza was amazing in terms of guiding us with everything, I cannot speak more highly of him&hellip;</p>',
-					'more' => '<p>Having never built before, Hamza was awesome through the whole process, always communicated with us, very patient and provided us with advice throughout the build. He was able to build us an amazing house on time and within our budget.</p><p>The craftsmanship and eye for detail during the build by Hamza was excellent. I would highly highly recommend him to anyone looking to build their house and would not hesitate to go straight to him if I was ever building again.</p>',
-					'initials' => 'JS', 'name' => 'Jon Siotas', 'role' => 'New home build',
-				),
-				array(
 					'quote' => '<p>If I could give 10 stars, I would! The work completed by Hamza and his team was outstanding. From communication to the quality of the work, I could not be happier. I highly recommend Domesca Homes.</p>',
-					'more' => '', 'initials' => 'RT', 'name' => 'Rebecca Tipping', 'role' => 'Domesca Homes client',
+					'more' => '', 'initials' => 'R', 'avatar_bg' => '#1a73e8', 'name' => 'Rebecca Tipping', 'role' => 'Domesca Homes client',
 				),
 				array(
 					'quote' => '<p>Literally counting our blessings for having found Hamza and Domesca Homes to build our 2 units!! For the 10 months we worked with him, work progressed very well, Hamza was super easy to talk to and communicated well regarding any issues&hellip;</p>',
 					'more' => '<p>&hellip;and he was always positive of getting work done and stuck to his timelines well, managing delays with a lot of patience. His standards are high and his work is of top quality and we are super impressed by his materials and fittings. We are lucky to have a good relationship with our builder in an industry where most building experiences can be traumatic.</p>',
-					'initials' => 'JS', 'name' => 'Jeena S', 'role' => '2-unit development',
+					'initials' => 'J', 'avatar_bg' => '#e8710a', 'name' => 'Jeena S', 'role' => '2-unit development',
+				),
+				array(
+					'quote' => '<p>I cannot begin to express how happy we were with Domesca Homes in building our forever home. From the very beginning Hamza was amazing in terms of guiding us with everything, I cannot speak more highly of him&hellip;</p>',
+					'more' => '<p>Having never built before, Hamza was awesome through the whole process, always communicated with us, very patient and provided us with advice throughout the build. He was able to build us an amazing house on time and within our budget.</p><p>The craftsmanship and eye for detail during the build by Hamza was excellent. I would highly highly recommend him to anyone looking to build their house and would not hesitate to go straight to him if I was ever building again.</p>',
+					'initials' => 'J', 'avatar_bg' => '#137333', 'name' => 'Jon Siotas', 'role' => 'New home build',
 				),
 			),
 		),
