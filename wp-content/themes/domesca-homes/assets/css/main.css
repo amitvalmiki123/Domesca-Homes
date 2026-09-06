@@ -280,7 +280,12 @@ p:last-child{margin-bottom:0}
 .mnav__close{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--n-200);border-radius:var(--r);flex:0 0 42px}
 .mnav__body{flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:10px 14px 24px}
 .mnav__body>li{border-bottom:1px solid var(--n-100)}
+/* Parent link + +/− marker live in the same row so they sit side by side and
+   share the vertical centre line. */
+.mnav__row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.mnav__row .mnav__link{flex:1 1 auto;min-width:0}
 .mnav__a{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:15px 8px;font-family:var(--f-display);font-weight:500;font-size:1.02rem;text-align:left}
+.mnav__row .mnav__a{padding-inline:8px}
 /* Sub-menu marker in the drawer: a +/− disc instead of the caret the desktop
    nav uses, so it reads the same as the FAQ and footer accordions. */
 .mnav__pm{
