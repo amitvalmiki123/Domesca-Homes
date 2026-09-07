@@ -47,6 +47,7 @@
 
   /* ---------- Sticky header state ---------- */
   var hdr = document.getElementById('hdr');
+  var v2bar = document.getElementById('v2top');   // V2 floats util + header in one fixed stack
   if (hdr) {
     var onScroll = function () {
       hdr.classList.toggle('is-stuck', window.scrollY > 12);
@@ -373,7 +374,8 @@
       var target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
-      var offset = (hdr ? hdr.offsetHeight : 0) + 12;
+      var bar = v2bar || hdr;
+      var offset = (bar ? bar.offsetHeight : 0) + 12;
       var top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
       if (history.replaceState) history.replaceState(null, '', id);
@@ -412,4 +414,30 @@
       if (same(links[i].getAttribute('href'))) { parent.setAttribute('aria-current', 'page'); break; }
     }
   });
+})();
+
+/* ---------- V2 overlay header (home-v2.html only) ----------
+   At the top of the page .v2top floats transparent over the hero. As soon as
+   the page scrolls it goes sticky: the utility bar folds away and the bar turns
+   to dark glass (styled by .v2top.is-solid in v2.css). Pages without #v2top
+   return on the first line, so this costs the other pages nothing. */
+(function () {
+  var bar = document.getElementById('v2top');
+  if (!bar) return;
+  var queued = false;
+
+  function paint() {
+    queued = false;
+    bar.classList.toggle('is-solid', (window.scrollY || window.pageYOffset || 0) > 24);
+  }
+
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    if (window.requestAnimationFrame) window.requestAnimationFrame(paint);
+    else paint();
+  }
+
+  paint();                                    // covers a restored scroll position
+  window.addEventListener('scroll', onScroll, { passive: true });
 })();
