@@ -276,6 +276,12 @@
      otherwise land on top of the bar (it is only 56px tall). */
   .vhero__scroll{display:none}
   .vswitch{bottom:66px}
+  /* The burger takes over at this width, so the utility bar has nothing left to
+     add on top of the call button and the sticky bar — drop it entirely. */
+  .v2top .util{display:none}
+  /* The fixed stack is now just the header, so the hero no longer needs 120px
+     of clearance above its copy. */
+  .vhero{padding-top:clamp(100px,16vh,140px)}
 }
 @media (max-width:720px){
 }
@@ -291,11 +297,52 @@
    the sticky bar) and the two hero buttons sit side by side instead of
    stacking into a scroll of their own. */
 @media (max-width:980px) and (max-height:520px){
-  .v2top .util{display:none}
-  .vhero{padding-top:clamp(96px,15vh,124px);padding-bottom:clamp(36px,7vh,60px)}
+  .vhero{padding-top:clamp(88px,13vh,110px);padding-bottom:clamp(36px,7vh,60px)}
   .vhero__badges{margin-bottom:1rem}
   .vhero__sub{margin-top:1rem}
   .vhero__actions{margin-top:1.4rem}
   .vhero__actions .btn{width:auto}
   .band{padding-block:clamp(40px,9vw,64px)}
+}
+
+/* ---------- 11. Mobile: centred content ----------
+   On phones every marketing block centres — heads, copy, cards, footer — the
+   way the hero already does, matching the reference site. Reading/interactive
+   components deliberately stay left-aligned: the FAQ accordions, the enquiry
+   form and the tab scroller (a centred scroller hides its own start).
+   v2.css is loaded by home-v2.html alone, so none of this reaches the other
+   pages. */
+@media (max-width:720px){
+  .sec-head,.rail-head,.band__panel,.about__copy,.why__cell,.why__cta,.cred,
+  .rcard__ov,.tm__foot,.cta__grid>.rv,.ft__brand,.ft__bot{text-align:center}
+  .sec-head{margin-inline:auto}
+  .sec-head .eyebrow,.band__panel .eyebrow,.cta__grid .eyebrow{justify-content:center}
+  .rail-head{flex-direction:column;align-items:center}
+  .band__list li,.about__points li{justify-content:center}
+  .rcard__ov{align-items:center}
+  .rail__hint{justify-content:center}
+  .strip figcaption{justify-content:center;text-align:center}
+  .grev__summary{justify-items:center;text-align:center}
+  .grev__brand{justify-content:center}
+  .grevc{text-align:center}
+  .grevc__head{justify-content:center}
+  .grevc__g{margin-left:0}
+  .grevc__stars{justify-content:center}
+  .grevc .more-btn{align-self:center}
+  .tm__foot{flex-direction:column;align-items:center}
+  .cta__meta a,.cta__meta div{justify-content:center}
+  .cta__meta small,.cta__meta b{text-align:left}
+  .ft__about{margin-inline:auto}
+  .ft__soc{justify-content:center}
+  .ft__h{text-align:center}
+  /* Centre the accordion label but keep its +/- marker pinned to the row edge,
+     so the affordance stays where thumbs expect it. */
+  .ft__toggle{justify-content:center;position:relative}
+  .ft__ic{position:absolute;right:0}
+  .ft__nav{text-align:center}
+  .ft__nav a:hover{padding-left:0}
+  .ft__contact li{justify-content:center}
+  .ft__bot{flex-direction:column;align-items:center}
+  .ft__bot nav{justify-content:center}
+  .ft__cta{margin-inline:auto}
 }
