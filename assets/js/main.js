@@ -380,3 +380,36 @@
     });
   });
 })();
+
+/* ---------- Active menu state ----------
+   Header and drawer links carry data-nav and the stylesheet already styles
+   [aria-current], but nothing ever set it, so the current page was never
+   highlighted. Match on the page's own filename; pages that only appear inside
+   a dropdown (extensions.html and friends) highlight that dropdown's parent
+   instead. */
+(function () {
+  var here = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+  function same(url) {
+    var f = (url || '').split('#')[0].split('/').pop().toLowerCase();
+    return !!f && f === here;
+  }
+
+  var direct = document.querySelectorAll('.nav__link[data-nav], .mnav__a[data-nav]');
+  var marked = false;
+  Array.prototype.forEach.call(direct, function (a) {
+    if (same(a.getAttribute('href'))) { a.setAttribute('aria-current', 'page'); marked = true; }
+  });
+  if (marked) return;
+
+  var items = document.querySelectorAll('.nav__item, .mnav__body > li');
+  Array.prototype.forEach.call(items, function (item) {
+    var parent = item.querySelector('.nav__link, .mnav__a');
+    var sub = item.querySelector('.drop, .mnav__sub');
+    if (!parent || !sub || parent.hasAttribute('aria-current')) return;
+    var links = sub.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      if (same(links[i].getAttribute('href'))) { parent.setAttribute('aria-current', 'page'); break; }
+    }
+  });
+})();

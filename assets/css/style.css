@@ -224,6 +224,17 @@ p:last-child{margin-bottom:0}
 .hdr__phone-tx small{display:block;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--n-600);font-family:var(--f-display);font-weight:600;line-height:1.5}
 .hdr__phone-tx b{display:block;font-family:var(--f-display);font-size:.96rem;font-weight:600;color:var(--ink-900);letter-spacing:-.01em;line-height:1.25}
 
+/* Tap-to-call on phones and tablets. The full phone block (.hdr__phone) is
+   hidden below 1100px and the hamburger takes over below 980px, so this
+   compact icon sits immediately left of the burger and keeps one-tap calling
+   in the header. Same 46px box as the burger so the pair reads as one control
+   group. */
+.hdr__call{display:none;width:46px;height:46px;place-items:center;border:1px solid var(--n-200);
+  border-radius:var(--r);flex:0 0 46px;background:var(--blue-50);color:var(--blue);
+  transition:background .2s,color .2s,border-color .2s,transform .15s}
+.hdr__call svg{display:block}
+.hdr__call:hover,.hdr__call:focus-visible{background:var(--blue);border-color:var(--blue);color:#fff}
+.hdr__call:active{transform:scale(.93)}
 .burger{display:none;width:46px;height:46px;place-items:center;border:1px solid var(--n-200);border-radius:var(--r);flex:0 0 46px}
 .burger span{display:block;width:20px;height:1.5px;background:var(--ink-900);position:relative;transition:background .2s}
 .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:1.5px;background:var(--ink-900);transition:transform .3s var(--ease),top .3s var(--ease)}
@@ -287,6 +298,7 @@ p:last-child{margin-bottom:0}
 .mnav__a[aria-expanded="true"] .mnav__pm::before,.mnav__a[aria-expanded="true"] .mnav__pm::after{background:#fff}
 .mnav__a[aria-expanded="true"] .mnav__pm::after{transform:rotate(90deg)}
 .mnav__a[aria-expanded="true"]{color:var(--blue)}
+.mnav__a[aria-current="page"]{color:var(--blue)}
 /* Collapsible: height is animated in JS (see main.js) rather than with the
    0fr/1fr grid-template-rows trick, which Safari could not animate until 16
    and which resolves to zero when the clipped child has no intrinsic min-size.
@@ -382,7 +394,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .field select{appearance:none;cursor:pointer;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235a6472' d='M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
-.field--2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.field--2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:11px}
 .qform__note{display:flex;gap:.6em;align-items:flex-start;font-size:.75rem;color:var(--n-600);line-height:1.55;margin-top:2px}
 .qform__note svg{flex:0 0 auto;margin-top:2px;color:var(--blue)}
 .form-status{font-size:.86rem;padding:11px 14px;border-radius:var(--r);display:none}
@@ -390,7 +402,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 
 /* ---------- 10. Credential strip ---------- */
 .creds{background:var(--white);border-bottom:1px solid var(--n-200)}
-.creds__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.creds__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
 .cred{padding:clamp(26px,3vw,40px) clamp(16px,2.4vw,34px);border-left:1px solid var(--n-200);position:relative;overflow:hidden}
 .cred:first-child{border-left:0}
 .cred::before{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
@@ -401,6 +413,9 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   -webkit-mask:var(--roof-mask) center/contain no-repeat;mask:var(--roof-mask) center/contain no-repeat}
 
 /* ---------- 11. About ---------- */
+/* Grid children keep min-width:0 so one long unbreakable string can never
+   push a column past the viewport. */
+.about__copy,.dev__copy{min-width:0}
 .about__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);gap:clamp(36px,5.5vw,88px);align-items:center}
 .about__media{position:relative}
 .about__media .shot-a{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-md);aspect-ratio:4/5}
@@ -434,13 +449,13 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .more-btn[aria-expanded="true"] .lbl-more{display:none}
 .more-btn[aria-expanded="true"] .lbl-less{display:inline}
 
-.about__points{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;margin-top:2rem;padding-top:1.9rem;border-top:1px solid var(--n-200)}
+.about__points{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 26px;margin-top:2rem;padding-top:1.9rem;border-top:1px solid var(--n-200)}
 .about__points li{display:flex;gap:.7em;align-items:flex-start;font-size:.925rem;color:var(--n-700);line-height:1.5}
 .about__points svg{flex:0 0 auto;margin-top:3px;color:var(--blue)}
 
 /* ---------- 12. Services ---------- */
 .svc-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:26px;margin-bottom:clamp(34px,4vw,58px)}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,28px)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2vw,28px)}
 .svc{
   position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--n-200);
   border-radius:var(--r-lg);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .3s
@@ -481,7 +496,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .why__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(var(--scrim),.90) 0%,rgba(var(--scrim),.84) 45%,rgba(var(--scrim),.62) 100%)}
 .why h2{color:#fff}
 .why .lead{color:rgba(255,255,255,.72)}
-.why__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:clamp(38px,4.5vw,64px);background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.11);border-radius:var(--r-lg);overflow:hidden}
+.why__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:clamp(38px,4.5vw,64px);background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.11);border-radius:var(--r-lg);overflow:hidden}
 .why__cell{background:var(--surface-1);padding:clamp(26px,2.7vw,38px);position:relative;transition:background .35s}
 .why__cell:hover{background:var(--surface-2)}
 .why__cell b{display:block;font-family:var(--f-display);font-size:.75rem;font-weight:600;letter-spacing:.2em;color:var(--blue-200);margin-bottom:1.1rem}
@@ -494,7 +509,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 
 /* ---------- 14. Process ---------- */
 .proc{background:var(--n-50)}
-.proc__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(14px,1.6vw,24px);margin-top:clamp(40px,4.5vw,64px);counter-reset:step}
+.proc__grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(14px,1.6vw,24px);margin-top:clamp(40px,4.5vw,64px);counter-reset:step}
 .step{position:relative;padding-top:34px}
 .step::before{content:"";position:absolute;left:0;top:12px;width:100%;height:1px;background:var(--n-200)}
 .step::after{content:"";position:absolute;left:0;top:8px;width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--n-50),0 0 0 5px var(--blue-100)}
@@ -520,7 +535,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 /* Mosaic: every tile spans the same number of implicit rows, so wide and
    narrow tiles always finish flush — no ragged gaps between rows. */
 .proj__grid{
-  display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.4vw,18px);
+  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(12px,1.4vw,18px);
   grid-auto-rows:clamp(118px,13.5vw,190px);
   margin-top:clamp(30px,3.5vw,46px)
 }
@@ -564,7 +579,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .tm{background:var(--surface-1);color:#fff}
 .tm h2{color:#fff}
 .tm .lead{color:rgba(255,255,255,.7)}
-.tm__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.9vw,26px);margin-top:clamp(38px,4.4vw,60px);align-items:stretch}
+.tm__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,1.9vw,26px);margin-top:clamp(38px,4.4vw,60px);align-items:stretch}
 /* Cards are flex columns so every card in a row stretches to the same height
    and the quote mark, "read full review" link and author block all line up
    across the grid, whatever length each review happens to be. */
@@ -608,7 +623,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 /* No-form variant — used where a banner form would duplicate the page's own
    purpose, e.g. Contact. Single column, copy constrained so the line length
    stays readable across the full width. */
-.pbanner--plain .pbanner__in{grid-template-columns:1fr;padding-block:clamp(52px,6vw,92px)}
+.pbanner--plain .pbanner__in{grid-template-columns:minmax(0,1fr);padding-block:clamp(52px,6vw,92px)}
 .pbanner--plain .pbanner__copy{max-width:64ch}
 
 .crumb{display:flex;flex-wrap:wrap;align-items:center;gap:.55em;
@@ -644,9 +659,9 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 }
 
 @media (max-width:980px){
-  .pbanner__in{grid-template-columns:1fr;gap:34px;padding-block:clamp(40px,7vw,64px)}
+  .pbanner__in{grid-template-columns:minmax(0,1fr);gap:34px;padding-block:clamp(40px,7vw,64px)}
   .qform{max-width:560px}
-  .split{grid-template-columns:1fr;gap:28px}
+  .split{grid-template-columns:minmax(0,1fr);gap:28px}
   .split--flip .split__media,.split__media{order:-1}
   .split__media{aspect-ratio:16/10}
 }
@@ -710,7 +725,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 }
 .grev__score .ph{font-size:2.9rem;line-height:1}
 
-.grev__list{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.7vw,22px)}
+.grev__list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.7vw,22px)}
 .grevc{
   background:#fff;border-radius:var(--r-lg);padding:clamp(20px,2.1vw,26px);
   display:flex;flex-direction:column;height:100%;
@@ -733,17 +748,17 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 .grevc .more-btn{font-size:.82rem;margin-top:.9rem;align-self:flex-start;flex:0 0 auto}
 
 @media (max-width:1080px){
-  .grev{grid-template-columns:1fr}
-  .grev__summary{position:static;display:grid;grid-template-columns:auto 1fr;gap:8px 28px;align-items:center}
+  .grev{grid-template-columns:minmax(0,1fr)}
+  .grev__summary{position:static;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 28px;align-items:center}
   .grev__brand{grid-column:1/-1;margin-bottom:0}
-  .grev__actions{grid-column:1/-1;grid-template-columns:1fr 1fr;margin-top:.6rem}
+  .grev__actions{grid-column:1/-1;grid-template-columns:minmax(0,1fr) minmax(0,1fr);margin-top:.6rem}
 }
 @media (max-width:860px){
-  .grev__list{grid-template-columns:1fr}
+  .grev__list{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:560px){
-  .grev__summary{grid-template-columns:1fr}
-  .grev__actions{grid-template-columns:1fr}
+  .grev__summary{grid-template-columns:minmax(0,1fr)}
+  .grev__actions{grid-template-columns:minmax(0,1fr)}
 }
 
 /* ---------- 18. Areas ---------- */
@@ -847,7 +862,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 
 /* ---------- 21. Footer ---------- */
 .ft{background:var(--surface-0);color:rgba(255,255,255,.62);font-size:.9rem}
-.ft__top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;gap:clamp(28px,3.4vw,52px);padding-block:clamp(52px,6vw,82px)}
+.ft__top{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,3.4vw,52px);padding-block:clamp(52px,6vw,82px)}
 .ft__logo img{height:52px;width:auto;filter:brightness(0) invert(1)}
 .ft__about{margin-top:1.4rem;line-height:1.72;color:rgba(255,255,255,.55);font-size:.895rem;max-width:38ch}
 .ft__soc{display:flex;gap:10px;margin-top:1.5rem}
@@ -957,7 +972,8 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
 }
 @media (max-width:980px){
   .nav,.hdr__cta .btn{display:none}
-  .burger{display:grid;margin-left:auto}
+  .hdr__call{display:grid}
+  .burger{display:grid;margin-left:0}
 
   /* Google's mobile-usability guidance is a ~48px touch target. An inline text
      link is only as tall as its line box (~15-22px), so the ones people
@@ -972,7 +988,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   .link-arrow{padding-block:8px}
 }
 @media (max-width:1080px){
-  .hero__in{grid-template-columns:1fr;gap:44px;min-height:0;padding-block:clamp(56px,9vw,96px)}
+  .hero__in{grid-template-columns:minmax(0,1fr);gap:44px;min-height:0;padding-block:clamp(56px,9vw,96px)}
   .hero__copy{max-width:none}
   .qform{max-width:560px}
   .hero__scroll{display:none}
@@ -980,21 +996,21 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
      zoom the fixed bottom bar looks wider than the screen. Applies to tablets
      too, not just phones. */
   .field input,.field select,.field textarea{font-size:16px}
-  .svc-grid{grid-template-columns:1fr 1fr}
-  .why__grid{grid-template-columns:1fr 1fr}
-  .proc__grid{grid-template-columns:repeat(3,1fr);gap:34px 24px}
+  .svc-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .why__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .proc__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 24px}
   .step:nth-child(n+4)::before{width:100%}
   .faq__grid{grid-template-columns:100%;}
   .faq__aside{position:static}
 }
 @media (max-width:980px){
-  .about__grid,.dev__grid,.areas__grid,.cta__grid{grid-template-columns:1fr}
+  .about__grid,.dev__grid,.areas__grid,.cta__grid{grid-template-columns:minmax(0,1fr)}
   .about__media{max-width:520px;margin-inline:auto}
   .about__stamp{left:0}
   .about__media .shot-b{right:0}
   .dev__media{order:-1;aspect-ratio:16/10}
-  .tm__grid{grid-template-columns:1fr}
-  .creds__grid{grid-template-columns:1fr 1fr}
+  .tm__grid{grid-template-columns:minmax(0,1fr)}
+  .creds__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .cred:nth-child(3){border-left:0}
   .cred:nth-child(n+3){border-top:1px solid var(--n-200)}
   .tile,.tile.is-wide,.tile.is-half{grid-column:span 6}
@@ -1002,7 +1018,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   .tile__ov b,.tile__ov span{transform:none}
   .mbar{display:flex}
   body{padding-bottom:56px}
-  .ft__top{grid-template-columns:1fr 1fr}
+  .ft__top{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 }
 @media (max-width:720px){
   .util__tag{display:none}
@@ -1011,11 +1027,11 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
      them keeps both reachable instead of being clipped by overflow-x:hidden. */
   .util__links{flex-wrap:wrap;justify-content:center;gap:4px 16px;padding-block:2px}
   .util__sep{display:none}
-  .svc-grid{grid-template-columns:1fr}
-  .why__grid{grid-template-columns:1fr}
-  .proc__grid{grid-template-columns:1fr 1fr}
-  .about__points{grid-template-columns:1fr}
-  .field--2{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:minmax(0,1fr)}
+  .why__grid{grid-template-columns:minmax(0,1fr)}
+  .proc__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .about__points{grid-template-columns:minmax(0,1fr)}
+  .field--2{grid-template-columns:minmax(0,1fr)}
   .acc__panel p{padding-right:8px}
   .qform__note{font-size:.78rem}
   /* Tighten the sticky action bar so both buttons always fit, even with large
@@ -1034,7 +1050,7 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   .faq__tabs .chip{flex:0 0 auto;scroll-snap-align:start;white-space:nowrap}
   /* Footer menus collapse on phones: four long columns of links become four
      tappable rows with a +/− marker, matching the FAQ accordion language. */
-  .ft__top{grid-template-columns:1fr;gap:0}
+  .ft__top{grid-template-columns:minmax(0,1fr);gap:0}
   .ft__brand{padding-bottom:30px}
   .ft__top>*+*{border-top:1px solid rgba(255,255,255,.1)}
   .ft .ft__h{margin-bottom:0}
@@ -1064,8 +1080,8 @@ html.is-locked body{overflow:visible;padding-right:var(--sbw,0px)}
   .hero__badges{gap:7px}
   .hero__badge{font-size:.68rem;padding:7px 12px}
   .hero__actions .btn{width:100%}
-  .proc__grid{grid-template-columns:1fr}
-  .creds__grid{grid-template-columns:1fr}
+  .proc__grid{grid-template-columns:minmax(0,1fr)}
+  .creds__grid{grid-template-columns:minmax(0,1fr)}
   .cred{border-left:0}
   .cred:nth-child(n+2){border-top:1px solid var(--n-200)}
   .qform__head,.qform__body{padding-inline:20px}
